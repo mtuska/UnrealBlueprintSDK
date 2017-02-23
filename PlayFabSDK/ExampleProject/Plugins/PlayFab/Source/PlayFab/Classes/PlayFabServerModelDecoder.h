@@ -72,6 +72,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management Models")
         static FServerSendPushNotificationResult decodeSendPushNotificationResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the EmptyResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management Models")
+        static FServerEmptyResult decodeEmptyResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the UpdateBansResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management Models")
         static FServerUpdateBansResult decodeUpdateBansResultResponse(UPlayFabJsonObject* response);
@@ -229,10 +233,6 @@ public:
     /** Decode the UnlockContainerItemResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
         static FServerUnlockContainerItemResult decodeUnlockContainerItemResultResponse(UPlayFabJsonObject* response);
-
-    /** Decode the EmptyResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Player Item Management Models")
-        static FServerEmptyResult decodeEmptyResultResponse(UPlayFabJsonObject* response);
 
 
 

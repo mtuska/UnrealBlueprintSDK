@@ -296,6 +296,10 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1269: returnText = "AllAdPlacementViewsAlreadyConsumed"; break;
     case 1270: returnText = "GoogleOAuthNotConfiguredForTitle"; break;
     case 1271: returnText = "GoogleOAuthError"; break;
+    case 1272: returnText = "UserNotFriend"; break;
+    case 1273: returnText = "InvalidSignature"; break;
+    case 1274: returnText = "InvalidPublicKey"; break;
+    case 1275: returnText = "GoogleOAuthNoIdTokenIncludedInResponse"; break;
     }
 
     // Return the text

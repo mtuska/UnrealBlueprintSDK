@@ -169,6 +169,19 @@ public:
         void HelperSendPushNotification(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdateAvatarUrl, FServerEmptyResult, result, UObject*, customData);
+
+    /** Update the avatar URL of the specified player */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* UpdateAvatarUrl(FServerUpdateAvatarUrlRequest request,
+            FDelegateOnSuccessUpdateAvatarUrl onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperUpdateAvatarUrl(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdateBans, FServerUpdateBansResult, result, UObject*, customData);
 
     /** Updates information of a list of existing bans specified with Ban Ids. */
@@ -899,6 +912,19 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperRemoveFriend(FPlayFabBaseModel response, UObject* customData, bool successful);
 
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSetFriendTags, FServerEmptyResult, result, UObject*, customData);
+
+    /** Updates the tag list for a specified user in the friend list of another user */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* SetFriendTags(FServerSetFriendTagsRequest request,
+            FDelegateOnSuccessSetFriendTags onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Friend List Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperSetFriendTags(FPlayFabBaseModel response, UObject* customData, bool successful);
+
 
     ///////////////////////////////////////////////////////
     // Matchmaking APIs
@@ -1496,6 +1522,7 @@ public:
     FDelegateOnSuccessRevokeAllBansForUser OnSuccessRevokeAllBansForUser;
     FDelegateOnSuccessRevokeBans OnSuccessRevokeBans;
     FDelegateOnSuccessSendPushNotification OnSuccessSendPushNotification;
+    FDelegateOnSuccessUpdateAvatarUrl OnSuccessUpdateAvatarUrl;
     FDelegateOnSuccessUpdateBans OnSuccessUpdateBans;
     FDelegateOnSuccessDeleteUsers OnSuccessDeleteUsers;
     FDelegateOnSuccessGetFriendLeaderboard OnSuccessGetFriendLeaderboard;
@@ -1551,6 +1578,7 @@ public:
     FDelegateOnSuccessAddFriend OnSuccessAddFriend;
     FDelegateOnSuccessGetFriendsList OnSuccessGetFriendsList;
     FDelegateOnSuccessRemoveFriend OnSuccessRemoveFriend;
+    FDelegateOnSuccessSetFriendTags OnSuccessSetFriendTags;
     FDelegateOnSuccessDeregisterGame OnSuccessDeregisterGame;
     FDelegateOnSuccessNotifyMatchmakerPlayerLeft OnSuccessNotifyMatchmakerPlayerLeft;
     FDelegateOnSuccessRedeemMatchmakerTicket OnSuccessRedeemMatchmakerTicket;

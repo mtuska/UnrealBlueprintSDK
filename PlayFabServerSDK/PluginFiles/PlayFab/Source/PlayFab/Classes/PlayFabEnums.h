@@ -513,6 +513,7 @@ enum class ELoginIdentityProvider : uint8
     pfenum_IOSDevice UMETA(DisplayName = "IOSDevice"),
     pfenum_AndroidDevice UMETA(DisplayName = "AndroidDevice"),
     pfenum_Twitch UMETA(DisplayName = "Twitch"),
+    pfenum_WindowsHello UMETA(DisplayName = "WindowsHello"),
 };
 
 // Enum for PushNotificationPlatform
@@ -656,6 +657,7 @@ enum class EUserOrigination : uint8
     pfenum_XboxLive UMETA(DisplayName = "XboxLive"),
     pfenum_Parse UMETA(DisplayName = "Parse"),
     pfenum_Twitch UMETA(DisplayName = "Twitch"),
+    pfenum_WindowsHello UMETA(DisplayName = "WindowsHello"),
 };
 
 // Enum for CloudScriptRevisionOption

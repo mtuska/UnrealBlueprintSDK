@@ -119,6 +119,15 @@ FServerSendPushNotificationResult UPlayFabServerModelDecoder::decodeSendPushNoti
     return tempStruct;
 }
 
+FServerEmptyResult UPlayFabServerModelDecoder::decodeEmptyResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerEmptyResult tempStruct;
+
+
+    return tempStruct;
+}
+
 FServerUpdateBansResult UPlayFabServerModelDecoder::decodeUpdateBansResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -152,6 +161,8 @@ FServerGetLeaderboardResult UPlayFabServerModelDecoder::decodeGetLeaderboardResu
     UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
 
     tempStruct.Leaderboard = !(dataObj->HasField("Leaderboard")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Leaderboard");
+    tempStruct.Version = !(dataObj->HasField("Version")) ? 0 : int(dataObj->GetNumberField("Version"));
+    tempStruct.NextReset = !(dataObj->HasField("NextReset")) ? TEXT("") : dataObj->GetStringField("NextReset");
 
     return tempStruct;
 }
@@ -163,6 +174,8 @@ FServerGetLeaderboardAroundUserResult UPlayFabServerModelDecoder::decodeGetLeade
     UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
 
     tempStruct.Leaderboard = !(dataObj->HasField("Leaderboard")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Leaderboard");
+    tempStruct.Version = !(dataObj->HasField("Version")) ? 0 : int(dataObj->GetNumberField("Version"));
+    tempStruct.NextReset = !(dataObj->HasField("NextReset")) ? TEXT("") : dataObj->GetStringField("NextReset");
 
     return tempStruct;
 }
@@ -523,15 +536,6 @@ FServerUnlockContainerItemResult UPlayFabServerModelDecoder::decodeUnlockContain
     tempStruct.UnlockedWithItemInstanceId = !(dataObj->HasField("UnlockedWithItemInstanceId")) ? TEXT("") : dataObj->GetStringField("UnlockedWithItemInstanceId");
     tempStruct.GrantedItems = !(dataObj->HasField("GrantedItems")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("GrantedItems");
     tempStruct.VirtualCurrency = !(dataObj->HasField("VirtualCurrency")) ? nullptr : dataObj->GetObjectField("VirtualCurrency");
-
-    return tempStruct;
-}
-
-FServerEmptyResult UPlayFabServerModelDecoder::decodeEmptyResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FServerEmptyResult tempStruct;
-
 
     return tempStruct;
 }

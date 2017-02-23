@@ -34,6 +34,14 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication Models")
         static FClientGetPhotonAuthenticationTokenResult decodeGetPhotonAuthenticationTokenResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetWindowsHelloChallengeResponse response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication Models")
+        static FClientGetWindowsHelloChallengeResponse decodeGetWindowsHelloChallengeResponseResponse(UPlayFabJsonObject* response);
+
+    /** Decode the LinkWindowsHelloAccountResponse response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication Models")
+        static FClientLinkWindowsHelloAccountResponse decodeLinkWindowsHelloAccountResponseResponse(UPlayFabJsonObject* response);
+
     /** Decode the LoginResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication Models")
         static FClientLoginResult decodeLoginResultResponse(UPlayFabJsonObject* response);
@@ -41,6 +49,10 @@ public:
     /** Decode the RegisterPlayFabUserResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication Models")
         static FClientRegisterPlayFabUserResult decodeRegisterPlayFabUserResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the UnlinkWindowsHelloAccountResponse response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication Models")
+        static FClientUnlinkWindowsHelloAccountResponse decodeUnlinkWindowsHelloAccountResponseResponse(UPlayFabJsonObject* response);
 
 
 
@@ -175,6 +187,10 @@ public:
     /** Decode the UnlinkTwitchAccountResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
         static FClientUnlinkTwitchAccountResult decodeUnlinkTwitchAccountResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the EmptyResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
+        static FClientEmptyResult decodeEmptyResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the UpdateUserTitleDisplayNameResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
@@ -549,6 +565,16 @@ public:
     /** Decode the GetPlayerTagsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | PlayStream Models")
         static FClientGetPlayerTagsResult decodeGetPlayerTagsResultResponse(UPlayFabJsonObject* response);
+
+
+
+    ///////////////////////////////////////////////////////
+    // Windows
+    //////////////////////////////////////////////////////
+
+    /** Decode the ValidateWindowsReceiptResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Windows Models")
+        static FClientValidateWindowsReceiptResult decodeValidateWindowsReceiptResultResponse(UPlayFabJsonObject* response);
 
 
 

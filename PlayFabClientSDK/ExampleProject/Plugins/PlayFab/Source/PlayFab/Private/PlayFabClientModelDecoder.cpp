@@ -27,6 +27,26 @@ FClientGetPhotonAuthenticationTokenResult UPlayFabClientModelDecoder::decodeGetP
     return tempStruct;
 }
 
+FClientGetWindowsHelloChallengeResponse UPlayFabClientModelDecoder::decodeGetWindowsHelloChallengeResponseResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetWindowsHelloChallengeResponse tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.Challenge = !(dataObj->HasField("Challenge")) ? TEXT("") : dataObj->GetStringField("Challenge");
+
+    return tempStruct;
+}
+
+FClientLinkWindowsHelloAccountResponse UPlayFabClientModelDecoder::decodeLinkWindowsHelloAccountResponseResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientLinkWindowsHelloAccountResponse tempStruct;
+
+
+    return tempStruct;
+}
+
 FClientLoginResult UPlayFabClientModelDecoder::decodeLoginResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -53,6 +73,15 @@ FClientRegisterPlayFabUserResult UPlayFabClientModelDecoder::decodeRegisterPlayF
     tempStruct.SessionTicket = !(dataObj->HasField("SessionTicket")) ? TEXT("") : dataObj->GetStringField("SessionTicket");
     tempStruct.Username = !(dataObj->HasField("Username")) ? TEXT("") : dataObj->GetStringField("Username");
     tempStruct.SettingsForUser = !(dataObj->HasField("SettingsForUser")) ? nullptr : dataObj->GetObjectField("SettingsForUser");
+
+    return tempStruct;
+}
+
+FClientUnlinkWindowsHelloAccountResponse UPlayFabClientModelDecoder::decodeUnlinkWindowsHelloAccountResponseResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientUnlinkWindowsHelloAccountResponse tempStruct;
+
 
     return tempStruct;
 }
@@ -375,6 +404,15 @@ FClientUnlinkTwitchAccountResult UPlayFabClientModelDecoder::decodeUnlinkTwitchA
     return tempStruct;
 }
 
+FClientEmptyResult UPlayFabClientModelDecoder::decodeEmptyResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientEmptyResult tempStruct;
+
+
+    return tempStruct;
+}
+
 FClientUpdateUserTitleDisplayNameResult UPlayFabClientModelDecoder::decodeUpdateUserTitleDisplayNameResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -399,6 +437,8 @@ FClientGetLeaderboardResult UPlayFabClientModelDecoder::decodeGetLeaderboardResu
     UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
 
     tempStruct.Leaderboard = !(dataObj->HasField("Leaderboard")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Leaderboard");
+    tempStruct.Version = !(dataObj->HasField("Version")) ? 0 : int(dataObj->GetNumberField("Version"));
+    tempStruct.NextReset = !(dataObj->HasField("NextReset")) ? TEXT("") : dataObj->GetStringField("NextReset");
 
     return tempStruct;
 }
@@ -410,6 +450,8 @@ FClientGetFriendLeaderboardAroundPlayerResult UPlayFabClientModelDecoder::decode
     UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
 
     tempStruct.Leaderboard = !(dataObj->HasField("Leaderboard")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Leaderboard");
+    tempStruct.Version = !(dataObj->HasField("Version")) ? 0 : int(dataObj->GetNumberField("Version"));
+    tempStruct.NextReset = !(dataObj->HasField("NextReset")) ? TEXT("") : dataObj->GetStringField("NextReset");
 
     return tempStruct;
 }
@@ -421,6 +463,8 @@ FClientGetLeaderboardAroundPlayerResult UPlayFabClientModelDecoder::decodeGetLea
     UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
 
     tempStruct.Leaderboard = !(dataObj->HasField("Leaderboard")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Leaderboard");
+    tempStruct.Version = !(dataObj->HasField("Version")) ? 0 : int(dataObj->GetNumberField("Version"));
+    tempStruct.NextReset = !(dataObj->HasField("NextReset")) ? TEXT("") : dataObj->GetStringField("NextReset");
 
     return tempStruct;
 }
@@ -1237,6 +1281,21 @@ FClientGetPlayerTagsResult UPlayFabClientModelDecoder::decodeGetPlayerTagsResult
 
     tempStruct.PlayFabId = !(dataObj->HasField("PlayFabId")) ? TEXT("") : dataObj->GetStringField("PlayFabId");
     tempStruct.Tags = !(dataObj->HasField("Tags")) ? TEXT("") : FString::Join(dataObj->GetStringArrayField("Tags"), TEXT(","));
+
+    return tempStruct;
+}
+
+
+
+///////////////////////////////////////////////////////
+// Windows
+//////////////////////////////////////////////////////
+
+FClientValidateWindowsReceiptResult UPlayFabClientModelDecoder::decodeValidateWindowsReceiptResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientValidateWindowsReceiptResult tempStruct;
+
 
     return tempStruct;
 }

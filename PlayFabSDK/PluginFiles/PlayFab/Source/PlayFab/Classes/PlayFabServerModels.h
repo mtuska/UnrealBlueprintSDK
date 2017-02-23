@@ -211,6 +211,26 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FServerEmptyResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
+
+USTRUCT(BlueprintType)
+struct FServerUpdateAvatarUrlRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        FString PlayFabId;
+    /** URL of the avatar image. If empty, it removes the existing avatar URL. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        FString ImageUrl;
+};
+
+USTRUCT(BlueprintType)
 struct FServerUpdateBansRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -275,6 +295,15 @@ public:
     /** Indicates whether Facebook friends should be included in the response. Default is true. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         bool IncludeFacebookFriends;
+    /** The version of the leaderboard to get, when UseSpecificVersion is true. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        int32 Version;
+    /** If true, uses the specified version. If false, gets the most recent version. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        bool UseSpecificVersion;
+    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        UPlayFabJsonObject* ProfileConstraints;
 };
 
 USTRUCT(BlueprintType)
@@ -282,9 +311,15 @@ struct FServerGetLeaderboardResult
 {
     GENERATED_USTRUCT_BODY()
 public:
-    /** Ordered list of leaderboard entries. */
+    /** Ordered listing of users and their positions in the requested leaderboard. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         TArray<UPlayFabJsonObject*> Leaderboard;
+    /** The version of the leaderboard returned. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        int32 Version;
+    /** The time the next scheduled reset will occur. Null if the leaderboard does not reset on a schedule. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString NextReset;
 };
 
 USTRUCT(BlueprintType)
@@ -301,6 +336,15 @@ public:
     /** Maximum number of entries to retrieve. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         int32 MaxResultsCount;
+    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        UPlayFabJsonObject* ProfileConstraints;
+    /** The version of the leaderboard to get, when UseSpecificVersion is true. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        int32 Version;
+    /** If true, uses the specified version. If false, gets the most recent version. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        bool UseSpecificVersion;
 };
 
 USTRUCT(BlueprintType)
@@ -317,6 +361,15 @@ public:
     /** Maximum number of entries to retrieve. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         int32 MaxResultsCount;
+    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        UPlayFabJsonObject* ProfileConstraints;
+    /** The version of the leaderboard to get, when UseSpecificVersion is true. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        int32 Version;
+    /** If true, uses the specified version. If false, gets the most recent version. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        bool UseSpecificVersion;
 };
 
 USTRUCT(BlueprintType)
@@ -324,9 +377,15 @@ struct FServerGetLeaderboardAroundUserResult
 {
     GENERATED_USTRUCT_BODY()
 public:
-    /** Ordered list of leaderboard entries. */
+    /** Ordered listing of users and their positions in the requested leaderboard. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         TArray<UPlayFabJsonObject*> Leaderboard;
+    /** The version of the leaderboard returned. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        int32 Version;
+    /** The time the next scheduled reset will occur. Null if the leaderboard does not reset on a schedule. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
+        FString NextReset;
 };
 
 USTRUCT(BlueprintType)
@@ -1225,13 +1284,6 @@ public:
 };
 
 USTRUCT(BlueprintType)
-struct FServerEmptyResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
-};
-
-USTRUCT(BlueprintType)
 struct FServerUpdateUserInventoryItemDataRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -1317,6 +1369,22 @@ public:
     /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
         FString PlayFabId;
+};
+
+USTRUCT(BlueprintType)
+struct FServerSetFriendTagsRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** PlayFab identifier of the player whose friend is to be updated. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
+        FString PlayFabId;
+    /** PlayFab identifier of the friend account to which the tag(s) should be applied. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
+        FString FriendPlayFabId;
+    /** Array of tags to set on the friend account. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Friend List Management Models")
+        FString Tags;
 };
 
 
