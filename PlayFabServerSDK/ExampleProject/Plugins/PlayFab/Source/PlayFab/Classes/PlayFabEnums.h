@@ -483,6 +483,7 @@ UENUM(BlueprintType)
 enum class EEffectType : uint8
 {
     pfenum_Allow UMETA(DisplayName = "Allow"),
+    pfenum_Deny UMETA(DisplayName = "Deny"),
 };
 
 // Enum for GameBuildStatus
@@ -603,6 +604,17 @@ enum class EStatisticVersionArchivalStatus : uint8
     pfenum_Queued UMETA(DisplayName = "Queued"),
     pfenum_InProgress UMETA(DisplayName = "InProgress"),
     pfenum_Complete UMETA(DisplayName = "Complete"),
+};
+
+// Enum for StatisticVersionStatus
+UENUM(BlueprintType)
+enum class EStatisticVersionStatus : uint8
+{
+    pfenum_Active UMETA(DisplayName = "Active"),
+    pfenum_SnapshotPending UMETA(DisplayName = "SnapshotPending"),
+    pfenum_Snapshot UMETA(DisplayName = "Snapshot"),
+    pfenum_ArchivalPending UMETA(DisplayName = "ArchivalPending"),
+    pfenum_Archived UMETA(DisplayName = "Archived"),
 };
 
 // Enum for TaskInstanceStatus

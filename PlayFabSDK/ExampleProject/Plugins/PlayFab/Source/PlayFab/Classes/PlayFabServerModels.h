@@ -301,7 +301,7 @@ public:
     /** If true, uses the specified version. If false, gets the most recent version. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         bool UseSpecificVersion;
-    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. */
+    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         UPlayFabJsonObject* ProfileConstraints;
 };
@@ -336,7 +336,7 @@ public:
     /** Maximum number of entries to retrieve. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         int32 MaxResultsCount;
-    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. */
+    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         UPlayFabJsonObject* ProfileConstraints;
     /** The version of the leaderboard to get, when UseSpecificVersion is true. */
@@ -361,7 +361,7 @@ public:
     /** Maximum number of entries to retrieve. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         int32 MaxResultsCount;
-    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. */
+    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         UPlayFabJsonObject* ProfileConstraints;
     /** The version of the leaderboard to get, when UseSpecificVersion is true. */
