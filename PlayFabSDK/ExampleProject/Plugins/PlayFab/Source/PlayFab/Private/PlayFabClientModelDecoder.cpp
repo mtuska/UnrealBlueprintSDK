@@ -38,15 +38,6 @@ FClientGetWindowsHelloChallengeResponse UPlayFabClientModelDecoder::decodeGetWin
     return tempStruct;
 }
 
-FClientLinkWindowsHelloAccountResponse UPlayFabClientModelDecoder::decodeLinkWindowsHelloAccountResponseResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FClientLinkWindowsHelloAccountResponse tempStruct;
-
-
-    return tempStruct;
-}
-
 FClientLoginResult UPlayFabClientModelDecoder::decodeLoginResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -73,15 +64,6 @@ FClientRegisterPlayFabUserResult UPlayFabClientModelDecoder::decodeRegisterPlayF
     tempStruct.SessionTicket = !(dataObj->HasField("SessionTicket")) ? TEXT("") : dataObj->GetStringField("SessionTicket");
     tempStruct.Username = !(dataObj->HasField("Username")) ? TEXT("") : dataObj->GetStringField("Username");
     tempStruct.SettingsForUser = !(dataObj->HasField("SettingsForUser")) ? nullptr : dataObj->GetObjectField("SettingsForUser");
-
-    return tempStruct;
-}
-
-FClientUnlinkWindowsHelloAccountResponse UPlayFabClientModelDecoder::decodeUnlinkWindowsHelloAccountResponseResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FClientUnlinkWindowsHelloAccountResponse tempStruct;
-
 
     return tempStruct;
 }
@@ -293,6 +275,15 @@ FClientLinkTwitchAccountResult UPlayFabClientModelDecoder::decodeLinkTwitchAccou
     return tempStruct;
 }
 
+FClientLinkWindowsHelloAccountResponse UPlayFabClientModelDecoder::decodeLinkWindowsHelloAccountResponseResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientLinkWindowsHelloAccountResponse tempStruct;
+
+
+    return tempStruct;
+}
+
 FClientRemoveGenericIDResult UPlayFabClientModelDecoder::decodeRemoveGenericIDResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -399,6 +390,15 @@ FClientUnlinkTwitchAccountResult UPlayFabClientModelDecoder::decodeUnlinkTwitchA
 {
     // Temp ustruct
     FClientUnlinkTwitchAccountResult tempStruct;
+
+
+    return tempStruct;
+}
+
+FClientUnlinkWindowsHelloAccountResponse UPlayFabClientModelDecoder::decodeUnlinkWindowsHelloAccountResponseResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientUnlinkWindowsHelloAccountResponse tempStruct;
 
 
     return tempStruct;

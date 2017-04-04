@@ -310,6 +310,16 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1284: returnText = "ExpressionParseFailure"; break;
     case 1285: returnText = "ExpressionInvokeFailure"; break;
     case 1286: returnText = "ExpressionTooLong"; break;
+    case 1287: returnText = "DataUpdateRateExceeded"; break;
+    case 1288: returnText = "RestrictedEmailDomain"; break;
+    case 1289: returnText = "EncryptionKeyDisabled"; break;
+    case 1290: returnText = "EncryptionKeyMissing"; break;
+    case 1291: returnText = "EncryptionKeyBroken"; break;
+    case 1292: returnText = "NoSharedSecretKeyConfigured"; break;
+    case 1293: returnText = "SecretKeyNotFound"; break;
+    case 1294: returnText = "PlayerSecretAlreadyConfigured"; break;
+    case 1295: returnText = "APIRequestsDisabledForTitle"; break;
+    case 1296: returnText = "InvalidSharedSecretKey"; break;
     }
 
     // Return the text

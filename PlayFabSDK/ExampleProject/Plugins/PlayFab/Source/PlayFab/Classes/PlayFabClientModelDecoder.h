@@ -38,10 +38,6 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication Models")
         static FClientGetWindowsHelloChallengeResponse decodeGetWindowsHelloChallengeResponseResponse(UPlayFabJsonObject* response);
 
-    /** Decode the LinkWindowsHelloAccountResponse response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication Models")
-        static FClientLinkWindowsHelloAccountResponse decodeLinkWindowsHelloAccountResponseResponse(UPlayFabJsonObject* response);
-
     /** Decode the LoginResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication Models")
         static FClientLoginResult decodeLoginResultResponse(UPlayFabJsonObject* response);
@@ -49,10 +45,6 @@ public:
     /** Decode the RegisterPlayFabUserResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication Models")
         static FClientRegisterPlayFabUserResult decodeRegisterPlayFabUserResultResponse(UPlayFabJsonObject* response);
-
-    /** Decode the UnlinkWindowsHelloAccountResponse response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication Models")
-        static FClientUnlinkWindowsHelloAccountResponse decodeUnlinkWindowsHelloAccountResponseResponse(UPlayFabJsonObject* response);
 
 
 
@@ -140,6 +132,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
         static FClientLinkTwitchAccountResult decodeLinkTwitchAccountResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the LinkWindowsHelloAccountResponse response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
+        static FClientLinkWindowsHelloAccountResponse decodeLinkWindowsHelloAccountResponseResponse(UPlayFabJsonObject* response);
+
     /** Decode the RemoveGenericIDResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
         static FClientRemoveGenericIDResult decodeRemoveGenericIDResultResponse(UPlayFabJsonObject* response);
@@ -187,6 +183,10 @@ public:
     /** Decode the UnlinkTwitchAccountResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
         static FClientUnlinkTwitchAccountResult decodeUnlinkTwitchAccountResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the UnlinkWindowsHelloAccountResponse response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
+        static FClientUnlinkWindowsHelloAccountResponse decodeUnlinkWindowsHelloAccountResponseResponse(UPlayFabJsonObject* response);
 
     /** Decode the EmptyResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
