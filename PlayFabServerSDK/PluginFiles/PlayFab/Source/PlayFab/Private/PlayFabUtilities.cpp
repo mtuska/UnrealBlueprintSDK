@@ -320,6 +320,7 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1294: returnText = "PlayerSecretAlreadyConfigured"; break;
     case 1295: returnText = "APIRequestsDisabledForTitle"; break;
     case 1296: returnText = "InvalidSharedSecretKey"; break;
+    case 1297: returnText = "PrizeTableHasNoRanks"; break;
     }
 
     // Return the text

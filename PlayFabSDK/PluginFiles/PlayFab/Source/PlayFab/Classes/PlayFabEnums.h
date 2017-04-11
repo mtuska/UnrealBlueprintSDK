@@ -42,6 +42,15 @@ static FORCEINLINE bool GetEnumValueToString(const FString& enumTypeName, const 
     return true;
 }
 
+// Enum for Conditionals
+UENUM(BlueprintType)
+enum class EConditionals : uint8
+{
+    pfenum_Any UMETA(DisplayName = "Any"),
+    pfenum_True UMETA(DisplayName = "True"),
+    pfenum_False UMETA(DisplayName = "False"),
+};
+
 // Enum for ContinentCode
 UENUM(BlueprintType)
 enum class EContinentCode : uint8
