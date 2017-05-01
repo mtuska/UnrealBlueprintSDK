@@ -1,9 +1,8 @@
-Unreal 4 Blueprint SDK-Collection for PlayFab README
-========
+# Unreal 4 Blueprint SDK-Collection for PlayFab README
 
 
-1. Overview:
-----
+## 1. Overview:
+
 Unreal 4.9, 4.12, 4.13, 4.14, 4.15 Blueprint SDKs for PlayFab
 
 The Unreal Blueprint SDK-Collection includes three separate Unreal plugins.  You should only install 1 of these plugins in any Unreal project.
@@ -13,8 +12,8 @@ The Unreal Blueprint SDK-Collection includes three separate Unreal plugins.  You
 * Unreal Combo SDK for demoing, testing, and special-case circumstances - Typical users will not use this for production code
 
 
-2. Prerequisites:
-----
+## 2. Prerequisites:
+
 * Users should be very familiar with the topics covered in our [getting started guide](https://playfab.com/docs/getting-started-with-playfab/).
 
 To connect to the PlayFab service, your machine must be running TLS v1.2 or better.
@@ -23,8 +22,8 @@ To connect to the PlayFab service, your machine must be running TLS v1.2 or bett
 * [Support for SSL/TLS protocols on Windows](http://blogs.msdn.com/b/kaushal/archive/2011/10/02/support-for-ssl-tls-protocols-on-windows.aspx)
 
 
-3. Setup:
-----
+## 3. Setup:
+
 For building the game client, distributed to the End-User, you must only use the PlayFabClientSDK.
 
 A game server is not required for all games, however many online games require online server architecture.  PlayFab also does not require you to use the same SDK for client and server.  If your game-server is a separate stand-alone console application, it is possible to use the [C++ WindowsSDK](https://github.com/PlayFab/WindowsSDK).  If your game-server requires an Unreal environment, you can also use the PlayFabServerSDK provided with in the Unreal SDK-Collection.
@@ -32,8 +31,8 @@ A game server is not required for all games, however many online games require o
 To implement both client and server in Unreal, you must create two separate projects, and install each plugin separately.
 
 
-4. Installation:
-----
+## 4. Installation:
+
 The following instructions apply to each of the three SDKs provided in the Unreal SDK-Collection.
 
 Assumptions
@@ -61,17 +60,17 @@ Existing Projects:
 * You should now be able to create blueprints that utilize PlayFab API calls
 
 
-# Developer Console
+### Developer Console
 
 The `Developer Console` allows execution of custom commands which can be used to invoke a `CustomEvent` in the `Level Blueprint`.
 
 
-## UE4 Editor
+#### UE4 Editor
 
 In the editor the developer console can be opened by pressing the tilda (~) key.
 
 
-## Android
+#### Android
 
 `Verify Peer` may need to be disabled to allow `HTTPS` traffic to communicate with the server on Android.
 
@@ -96,18 +95,18 @@ adb logcat
 ```
 
 
-# Blueprint Custom Events
+### Blueprint Custom Events
 
 Follow the `Blueprint Tutorial` below to populate the `Game Title Id` before invoking the following `Blueprint Custom Events`.  Also note that these examples use the Client-api, which does not work in the server.  For the server Example project, just remove the custom events with errors before you run the program (several examples work in all plugins, but client-login and client-cloudscript do not)
 
-## Custom Event PrintPlayFabError
+#### Custom Event PrintPlayFabError
 
 `PlayFab Client API` methods have a failure delegate that has a `PlayFabError` parameter. A custom event that prints `PlayFabError` objects can be reused by the failure delegates. This setup uses a `PrintPlayFabError` custom event with a `PlayFabError` parameter. The `PlayFabError` is broken out into components that can be appended to a string and printed. The `PrintPlayFabError` custom event can be connected directly to a failure delegate or called from another custom event.
 
 ![05_PrintPlayFabError](Images/05_PrintPlayFabError.png)
 
 
-## TestLogin
+#### TestLogin
 
 `TestLogin` is a custom event that will register and/or login a user given a unique customId
 
@@ -157,7 +156,7 @@ SessionTicket=LONG_SESSION_TICKET PlayFabId=EDC7CAE0DCB6FA8F
 The `OnFailure` delegate will be executed if a `PlayFabError` occurs.
 
 
-## TestCloudScript
+#### TestCloudScript
 
 `TestCloudScript` is a custom event that will execute cloud script given no parameters.  Without changes, it is preset to call a pre-existing "helloWorld" function.
 
@@ -214,8 +213,8 @@ LogBlueprintUserMessages: [Test_C_1] TestCloudScript Success: "Hello World"
 The `OnFailure` delegate will be executed if a `PlayFabError` occurs. A failure might occur if `TestCloudScript` was invoked before the user was authenticated resulting in `Missing or invalid X-Authentication HTTP header`.
 
 
-5. Blueprint Tutorial:
-----
+## 5. Blueprint Tutorial:
+
 The plugin is fairly simple to use. The main things you need to learn are; how to use the provided JSON objects, how to wire up the nodes, and realize that it is extremely simple!
 
 Below are the steps to add an API call node, and manipulate the response JSON object. We will make a simple login with email function that will print out the response JSON object to the screen.
@@ -250,8 +249,7 @@ Below are the steps to add an API call node, and manipulate the response JSON ob
 * Once you hit enter you should get the response printed out on the screen.
 
 
-5. testTitleData.json file required for "StartTest" custom event
-----
+## 6. testTitleData.json file required for "StartTest" custom event
 
 This sdk includes an optional custom event, and testing node that is used by PlayFab to verify sdk features are fully functional.
 
@@ -259,8 +257,8 @@ Please read about the testTitleData.json format, and purpose here:
 * https://github.com/PlayFab/SDKGenerator/blob/master/JenkinsConsoleUtility/testTitleData.md
 The file location is read from the hard-coded loction of: TEST_TITLE_DATA_LOC in PfTestActor.h, you can redirect this to an input that matches your file location
 
-6. Troubleshooting:
-----
+## 7. Troubleshooting:
+
 If you experience this error:
 Plugin 'PlayFab' failed to load because module 'PlayFab' could not be found.  Please ensure the plugin is properly installed, otherwise consider disabling the plugin for this project.
 
@@ -282,13 +280,13 @@ Our Developer Success Team can assist with answering any questions as well as pr
 [Forums, Support and Knowledge Base](https://community.playfab.com/index.html)
 
 
-7. Acknowledgements
-----
+## 8. Acknowledgements
+
 The initial draft of PlayFab UnrealBlueprintSDK and the Blueprint Tutorial in this document were built by [Joshua Lyons](https://github.com/JLyons1985), and submitted to PlayFab October, 2015
 
 
-8. Copyright and Licensing Information:
-----
+## 9. Copyright and Licensing Information:
+
   Apache License --
   Version 2.0, January 2004
   http://www.apache.org/licenses/
