@@ -4358,7 +4358,7 @@ void UPlayFabAdminAPI::HelperUpdateCloudScript(FPlayFabBaseModel response, UObje
 ///////////////////////////////////////////////////////
 // Content
 //////////////////////////////////////////////////////
-/** Delete a content file from the title */
+/** Delete a content file from the title. When deleting a file that does not exist, it returns success. */
 UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteContent(FAdminDeleteContentRequest request,
     FDelegateOnSuccessDeleteContent onSuccess,
     FDelegateOnFailurePlayFabError onFailure,

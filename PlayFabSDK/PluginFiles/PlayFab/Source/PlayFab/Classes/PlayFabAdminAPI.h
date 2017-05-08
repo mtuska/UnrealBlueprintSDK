@@ -1009,7 +1009,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessDeleteContent, FAdminBlankResult, result, UObject*, customData);
 
-    /** Delete a content file from the title */
+    /** Delete a content file from the title. When deleting a file that does not exist, it returns success. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Content ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabAdminAPI* DeleteContent(FAdminDeleteContentRequest request,
             FDelegateOnSuccessDeleteContent onSuccess,

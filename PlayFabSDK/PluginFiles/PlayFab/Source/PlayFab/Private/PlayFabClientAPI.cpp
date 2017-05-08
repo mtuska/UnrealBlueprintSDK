@@ -2363,7 +2363,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::LinkWindowsHello(FClientLinkWindowsHelloAc
 
     // Setup the request
     manager->PlayFabRequestURL = "/Client/LinkWindowsHello";
-    manager->useSessionTicket = false;
+    manager->useSessionTicket = true;
     manager->useSecretKey = false;
 
     // Serialize all the request properties to json
@@ -3061,7 +3061,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::UnlinkWindowsHello(FClientUnlinkWindowsHel
 
     // Setup the request
     manager->PlayFabRequestURL = "/Client/UnlinkWindowsHello";
-    manager->useSessionTicket = false;
+    manager->useSessionTicket = true;
     manager->useSecretKey = false;
 
     // Serialize all the request properties to json
@@ -4589,7 +4589,7 @@ void UPlayFabClientAPI::HelperGetCharacterInventory(FPlayFabBaseModel response, 
     }
 }
 
-/** Retrieves a purchase along with its current PlayFab status. */
+/** Retrieves a purchase along with its current PlayFab status. Returns inventory items from the purchase that are still active. */
 UPlayFabClientAPI* UPlayFabClientAPI::GetPurchase(FClientGetPurchaseRequest request,
     FDelegateOnSuccessGetPurchase onSuccess,
     FDelegateOnFailurePlayFabError onFailure,
@@ -7867,7 +7867,7 @@ UPlayFabClientAPI* UPlayFabClientAPI::ValidateWindowsStoreReceipt(FClientValidat
 
     // Setup the request
     manager->PlayFabRequestURL = "/Client/ValidateWindowsStoreReceipt";
-    manager->useSessionTicket = false;
+    manager->useSessionTicket = true;
     manager->useSecretKey = false;
 
     // Serialize all the request properties to json

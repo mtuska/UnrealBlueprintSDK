@@ -1041,7 +1041,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPurchase, FClientGetPurchaseResult, result, UObject*, customData);
 
-    /** Retrieves a purchase along with its current PlayFab status. */
+    /** Retrieves a purchase along with its current PlayFab status. Returns inventory items from the purchase that are still active. */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Player Item Management ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetPurchase(FClientGetPurchaseRequest request,
             FDelegateOnSuccessGetPurchase onSuccess,

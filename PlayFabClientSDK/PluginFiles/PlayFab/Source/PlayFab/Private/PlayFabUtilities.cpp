@@ -321,6 +321,12 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1295: returnText = "APIRequestsDisabledForTitle"; break;
     case 1296: returnText = "InvalidSharedSecretKey"; break;
     case 1297: returnText = "PrizeTableHasNoRanks"; break;
+    case 1298: returnText = "ProfileDoesNotExist"; break;
+    case 1299: returnText = "ContentS3OriginBucketNotConfigured"; break;
+    case 1300: returnText = "InvalidEnvironmentForReceipt"; break;
+    case 1301: returnText = "EncryptedRequestNotAllowed"; break;
+    case 1302: returnText = "SignedRequestNotAllowed"; break;
+    case 1303: returnText = "RequestViewConstraintParamsNotAllowed"; break;
     }
 
     // Return the text

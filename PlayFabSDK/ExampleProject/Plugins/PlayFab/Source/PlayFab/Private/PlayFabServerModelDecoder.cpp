@@ -748,7 +748,9 @@ FServerExecuteCloudScriptResult UPlayFabServerModelDecoder::decodeExecuteCloudSc
     tempStruct.FunctionName = !(dataObj->HasField("FunctionName")) ? TEXT("") : dataObj->GetStringField("FunctionName");
     tempStruct.Revision = !(dataObj->HasField("Revision")) ? 0 : int(dataObj->GetNumberField("Revision"));
     tempStruct.FunctionResult = !(dataObj->HasField("FunctionResult")) ? nullptr : dataObj->GetObjectField("FunctionResult");
+    tempStruct.FunctionResultTooLarge = !(dataObj->HasField("FunctionResultTooLarge")) ? false : dataObj->GetBoolField("FunctionResultTooLarge");
     tempStruct.Logs = !(dataObj->HasField("Logs")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Logs");
+    tempStruct.LogsTooLarge = !(dataObj->HasField("LogsTooLarge")) ? false : dataObj->GetBoolField("LogsTooLarge");
     tempStruct.ExecutionTimeSeconds = !(dataObj->HasField("ExecutionTimeSeconds")) ? 0 : int(dataObj->GetNumberField("ExecutionTimeSeconds"));
     tempStruct.ProcessorTimeSeconds = !(dataObj->HasField("ProcessorTimeSeconds")) ? 0 : int(dataObj->GetNumberField("ProcessorTimeSeconds"));
     tempStruct.MemoryConsumedBytes = !(dataObj->HasField("MemoryConsumedBytes")) ? 0 : int(dataObj->GetNumberField("MemoryConsumedBytes"));
