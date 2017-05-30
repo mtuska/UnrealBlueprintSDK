@@ -68,6 +68,29 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FServerGetPlayerProfileRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        FString PlayFabId;
+    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        UPlayFabJsonObject* ProfileConstraints;
+};
+
+USTRUCT(BlueprintType)
+struct FServerGetPlayerProfileResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** The profile of the player. This profile is not guaranteed to be up-to-date. For a new player, this profile will not exist. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        UPlayFabJsonObject* PlayerProfile;
+};
+
+USTRUCT(BlueprintType)
 struct FServerGetPlayFabIDsFromFacebookIDsRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -1144,7 +1167,7 @@ public:
     /** PlayFabId of the reporting player. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
         FString ReporterId;
-    /** PlayFabId of the reported player. */
+    /** Unique PlayFab identifier of the reported player. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
         FString ReporteeId;
     /** Optional additional comment by reporting player. */
@@ -1157,7 +1180,7 @@ struct FServerReportPlayerServerResult
 {
     GENERATED_USTRUCT_BODY()
 public:
-    /** Indicates whether this action completed successfully. */
+    /** Deprecated: Always true */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Item Management Models")
         bool Updated;
     /** The number of remaining reports which may be filed today by this reporting player. */
@@ -1819,13 +1842,13 @@ public:
     /** The object returned from the CloudScript function, if any */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
         UPlayFabJsonObject* FunctionResult;
-    /** Flag indicating if the FunctionResult was too large and was subsequently dropped from this event */
+    /** Flag indicating if the FunctionResult was too large and was subsequently dropped from this event. This only occurs if the total event size is larger than 350KB. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
         bool FunctionResultTooLarge;
     /** Entries logged during the function execution. These include both entries logged in the function code using log.info() and log.error() and error entries for API and HTTP request failures. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
         TArray<UPlayFabJsonObject*> Logs;
-    /** Flag indicating if the logs were too large and were subsequently dropped from this event */
+    /** Flag indicating if the logs were too large and were subsequently dropped from this event. This only occurs if the total event size is larger than 350KB after the FunctionResult was removed. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")
         bool LogsTooLarge;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Server-Side Cloud Script Models")

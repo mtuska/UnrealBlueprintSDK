@@ -117,6 +117,17 @@ FClientGetPlayerCombinedInfoResult UPlayFabClientModelDecoder::decodeGetPlayerCo
     return tempStruct;
 }
 
+FClientGetPlayerProfileResult UPlayFabClientModelDecoder::decodeGetPlayerProfileResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetPlayerProfileResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.PlayerProfile = !(dataObj->HasField("PlayerProfile")) ? nullptr : dataObj->GetObjectField("PlayerProfile");
+
+    return tempStruct;
+}
+
 FClientGetPlayFabIDsFromFacebookIDsResult UPlayFabClientModelDecoder::decodeGetPlayFabIDsFromFacebookIDsResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -669,7 +680,6 @@ FClientGetPurchaseResult UPlayFabClientModelDecoder::decodeGetPurchaseResultResp
     tempStruct.TransactionId = !(dataObj->HasField("TransactionId")) ? TEXT("") : dataObj->GetStringField("TransactionId");
     tempStruct.TransactionStatus = !(dataObj->HasField("TransactionStatus")) ? TEXT("") : dataObj->GetStringField("TransactionStatus");
     tempStruct.PurchaseDate = !(dataObj->HasField("PurchaseDate")) ? TEXT("") : dataObj->GetStringField("PurchaseDate");
-    tempStruct.Items = !(dataObj->HasField("Items")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Items");
 
     return tempStruct;
 }
@@ -1301,5 +1311,11 @@ FClientValidateWindowsReceiptResult UPlayFabClientModelDecoder::decodeValidateWi
 
     return tempStruct;
 }
+
+
+
+///////////////////////////////////////////////////////
+// Xsolla-specific APIs
+//////////////////////////////////////////////////////
 
 

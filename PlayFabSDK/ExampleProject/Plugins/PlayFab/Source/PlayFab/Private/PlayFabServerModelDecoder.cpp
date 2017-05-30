@@ -44,6 +44,17 @@ FServerBanUsersResult UPlayFabServerModelDecoder::decodeBanUsersResultResponse(U
     return tempStruct;
 }
 
+FServerGetPlayerProfileResult UPlayFabServerModelDecoder::decodeGetPlayerProfileResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerGetPlayerProfileResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.PlayerProfile = !(dataObj->HasField("PlayerProfile")) ? nullptr : dataObj->GetObjectField("PlayerProfile");
+
+    return tempStruct;
+}
+
 FServerGetPlayFabIDsFromFacebookIDsResult UPlayFabServerModelDecoder::decodeGetPlayFabIDsFromFacebookIDsResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct

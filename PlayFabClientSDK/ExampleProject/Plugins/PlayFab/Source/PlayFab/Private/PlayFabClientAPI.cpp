@@ -1393,6 +1393,61 @@ void UPlayFabClientAPI::HelperGetPlayerCombinedInfo(FPlayFabBaseModel response, 
     }
 }
 
+/** Retrieves the player's profile */
+UPlayFabClientAPI* UPlayFabClientAPI::GetPlayerProfile(FClientGetPlayerProfileRequest request,
+    FDelegateOnSuccessGetPlayerProfile onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetPlayerProfile = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperGetPlayerProfile);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/GetPlayerProfile";
+    manager->useSessionTicket = true;
+
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+    if (request.ProfileConstraints != nullptr) OutRestJsonObj->SetObjectField(TEXT("ProfileConstraints"), request.ProfileConstraints);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperGetPlayerProfile(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientGetPlayerProfileResult result = UPlayFabClientModelDecoder::decodeGetPlayerProfileResultResponse(response.responseData);
+        if (OnSuccessGetPlayerProfile.IsBound())
+        {
+            OnSuccessGetPlayerProfile.Execute(result, mCustomData);
+        }
+    }
+}
+
 /** Retrieves the unique PlayFab identifiers for the given set of Facebook identifiers. */
 UPlayFabClientAPI* UPlayFabClientAPI::GetPlayFabIDsFromFacebookIDs(FClientGetPlayFabIDsFromFacebookIDsRequest request,
     FDelegateOnSuccessGetPlayFabIDsFromFacebookIDs onSuccess,
@@ -7788,6 +7843,10 @@ void UPlayFabClientAPI::HelperValidateWindowsStoreReceipt(FPlayFabBaseModel resp
     }
 }
 
+
+///////////////////////////////////////////////////////
+// Xsolla-specific APIs
+//////////////////////////////////////////////////////
 
 
 void UPlayFabClientAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)

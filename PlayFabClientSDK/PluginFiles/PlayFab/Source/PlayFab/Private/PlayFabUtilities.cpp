@@ -327,6 +327,9 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1301: returnText = "EncryptedRequestNotAllowed"; break;
     case 1302: returnText = "SignedRequestNotAllowed"; break;
     case 1303: returnText = "RequestViewConstraintParamsNotAllowed"; break;
+    case 1304: returnText = "BadPartnerConfiguration"; break;
+    case 1305: returnText = "XboxBPCertificateFailure"; break;
+    case 1306: returnText = "XboxXASSExchangeFailure"; break;
     }
 
     // Return the text

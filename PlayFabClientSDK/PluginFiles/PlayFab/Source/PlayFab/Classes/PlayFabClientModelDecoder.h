@@ -68,6 +68,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
         static FClientGetPlayerCombinedInfoResult decodeGetPlayerCombinedInfoResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetPlayerProfileResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
+        static FClientGetPlayerProfileResult decodeGetPlayerProfileResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetPlayFabIDsFromFacebookIDsResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Account Management Models")
         static FClientGetPlayFabIDsFromFacebookIDsResult decodeGetPlayFabIDsFromFacebookIDsResultResponse(UPlayFabJsonObject* response);
@@ -575,6 +579,12 @@ public:
     /** Decode the ValidateWindowsReceiptResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Windows Models")
         static FClientValidateWindowsReceiptResult decodeValidateWindowsReceiptResultResponse(UPlayFabJsonObject* response);
+
+
+
+    ///////////////////////////////////////////////////////
+    // Xsolla-specific APIs
+    //////////////////////////////////////////////////////
 
 
 
