@@ -58,7 +58,7 @@ FString UPlayFabMatchmakerAPI::PercentEncode(const FString& Text)
 
 
 ///////////////////////////////////////////////////////
-// Matchmaking APIs
+// Matchmaking
 //////////////////////////////////////////////////////
 /** Validates a user with the PlayFab service */
 UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::AuthUser(FMatchmakerAuthUserRequest request,

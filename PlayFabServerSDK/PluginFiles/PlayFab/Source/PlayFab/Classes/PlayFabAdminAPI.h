@@ -806,45 +806,45 @@ public:
 
 
     ///////////////////////////////////////////////////////
-    // Matchmaking APIs
+    // Matchmaking
     //////////////////////////////////////////////////////
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetMatchmakerGameInfo, FAdminGetMatchmakerGameInfoResult, result, UObject*, customData);
 
     /** Retrieves the details for a specific completed session, including links to standard out and standard error logs */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabAdminAPI* GetMatchmakerGameInfo(FAdminGetMatchmakerGameInfoRequest request,
             FDelegateOnSuccessGetMatchmakerGameInfo onSuccess,
             FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabAdminRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperGetMatchmakerGameInfo(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetMatchmakerGameModes, FAdminGetMatchmakerGameModesResult, result, UObject*, customData);
 
     /** Retrieves the details of defined game modes for the specified game server executable */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabAdminAPI* GetMatchmakerGameModes(FAdminGetMatchmakerGameModesRequest request,
             FDelegateOnSuccessGetMatchmakerGameModes onSuccess,
             FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabAdminRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperGetMatchmakerGameModes(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessModifyMatchmakerGameModes, FAdminModifyMatchmakerGameModesResult, result, UObject*, customData);
 
     /** Updates the game server mode details for the specified game server executable */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabAdminAPI* ModifyMatchmakerGameModes(FAdminModifyMatchmakerGameModesRequest request,
             FDelegateOnSuccessModifyMatchmakerGameModes onSuccess,
             FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabAdminRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperModifyMatchmakerGameModes(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 

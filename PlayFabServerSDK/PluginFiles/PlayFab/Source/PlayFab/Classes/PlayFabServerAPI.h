@@ -940,128 +940,111 @@ public:
 
 
     ///////////////////////////////////////////////////////
-    // Matchmaking APIs
+    // Matchmaking
     //////////////////////////////////////////////////////
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessDeregisterGame, FServerDeregisterGameResponse, result, UObject*, customData);
 
     /** Inform the matchmaker that a Game Server Instance is removed. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* DeregisterGame(FServerDeregisterGameRequest request,
             FDelegateOnSuccessDeregisterGame onSuccess,
             FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabServerRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperDeregisterGame(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessNotifyMatchmakerPlayerLeft, FServerNotifyMatchmakerPlayerLeftResult, result, UObject*, customData);
 
     /** Informs the PlayFab match-making service that the user specified has left the Game Server Instance */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* NotifyMatchmakerPlayerLeft(FServerNotifyMatchmakerPlayerLeftRequest request,
             FDelegateOnSuccessNotifyMatchmakerPlayerLeft onSuccess,
             FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabServerRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperNotifyMatchmakerPlayerLeft(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRedeemMatchmakerTicket, FServerRedeemMatchmakerTicketResult, result, UObject*, customData);
 
     /** Validates a Game Server session ticket and returns details about the user */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* RedeemMatchmakerTicket(FServerRedeemMatchmakerTicketRequest request,
             FDelegateOnSuccessRedeemMatchmakerTicket onSuccess,
             FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabServerRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperRedeemMatchmakerTicket(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRefreshGameServerInstanceHeartbeat, FServerRefreshGameServerInstanceHeartbeatResult, result, UObject*, customData);
 
     /** Set the state of the indicated Game Server Instance. Also update the heartbeat for the instance. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* RefreshGameServerInstanceHeartbeat(FServerRefreshGameServerInstanceHeartbeatRequest request,
             FDelegateOnSuccessRefreshGameServerInstanceHeartbeat onSuccess,
             FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabServerRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperRefreshGameServerInstanceHeartbeat(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRegisterGame, FServerRegisterGameResponse, result, UObject*, customData);
 
     /** Inform the matchmaker that a new Game Server Instance is added. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* RegisterGame(FServerRegisterGameRequest request,
             FDelegateOnSuccessRegisterGame onSuccess,
             FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabServerRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperRegisterGame(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSetGameServerInstanceData, FServerSetGameServerInstanceDataResult, result, UObject*, customData);
 
     /** Sets the custom data of the indicated Game Server Instance */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* SetGameServerInstanceData(FServerSetGameServerInstanceDataRequest request,
             FDelegateOnSuccessSetGameServerInstanceData onSuccess,
             FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabServerRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperSetGameServerInstanceData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSetGameServerInstanceState, FServerSetGameServerInstanceStateResult, result, UObject*, customData);
 
     /** Set the state of the indicated Game Server Instance. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* SetGameServerInstanceState(FServerSetGameServerInstanceStateRequest request,
             FDelegateOnSuccessSetGameServerInstanceState onSuccess,
             FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabServerRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperSetGameServerInstanceState(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSetGameServerInstanceTags, FServerSetGameServerInstanceTagsResult, result, UObject*, customData);
 
     /** Set custom tags for the specified Game Server Instance */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* SetGameServerInstanceTags(FServerSetGameServerInstanceTagsRequest request,
             FDelegateOnSuccessSetGameServerInstanceTags onSuccess,
             FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabServerRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperSetGameServerInstanceTags(FPlayFabBaseModel response, UObject* customData, bool successful);
-
-
-    ///////////////////////////////////////////////////////
-    // Steam-Specific APIs
-    //////////////////////////////////////////////////////
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessAwardSteamAchievement, FServerAwardSteamAchievementResult, result, UObject*, customData);
-
-    /** Awards the specified users the specified Steam achievements */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Steam-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabServerAPI* AwardSteamAchievement(FServerAwardSteamAchievementRequest request,
-            FDelegateOnSuccessAwardSteamAchievement onSuccess,
-            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
-
-    // Implements FOnPlayFabServerRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Steam-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        void HelperAwardSteamAchievement(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
@@ -1512,6 +1495,23 @@ public:
         void HelperRemovePlayerTag(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
+    ///////////////////////////////////////////////////////
+    // Platform Specific Methods
+    //////////////////////////////////////////////////////
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessAwardSteamAchievement, FServerAwardSteamAchievementResult, result, UObject*, customData);
+
+    /** Awards the specified users the specified Steam achievements */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Platform Specific Methods ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* AwardSteamAchievement(FServerAwardSteamAchievementRequest request,
+            FDelegateOnSuccessAwardSteamAchievement onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Platform Specific Methods ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperAwardSteamAchievement(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+
 
     /** PlayFab Request Info */
     FString PlayFabRequestURL;
@@ -1601,7 +1601,6 @@ public:
     FDelegateOnSuccessSetGameServerInstanceData OnSuccessSetGameServerInstanceData;
     FDelegateOnSuccessSetGameServerInstanceState OnSuccessSetGameServerInstanceState;
     FDelegateOnSuccessSetGameServerInstanceTags OnSuccessSetGameServerInstanceTags;
-    FDelegateOnSuccessAwardSteamAchievement OnSuccessAwardSteamAchievement;
     FDelegateOnSuccessWriteCharacterEvent OnSuccessWriteCharacterEvent;
     FDelegateOnSuccessWritePlayerEvent OnSuccessWritePlayerEvent;
     FDelegateOnSuccessWriteTitleEvent OnSuccessWriteTitleEvent;
@@ -1634,6 +1633,7 @@ public:
     FDelegateOnSuccessGetPlayersInSegment OnSuccessGetPlayersInSegment;
     FDelegateOnSuccessGetPlayerTags OnSuccessGetPlayerTags;
     FDelegateOnSuccessRemovePlayerTag OnSuccessRemovePlayerTag;
+    FDelegateOnSuccessAwardSteamAchievement OnSuccessAwardSteamAchievement;
 
 private:
     /** Internal bind function for the IHTTPRequest::OnProcessRequestCompleted() event */

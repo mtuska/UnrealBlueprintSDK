@@ -365,7 +365,7 @@ public:
     /** An optional parameter that specifies whether both the username and email parameters are required. If true, both parameters are required; if false, the user must supply either the username or email parameter. The default value is true. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         bool RequireBothUsernameAndEmail;
-    /** An optional parameter for setting the display name for this title. */
+    /** An optional parameter for setting the display name for this title (3-25 characters). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString DisplayName;
     /** Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only). */
@@ -534,7 +534,7 @@ public:
     /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         FString PlayFabId;
-    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed. */
+    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         UPlayFabJsonObject* ProfileConstraints;
 };
@@ -1190,7 +1190,7 @@ public:
     /** If true, uses the specified version. If false, gets the most recent version. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         bool UseSpecificVersion;
-    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed. */
+    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         UPlayFabJsonObject* ProfileConstraints;
 };
@@ -1237,7 +1237,7 @@ public:
     /** If true, uses the specified version. If false, gets the most recent version. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         bool UseSpecificVersion;
-    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed. */
+    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         UPlayFabJsonObject* ProfileConstraints;
 };
@@ -1278,7 +1278,7 @@ public:
     /** If true, uses the specified version. If false, gets the most recent version. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         bool UseSpecificVersion;
-    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed. */
+    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         UPlayFabJsonObject* ProfileConstraints;
 };
@@ -1303,7 +1303,7 @@ public:
     /** If true, uses the specified version. If false, gets the most recent version. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         bool UseSpecificVersion;
-    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed. */
+    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         UPlayFabJsonObject* ProfileConstraints;
 };
@@ -2070,75 +2070,7 @@ public:
 
 
 ///////////////////////////////////////////////////////
-// IOS-Specific APIs
-//////////////////////////////////////////////////////
-
-USTRUCT(BlueprintType)
-struct FClientRegisterForIOSPushNotificationRequest
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** Unique token generated by the Apple Push Notification service when the title registered to receive push notifications. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | IOS-Specific APIs Models")
-        FString DeviceToken;
-    /** If true, send a test push message immediately after sucessful registration. Defaults to false. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | IOS-Specific APIs Models")
-        bool SendPushNotificationConfirmation;
-    /** Message to display when confirming push notification. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | IOS-Specific APIs Models")
-        FString ConfirmationMessage;
-};
-
-USTRUCT(BlueprintType)
-struct FClientRegisterForIOSPushNotificationResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
-};
-
-USTRUCT(BlueprintType)
-struct FClientRestoreIOSPurchasesRequest
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** Base64 encoded receipt data, passed back by the App Store as a result of a successful purchase. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | IOS-Specific APIs Models")
-        FString ReceiptData;
-};
-
-USTRUCT(BlueprintType)
-struct FClientRestoreIOSPurchasesResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
-};
-
-USTRUCT(BlueprintType)
-struct FClientValidateIOSReceiptRequest
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** Base64 encoded receipt data, passed back by the App Store as a result of a successful purchase. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | IOS-Specific APIs Models")
-        FString ReceiptData;
-    /** Currency used for the purchase. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | IOS-Specific APIs Models")
-        FString CurrencyCode;
-    /** Amount of the stated currency paid for the object. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | IOS-Specific APIs Models")
-        int32 PurchasePrice;
-};
-
-USTRUCT(BlueprintType)
-struct FClientValidateIOSReceiptResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
-};
-
-
-///////////////////////////////////////////////////////
-// Matchmaking APIs
+// Matchmaking
 //////////////////////////////////////////////////////
 
 USTRUCT(BlueprintType)
@@ -2147,19 +2079,19 @@ struct FClientCurrentGamesRequest
     GENERATED_USTRUCT_BODY()
 public:
     /** Region to check for Game Server Instances. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         ERegion Region;
     /** Build to match against. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString BuildVersion;
     /** Game mode to look for. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString GameMode;
     /** Statistic name to find statistic-based matches. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString StatisticName;
     /** Filter to include and/or exclude Game Server Instances associated with certain tags. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         UPlayFabJsonObject* TagFilter;
 };
 
@@ -2169,13 +2101,13 @@ struct FClientCurrentGamesResult
     GENERATED_USTRUCT_BODY()
 public:
     /** array of games found */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         TArray<UPlayFabJsonObject*> Games;
     /** total number of players across all servers */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         int32 PlayerCount;
     /** number of games running */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         int32 GameCount;
 };
 
@@ -2185,7 +2117,7 @@ struct FClientGameServerRegionsRequest
     GENERATED_USTRUCT_BODY()
 public:
     /** version of game server for which stats are being requested */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString BuildVersion;
 };
 
@@ -2195,7 +2127,7 @@ struct FClientGameServerRegionsResult
     GENERATED_USTRUCT_BODY()
 public:
     /** array of regions found matching the request parameters */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         TArray<UPlayFabJsonObject*> Regions;
 };
 
@@ -2205,28 +2137,28 @@ struct FClientMatchmakeRequest
     GENERATED_USTRUCT_BODY()
 public:
     /** Build version to match against. [Note: Required if LobbyId is not specified] */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString BuildVersion;
     /** Region to match make against. [Note: Required if LobbyId is not specified] */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         ERegion Region;
     /** Game mode to match make against. [Note: Required if LobbyId is not specified] */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString GameMode;
     /** Lobby identifier to match make against. This is used to select a specific Game Server Instance. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString LobbyId;
     /** Player statistic to use in finding a match. May be null for no stat-based matching. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString StatisticName;
     /** Character to use for stats based matching. Leave null to use account stats. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString CharacterId;
     /** Start a game session if one with an open slot is not found. Defaults to true. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         bool StartNewIfNoneFound;
     /** Filter to include and/or exclude Game Server Instances associated with certain Tags */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         UPlayFabJsonObject* TagFilter;
 };
 
@@ -2236,25 +2168,25 @@ struct FClientMatchmakeResult
     GENERATED_USTRUCT_BODY()
 public:
     /** unique lobby identifier of the server matched */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString LobbyID;
     /** IP address of the server */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString ServerHostname;
     /** port number to use for non-http communications with the server */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         int32 ServerPort;
     /** server authorization ticket (used by RedeemMatchmakerTicket to validate user insertion into the game) */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString Ticket;
     /** timestamp for when the server will expire, if applicable */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString Expires;
     /** time in milliseconds the application is configured to wait on matchmaking results */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         int32 PollWaitTimeMS;
     /** result of match making process */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         EMatchmakeStatus Status;
 };
 
@@ -2264,22 +2196,22 @@ struct FClientStartGameRequest
     GENERATED_USTRUCT_BODY()
 public:
     /** version information for the build of the game server which is to be started */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString BuildVersion;
     /** the region to associate this server with for match filtering */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         ERegion Region;
     /** the title-defined game mode this server is to be running (defaults to 0 if there is only one mode) */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString GameMode;
     /** player statistic for others to use in finding this game. May be null for no stat-based matching */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString StatisticName;
     /** character to use for stats based matching. Leave null to use account stats */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString CharacterId;
     /** custom command line argument when starting game server process */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString CustomCommandLineData;
 };
 
@@ -2289,77 +2221,23 @@ struct FClientStartGameResult
     GENERATED_USTRUCT_BODY()
 public:
     /** unique identifier for the lobby of the server started */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString LobbyID;
     /** server IP address */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString ServerHostname;
     /** port on the server to be used for communication */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         int32 ServerPort;
     /** unique identifier for the server */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString Ticket;
     /** timestamp for when the server should expire, if applicable */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString Expires;
     /** password required to log into the server */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString Password;
-};
-
-
-///////////////////////////////////////////////////////
-// Android-Specific APIs
-//////////////////////////////////////////////////////
-
-USTRUCT(BlueprintType)
-struct FClientAndroidDevicePushNotificationRegistrationRequest
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** Registration ID provided by the Google Cloud Messaging service when the title registered to receive push notifications (see the GCM documentation, here: http://developer.android.com/google/gcm/client.html). */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Android-Specific APIs Models")
-        FString DeviceToken;
-    /** If true, send a test push message immediately after sucessful registration. Defaults to false. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Android-Specific APIs Models")
-        bool SendPushNotificationConfirmation;
-    /** Message to display when confirming push notification. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Android-Specific APIs Models")
-        FString ConfirmationMessage;
-};
-
-USTRUCT(BlueprintType)
-struct FClientAndroidDevicePushNotificationRegistrationResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
-};
-
-USTRUCT(BlueprintType)
-struct FClientValidateGooglePlayPurchaseRequest
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** Original JSON string returned by the Google Play IAB API. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Android-Specific APIs Models")
-        FString ReceiptJson;
-    /** Signature returned by the Google Play IAB API. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Android-Specific APIs Models")
-        FString Signature;
-    /** Currency used for the purchase. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Android-Specific APIs Models")
-        FString CurrencyCode;
-    /** Amount of the stated currency paid for the object. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Android-Specific APIs Models")
-        int32 PurchasePrice;
-};
-
-USTRUCT(BlueprintType)
-struct FClientValidateGooglePlayPurchaseResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
 };
 
 
@@ -2547,11 +2425,6 @@ struct FClientUpdateSharedGroupDataResult
     GENERATED_USTRUCT_BODY()
 public:
 };
-
-
-///////////////////////////////////////////////////////
-// Sony-specific APIs
-//////////////////////////////////////////////////////
 
 
 ///////////////////////////////////////////////////////
@@ -2789,7 +2662,7 @@ public:
     /** Catalog item identifier of the item in the user's inventory that corresponds to the character in the catalog to be created. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
         FString ItemId;
-    /** Non-unique display name of the character being granted. */
+    /** Non-unique display name of the character being granted (1-20 characters in length). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
         FString CharacterName;
 };
@@ -2897,40 +2770,6 @@ public:
     /** Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Character Data Models")
         int32 DataVersion;
-};
-
-
-///////////////////////////////////////////////////////
-// Amazon-Specific APIs
-//////////////////////////////////////////////////////
-
-USTRUCT(BlueprintType)
-struct FClientValidateAmazonReceiptRequest
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** ReceiptId returned by the Amazon App Store in-app purchase API */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Amazon-Specific APIs Models")
-        FString ReceiptId;
-    /** AmazonId of the user making the purchase as returned by the Amazon App Store in-app purchase API */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Amazon-Specific APIs Models")
-        FString UserId;
-    /** Catalog version to use when granting receipt item. If null, defaults to primary catalog. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Amazon-Specific APIs Models")
-        FString CatalogVersion;
-    /** Currency used for the purchase. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Amazon-Specific APIs Models")
-        FString CurrencyCode;
-    /** Amount of the stated currency paid for the object. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Amazon-Specific APIs Models")
-        int32 PurchasePrice;
-};
-
-USTRUCT(BlueprintType)
-struct FClientValidateAmazonReceiptResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
 };
 
 
@@ -3136,8 +2975,149 @@ public:
 
 
 ///////////////////////////////////////////////////////
-// Windows
+// Platform Specific Methods
 //////////////////////////////////////////////////////
+
+USTRUCT(BlueprintType)
+struct FClientAndroidDevicePushNotificationRegistrationRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Registration ID provided by the Google Cloud Messaging service when the title registered to receive push notifications (see the GCM documentation, here: http://developer.android.com/google/gcm/client.html). */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        FString DeviceToken;
+    /** If true, send a test push message immediately after sucessful registration. Defaults to false. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        bool SendPushNotificationConfirmation;
+    /** Message to display when confirming push notification. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        FString ConfirmationMessage;
+};
+
+USTRUCT(BlueprintType)
+struct FClientAndroidDevicePushNotificationRegistrationResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
+
+USTRUCT(BlueprintType)
+struct FClientRegisterForIOSPushNotificationRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Unique token generated by the Apple Push Notification service when the title registered to receive push notifications. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        FString DeviceToken;
+    /** If true, send a test push message immediately after sucessful registration. Defaults to false. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        bool SendPushNotificationConfirmation;
+    /** Message to display when confirming push notification. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        FString ConfirmationMessage;
+};
+
+USTRUCT(BlueprintType)
+struct FClientRegisterForIOSPushNotificationResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
+
+USTRUCT(BlueprintType)
+struct FClientRestoreIOSPurchasesRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Base64 encoded receipt data, passed back by the App Store as a result of a successful purchase. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        FString ReceiptData;
+};
+
+USTRUCT(BlueprintType)
+struct FClientRestoreIOSPurchasesResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
+
+USTRUCT(BlueprintType)
+struct FClientValidateAmazonReceiptRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** ReceiptId returned by the Amazon App Store in-app purchase API */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        FString ReceiptId;
+    /** AmazonId of the user making the purchase as returned by the Amazon App Store in-app purchase API */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        FString UserId;
+    /** Catalog version to use when granting receipt item. If null, defaults to primary catalog. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        FString CatalogVersion;
+    /** Currency used for the purchase. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        FString CurrencyCode;
+    /** Amount of the stated currency paid for the object. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        int32 PurchasePrice;
+};
+
+USTRUCT(BlueprintType)
+struct FClientValidateAmazonReceiptResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
+
+USTRUCT(BlueprintType)
+struct FClientValidateGooglePlayPurchaseRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Original JSON string returned by the Google Play IAB API. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        FString ReceiptJson;
+    /** Signature returned by the Google Play IAB API. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        FString Signature;
+    /** Currency used for the purchase. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        FString CurrencyCode;
+    /** Amount of the stated currency paid for the object. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        int32 PurchasePrice;
+};
+
+USTRUCT(BlueprintType)
+struct FClientValidateGooglePlayPurchaseResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
+
+USTRUCT(BlueprintType)
+struct FClientValidateIOSReceiptRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Base64 encoded receipt data, passed back by the App Store as a result of a successful purchase. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        FString ReceiptData;
+    /** Currency used for the purchase. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        FString CurrencyCode;
+    /** Amount of the stated currency paid for the object. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
+        int32 PurchasePrice;
+};
+
+USTRUCT(BlueprintType)
+struct FClientValidateIOSReceiptResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
 
 USTRUCT(BlueprintType)
 struct FClientValidateWindowsReceiptRequest
@@ -3145,16 +3125,16 @@ struct FClientValidateWindowsReceiptRequest
     GENERATED_USTRUCT_BODY()
 public:
     /** XML Receipt returned by the Windows App Store in-app purchase API */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Windows Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
         FString Receipt;
     /** Catalog version to use when granting receipt item. If null, defaults to primary catalog. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Windows Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
         FString CatalogVersion;
     /** Currency used for the purchase. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Windows Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
         FString CurrencyCode;
     /** Amount of the stated currency paid for the object. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Windows Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
         int32 PurchasePrice;
 };
 
@@ -3164,9 +3144,4 @@ struct FClientValidateWindowsReceiptResult
     GENERATED_USTRUCT_BODY()
 public:
 };
-
-
-///////////////////////////////////////////////////////
-// Xsolla-specific APIs
-//////////////////////////////////////////////////////
 

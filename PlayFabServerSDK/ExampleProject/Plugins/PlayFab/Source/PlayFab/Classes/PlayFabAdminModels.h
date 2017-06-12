@@ -1031,7 +1031,7 @@ public:
 
 
 ///////////////////////////////////////////////////////
-// Matchmaking APIs
+// Matchmaking
 //////////////////////////////////////////////////////
 
 USTRUCT(BlueprintType)
@@ -1040,7 +1040,7 @@ struct FAdminGetMatchmakerGameInfoRequest
     GENERATED_USTRUCT_BODY()
 public:
     /** unique identifier of the lobby for which info is being requested */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking Models")
         FString LobbyId;
 };
 
@@ -1050,34 +1050,34 @@ struct FAdminGetMatchmakerGameInfoResult
     GENERATED_USTRUCT_BODY()
 public:
     /** unique identifier of the lobby  */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking Models")
         FString LobbyId;
     /** unique identifier of the Game Server Instance for this lobby */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking Models")
         FString TitleId;
     /** time when the Game Server Instance was created */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking Models")
         FString StartTime;
     /** time when Game Server Instance is currently scheduled to end */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking Models")
         FString EndTime;
     /** game mode for this Game Server Instance */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking Models")
         FString Mode;
     /** version identifier of the game server executable binary being run */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking Models")
         FString BuildVersion;
     /** region in which the Game Server Instance is running */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking Models")
         ERegion Region;
     /** array of unique PlayFab identifiers for users currently connected to this Game Server Instance */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking Models")
         FString Players;
     /** IP address for this Game Server Instance */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking Models")
         FString ServerAddress;
     /** communication port for this Game Server Instance */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking Models")
         int32 ServerPort;
 };
 
@@ -1087,7 +1087,7 @@ struct FAdminGetMatchmakerGameModesRequest
     GENERATED_USTRUCT_BODY()
 public:
     /** previously uploaded build version for which game modes are being requested */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking Models")
         FString BuildVersion;
 };
 
@@ -1097,7 +1097,7 @@ struct FAdminGetMatchmakerGameModesResult
     GENERATED_USTRUCT_BODY()
 public:
     /** array of game modes available for the specified build */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking Models")
         TArray<UPlayFabJsonObject*> GameModes;
 };
 
@@ -1107,10 +1107,10 @@ struct FAdminModifyMatchmakerGameModesRequest
     GENERATED_USTRUCT_BODY()
 public:
     /** previously uploaded build version for which game modes are being specified */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking Models")
         FString BuildVersion;
     /** array of game modes (Note: this will replace all game modes for the indicated build version) */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking Models")
         TArray<UPlayFabJsonObject*> GameModes;
 };
 

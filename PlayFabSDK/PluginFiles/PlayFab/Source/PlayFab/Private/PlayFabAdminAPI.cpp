@@ -3515,7 +3515,7 @@ void UPlayFabAdminAPI::HelperSubtractUserVirtualCurrency(FPlayFabBaseModel respo
 
 
 ///////////////////////////////////////////////////////
-// Matchmaking APIs
+// Matchmaking
 //////////////////////////////////////////////////////
 /** Retrieves the details for a specific completed session, including links to standard out and standard error logs */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetMatchmakerGameInfo(FAdminGetMatchmakerGameInfoRequest request,

@@ -13,7 +13,7 @@
 
 
 ///////////////////////////////////////////////////////
-// Matchmaking APIs
+// Matchmaking
 //////////////////////////////////////////////////////
 
 FMatchmakerAuthUserResponse UPlayFabMatchmakerModelDecoder::decodeAuthUserResponseResponse(UPlayFabJsonObject* response)

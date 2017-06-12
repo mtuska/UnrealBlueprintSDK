@@ -75,7 +75,7 @@ public:
     /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
         FString PlayFabId;
-    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed. */
+    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
         UPlayFabJsonObject* ProfileConstraints;
 };
@@ -324,7 +324,7 @@ public:
     /** If true, uses the specified version. If false, gets the most recent version. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         bool UseSpecificVersion;
-    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed. */
+    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         UPlayFabJsonObject* ProfileConstraints;
 };
@@ -359,7 +359,7 @@ public:
     /** Maximum number of entries to retrieve. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         int32 MaxResultsCount;
-    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed. */
+    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         UPlayFabJsonObject* ProfileConstraints;
     /** The version of the leaderboard to get, when UseSpecificVersion is true. */
@@ -384,7 +384,7 @@ public:
     /** Maximum number of entries to retrieve. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         int32 MaxResultsCount;
-    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. On client, only ShowDisplayName, ShowStatistics, ShowAvatarUrl are allowed. */
+    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         UPlayFabJsonObject* ProfileConstraints;
     /** The version of the leaderboard to get, when UseSpecificVersion is true. */
@@ -1412,7 +1412,7 @@ public:
 
 
 ///////////////////////////////////////////////////////
-// Matchmaking APIs
+// Matchmaking
 //////////////////////////////////////////////////////
 
 USTRUCT(BlueprintType)
@@ -1421,7 +1421,7 @@ struct FServerDeregisterGameRequest
     GENERATED_USTRUCT_BODY()
 public:
     /** Unique identifier for the Game Server Instance that is being deregistered. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString LobbyId;
 };
 
@@ -1438,10 +1438,10 @@ struct FServerNotifyMatchmakerPlayerLeftRequest
     GENERATED_USTRUCT_BODY()
 public:
     /** Unique identifier of the Game Instance the user is leaving. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString LobbyId;
     /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString PlayFabId;
 };
 
@@ -1451,7 +1451,7 @@ struct FServerNotifyMatchmakerPlayerLeftResult
     GENERATED_USTRUCT_BODY()
 public:
     /** State of user leaving the Game Server Instance. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         EPlayerConnectionState PlayerState;
 };
 
@@ -1461,10 +1461,10 @@ struct FServerRedeemMatchmakerTicketRequest
     GENERATED_USTRUCT_BODY()
 public:
     /** Server authorization ticket passed back from a call to Matchmake or StartGame. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString Ticket;
     /** Unique identifier of the Game Server Instance that is asking for validation of the authorization ticket. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString LobbyId;
 };
 
@@ -1474,13 +1474,13 @@ struct FServerRedeemMatchmakerTicketResult
     GENERATED_USTRUCT_BODY()
 public:
     /** Boolean indicating whether the ticket was validated by the PlayFab service. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         bool TicketIsValid;
     /** Error value if the ticket was not validated. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString Error;
     /** User account information for the user validated. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         UPlayFabJsonObject* UserInfo;
 };
 
@@ -1490,7 +1490,7 @@ struct FServerRefreshGameServerInstanceHeartbeatRequest
     GENERATED_USTRUCT_BODY()
 public:
     /** Unique identifier of the Game Server Instance for which the heartbeat is updated. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString LobbyId;
 };
 
@@ -1507,22 +1507,22 @@ struct FServerRegisterGameRequest
     GENERATED_USTRUCT_BODY()
 public:
     /** IP address of the Game Server Instance. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString ServerHost;
     /** Port number for communication with the Game Server Instance. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString ServerPort;
     /** Unique identifier of the build running on the Game Server Instance. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString Build;
     /** Region in which the Game Server Instance is running. For matchmaking using non-AWS region names, set this to any AWS region and use Tags (below) to specify your custom region. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         ERegion Region;
     /** Game Mode the Game Server instance is running. Note that this must be defined in the Game Modes tab in the PlayFab Game Manager, along with the Build ID (the same Game Mode can be defined for multiple Build IDs). */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString GameMode;
     /** Tags for the Game Server Instance */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         UPlayFabJsonObject* Tags;
 };
 
@@ -1532,7 +1532,7 @@ struct FServerRegisterGameResponse
     GENERATED_USTRUCT_BODY()
 public:
     /** Unique identifier generated for the Game Server Instance that is registered. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString LobbyId;
 };
 
@@ -1542,10 +1542,10 @@ struct FServerSetGameServerInstanceDataRequest
     GENERATED_USTRUCT_BODY()
 public:
     /** Unique identifier of the Game Instance to be updated, in decimal format. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString LobbyId;
     /** Custom data to set for the specified game server instance. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString GameServerData;
 };
 
@@ -1562,10 +1562,10 @@ struct FServerSetGameServerInstanceStateRequest
     GENERATED_USTRUCT_BODY()
 public:
     /** Unique identifier of the Game Instance to be updated, in decimal format. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString LobbyId;
     /** State to set for the specified game server instance. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         EGameInstanceState State;
 };
 
@@ -1582,10 +1582,10 @@ struct FServerSetGameServerInstanceTagsRequest
     GENERATED_USTRUCT_BODY()
 public:
     /** Unique identifier of the Game Server Instance to be updated. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString LobbyId;
     /** Tags to set for the specified Game Server Instance. Note that this is the complete list of tags to be associated with the Game Server Instance. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking APIs Models")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         UPlayFabJsonObject* Tags;
 };
 
@@ -1594,31 +1594,6 @@ struct FServerSetGameServerInstanceTagsResult
 {
     GENERATED_USTRUCT_BODY()
 public:
-};
-
-
-///////////////////////////////////////////////////////
-// Steam-Specific APIs
-//////////////////////////////////////////////////////
-
-USTRUCT(BlueprintType)
-struct FServerAwardSteamAchievementRequest
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** Array of achievements to grant and the users to whom they are to be granted. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Steam-Specific APIs Models")
-        TArray<UPlayFabJsonObject*> Achievements;
-};
-
-USTRUCT(BlueprintType)
-struct FServerAwardSteamAchievementResult
-{
-    GENERATED_USTRUCT_BODY()
-public:
-    /** Array of achievements granted. */
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Steam-Specific APIs Models")
-        TArray<UPlayFabJsonObject*> AchievementResults;
 };
 
 
@@ -2100,7 +2075,7 @@ public:
     /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Characters Models")
         FString PlayFabId;
-    /** Non-unique display name of the character being granted. */
+    /** Non-unique display name of the character being granted (1-20 characters in length). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Characters Models")
         FString CharacterName;
     /** Type of the character being granted; statistics can be sliced based on this value. */
@@ -2379,5 +2354,30 @@ struct FServerRemovePlayerTagResult
 {
     GENERATED_USTRUCT_BODY()
 public:
+};
+
+
+///////////////////////////////////////////////////////
+// Platform Specific Methods
+//////////////////////////////////////////////////////
+
+USTRUCT(BlueprintType)
+struct FServerAwardSteamAchievementRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Array of achievements to grant and the users to whom they are to be granted. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Platform Specific Methods Models")
+        TArray<UPlayFabJsonObject*> Achievements;
+};
+
+USTRUCT(BlueprintType)
+struct FServerAwardSteamAchievementResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Array of achievements granted. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Platform Specific Methods Models")
+        TArray<UPlayFabJsonObject*> AchievementResults;
 };
 

@@ -27,27 +27,27 @@ public:
 
 
     ///////////////////////////////////////////////////////
-    // Matchmaking APIs
+    // Matchmaking
     //////////////////////////////////////////////////////
 
     /** Decode the AuthUserResponse response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking APIs Models")
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking Models")
         static FMatchmakerAuthUserResponse decodeAuthUserResponseResponse(UPlayFabJsonObject* response);
 
     /** Decode the PlayerJoinedResponse response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking APIs Models")
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking Models")
         static FMatchmakerPlayerJoinedResponse decodePlayerJoinedResponseResponse(UPlayFabJsonObject* response);
 
     /** Decode the PlayerLeftResponse response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking APIs Models")
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking Models")
         static FMatchmakerPlayerLeftResponse decodePlayerLeftResponseResponse(UPlayFabJsonObject* response);
 
     /** Decode the StartGameResponse response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking APIs Models")
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking Models")
         static FMatchmakerStartGameResponse decodeStartGameResponseResponse(UPlayFabJsonObject* response);
 
     /** Decode the UserInfoResponse response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking APIs Models")
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Matchmaker | Matchmaking Models")
         static FMatchmakerUserInfoResponse decodeUserInfoResponseResponse(UPlayFabJsonObject* response);
 
 

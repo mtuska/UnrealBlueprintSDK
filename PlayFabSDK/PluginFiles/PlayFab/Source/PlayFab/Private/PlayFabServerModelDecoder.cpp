@@ -571,7 +571,7 @@ FServerGetFriendsListResult UPlayFabServerModelDecoder::decodeGetFriendsListResu
 
 
 ///////////////////////////////////////////////////////
-// Matchmaking APIs
+// Matchmaking
 //////////////////////////////////////////////////////
 
 FServerDeregisterGameResponse UPlayFabServerModelDecoder::decodeDeregisterGameResponseResponse(UPlayFabJsonObject* response)
@@ -650,23 +650,6 @@ FServerSetGameServerInstanceTagsResult UPlayFabServerModelDecoder::decodeSetGame
     // Temp ustruct
     FServerSetGameServerInstanceTagsResult tempStruct;
 
-
-    return tempStruct;
-}
-
-
-
-///////////////////////////////////////////////////////
-// Steam-Specific APIs
-//////////////////////////////////////////////////////
-
-FServerAwardSteamAchievementResult UPlayFabServerModelDecoder::decodeAwardSteamAchievementResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FServerAwardSteamAchievementResult tempStruct;
-    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
-
-    tempStruct.AchievementResults = !(dataObj->HasField("AchievementResults")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("AchievementResults");
 
     return tempStruct;
 }
@@ -996,6 +979,23 @@ FServerRemovePlayerTagResult UPlayFabServerModelDecoder::decodeRemovePlayerTagRe
     // Temp ustruct
     FServerRemovePlayerTagResult tempStruct;
 
+
+    return tempStruct;
+}
+
+
+
+///////////////////////////////////////////////////////
+// Platform Specific Methods
+//////////////////////////////////////////////////////
+
+FServerAwardSteamAchievementResult UPlayFabServerModelDecoder::decodeAwardSteamAchievementResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerAwardSteamAchievementResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.AchievementResults = !(dataObj->HasField("AchievementResults")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("AchievementResults");
 
     return tempStruct;
 }

@@ -217,19 +217,19 @@ public:
 
 
     ///////////////////////////////////////////////////////
-    // Matchmaking APIs
+    // Matchmaking
     //////////////////////////////////////////////////////
 
     /** Decode the GetMatchmakerGameInfoResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking Models")
         static FAdminGetMatchmakerGameInfoResult decodeGetMatchmakerGameInfoResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the GetMatchmakerGameModesResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking Models")
         static FAdminGetMatchmakerGameModesResult decodeGetMatchmakerGameModesResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the ModifyMatchmakerGameModesResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking APIs Models")
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Matchmaking Models")
         static FAdminModifyMatchmakerGameModesResult decodeModifyMatchmakerGameModesResultResponse(UPlayFabJsonObject* response);
 
 

@@ -477,7 +477,7 @@ FAdminRevokeInventoryResult UPlayFabAdminModelDecoder::decodeRevokeInventoryResu
 
 
 ///////////////////////////////////////////////////////
-// Matchmaking APIs
+// Matchmaking
 //////////////////////////////////////////////////////
 
 FAdminGetMatchmakerGameInfoResult UPlayFabAdminModelDecoder::decodeGetMatchmakerGameInfoResultResponse(UPlayFabJsonObject* response)

@@ -5374,185 +5374,7 @@ void UPlayFabClientAPI::HelperSetFriendTags(FPlayFabBaseModel response, UObject*
 
 
 ///////////////////////////////////////////////////////
-// IOS-Specific APIs
-//////////////////////////////////////////////////////
-/** Registers the iOS device to receive push notifications */
-UPlayFabClientAPI* UPlayFabClientAPI::RegisterForIOSPushNotification(FClientRegisterForIOSPushNotificationRequest request,
-    FDelegateOnSuccessRegisterForIOSPushNotification onSuccess,
-    FDelegateOnFailurePlayFabError onFailure,
-    UObject* customData)
-{
-    // Objects containing request data
-    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
-    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->mCustomData = customData;
-
-    // Assign delegates
-    manager->OnSuccessRegisterForIOSPushNotification = onSuccess;
-    manager->OnFailure = onFailure;
-    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperRegisterForIOSPushNotification);
-
-    // Setup the request
-    manager->PlayFabRequestURL = "/Client/RegisterForIOSPushNotification";
-    manager->useSessionTicket = true;
-
-    // Serialize all the request properties to json
-    if (request.DeviceToken.IsEmpty() || request.DeviceToken == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("DeviceToken"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("DeviceToken"), request.DeviceToken);
-    }
-    OutRestJsonObj->SetBoolField(TEXT("SendPushNotificationConfirmation"), request.SendPushNotificationConfirmation);
-    if (request.ConfirmationMessage.IsEmpty() || request.ConfirmationMessage == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("ConfirmationMessage"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("ConfirmationMessage"), request.ConfirmationMessage);
-    }
-
-    // Add Request to manager
-    manager->SetRequestObject(OutRestJsonObj);
-
-    return manager;
-}
-
-// Implements FOnPlayFabClientRequestCompleted
-void UPlayFabClientAPI::HelperRegisterForIOSPushNotification(FPlayFabBaseModel response, UObject* customData, bool successful)
-{
-    FPlayFabError error = response.responseError;
-    if (error.hasError)
-    {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
-    }
-    else
-    {
-        FClientRegisterForIOSPushNotificationResult result = UPlayFabClientModelDecoder::decodeRegisterForIOSPushNotificationResultResponse(response.responseData);
-        if (OnSuccessRegisterForIOSPushNotification.IsBound())
-        {
-            OnSuccessRegisterForIOSPushNotification.Execute(result, mCustomData);
-        }
-    }
-}
-
-/** Restores all in-app purchases based on the given restore receipt */
-UPlayFabClientAPI* UPlayFabClientAPI::RestoreIOSPurchases(FClientRestoreIOSPurchasesRequest request,
-    FDelegateOnSuccessRestoreIOSPurchases onSuccess,
-    FDelegateOnFailurePlayFabError onFailure,
-    UObject* customData)
-{
-    // Objects containing request data
-    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
-    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->mCustomData = customData;
-
-    // Assign delegates
-    manager->OnSuccessRestoreIOSPurchases = onSuccess;
-    manager->OnFailure = onFailure;
-    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperRestoreIOSPurchases);
-
-    // Setup the request
-    manager->PlayFabRequestURL = "/Client/RestoreIOSPurchases";
-    manager->useSessionTicket = true;
-
-    // Serialize all the request properties to json
-    if (request.ReceiptData.IsEmpty() || request.ReceiptData == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("ReceiptData"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("ReceiptData"), request.ReceiptData);
-    }
-
-    // Add Request to manager
-    manager->SetRequestObject(OutRestJsonObj);
-
-    return manager;
-}
-
-// Implements FOnPlayFabClientRequestCompleted
-void UPlayFabClientAPI::HelperRestoreIOSPurchases(FPlayFabBaseModel response, UObject* customData, bool successful)
-{
-    FPlayFabError error = response.responseError;
-    if (error.hasError)
-    {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
-    }
-    else
-    {
-        FClientRestoreIOSPurchasesResult result = UPlayFabClientModelDecoder::decodeRestoreIOSPurchasesResultResponse(response.responseData);
-        if (OnSuccessRestoreIOSPurchases.IsBound())
-        {
-            OnSuccessRestoreIOSPurchases.Execute(result, mCustomData);
-        }
-    }
-}
-
-/** Validates with the Apple store that the receipt for an iOS in-app purchase is valid and that it matches the purchased catalog item */
-UPlayFabClientAPI* UPlayFabClientAPI::ValidateIOSReceipt(FClientValidateIOSReceiptRequest request,
-    FDelegateOnSuccessValidateIOSReceipt onSuccess,
-    FDelegateOnFailurePlayFabError onFailure,
-    UObject* customData)
-{
-    // Objects containing request data
-    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
-    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->mCustomData = customData;
-
-    // Assign delegates
-    manager->OnSuccessValidateIOSReceipt = onSuccess;
-    manager->OnFailure = onFailure;
-    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperValidateIOSReceipt);
-
-    // Setup the request
-    manager->PlayFabRequestURL = "/Client/ValidateIOSReceipt";
-    manager->useSessionTicket = true;
-
-    // Serialize all the request properties to json
-    if (request.ReceiptData.IsEmpty() || request.ReceiptData == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("ReceiptData"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("ReceiptData"), request.ReceiptData);
-    }
-    if (request.CurrencyCode.IsEmpty() || request.CurrencyCode == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("CurrencyCode"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("CurrencyCode"), request.CurrencyCode);
-    }
-    OutRestJsonObj->SetNumberField(TEXT("PurchasePrice"), request.PurchasePrice);
-
-    // Add Request to manager
-    manager->SetRequestObject(OutRestJsonObj);
-
-    return manager;
-}
-
-// Implements FOnPlayFabClientRequestCompleted
-void UPlayFabClientAPI::HelperValidateIOSReceipt(FPlayFabBaseModel response, UObject* customData, bool successful)
-{
-    FPlayFabError error = response.responseError;
-    if (error.hasError)
-    {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
-    }
-    else
-    {
-        FClientValidateIOSReceiptResult result = UPlayFabClientModelDecoder::decodeValidateIOSReceiptResultResponse(response.responseData);
-        if (OnSuccessValidateIOSReceipt.IsBound())
-        {
-            OnSuccessValidateIOSReceipt.Execute(result, mCustomData);
-        }
-    }
-}
-
-
-///////////////////////////////////////////////////////
-// Matchmaking APIs
+// Matchmaking
 //////////////////////////////////////////////////////
 /** Get details about all current running game servers matching the given parameters. */
 UPlayFabClientAPI* UPlayFabClientAPI::GetCurrentGames(FClientCurrentGamesRequest request,
@@ -5829,135 +5651,6 @@ void UPlayFabClientAPI::HelperStartGame(FPlayFabBaseModel response, UObject* cus
         if (OnSuccessStartGame.IsBound())
         {
             OnSuccessStartGame.Execute(result, mCustomData);
-        }
-    }
-}
-
-
-///////////////////////////////////////////////////////
-// Android-Specific APIs
-//////////////////////////////////////////////////////
-/** Registers the Android device to receive push notifications */
-UPlayFabClientAPI* UPlayFabClientAPI::AndroidDevicePushNotificationRegistration(FClientAndroidDevicePushNotificationRegistrationRequest request,
-    FDelegateOnSuccessAndroidDevicePushNotificationRegistration onSuccess,
-    FDelegateOnFailurePlayFabError onFailure,
-    UObject* customData)
-{
-    // Objects containing request data
-    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
-    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->mCustomData = customData;
-
-    // Assign delegates
-    manager->OnSuccessAndroidDevicePushNotificationRegistration = onSuccess;
-    manager->OnFailure = onFailure;
-    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperAndroidDevicePushNotificationRegistration);
-
-    // Setup the request
-    manager->PlayFabRequestURL = "/Client/AndroidDevicePushNotificationRegistration";
-    manager->useSessionTicket = true;
-
-    // Serialize all the request properties to json
-    if (request.DeviceToken.IsEmpty() || request.DeviceToken == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("DeviceToken"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("DeviceToken"), request.DeviceToken);
-    }
-    OutRestJsonObj->SetBoolField(TEXT("SendPushNotificationConfirmation"), request.SendPushNotificationConfirmation);
-    if (request.ConfirmationMessage.IsEmpty() || request.ConfirmationMessage == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("ConfirmationMessage"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("ConfirmationMessage"), request.ConfirmationMessage);
-    }
-
-    // Add Request to manager
-    manager->SetRequestObject(OutRestJsonObj);
-
-    return manager;
-}
-
-// Implements FOnPlayFabClientRequestCompleted
-void UPlayFabClientAPI::HelperAndroidDevicePushNotificationRegistration(FPlayFabBaseModel response, UObject* customData, bool successful)
-{
-    FPlayFabError error = response.responseError;
-    if (error.hasError)
-    {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
-    }
-    else
-    {
-        FClientAndroidDevicePushNotificationRegistrationResult result = UPlayFabClientModelDecoder::decodeAndroidDevicePushNotificationRegistrationResultResponse(response.responseData);
-        if (OnSuccessAndroidDevicePushNotificationRegistration.IsBound())
-        {
-            OnSuccessAndroidDevicePushNotificationRegistration.Execute(result, mCustomData);
-        }
-    }
-}
-
-/** Validates a Google Play purchase and gives the corresponding item to the player. */
-UPlayFabClientAPI* UPlayFabClientAPI::ValidateGooglePlayPurchase(FClientValidateGooglePlayPurchaseRequest request,
-    FDelegateOnSuccessValidateGooglePlayPurchase onSuccess,
-    FDelegateOnFailurePlayFabError onFailure,
-    UObject* customData)
-{
-    // Objects containing request data
-    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
-    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->mCustomData = customData;
-
-    // Assign delegates
-    manager->OnSuccessValidateGooglePlayPurchase = onSuccess;
-    manager->OnFailure = onFailure;
-    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperValidateGooglePlayPurchase);
-
-    // Setup the request
-    manager->PlayFabRequestURL = "/Client/ValidateGooglePlayPurchase";
-    manager->useSessionTicket = true;
-
-    // Serialize all the request properties to json
-    if (request.ReceiptJson.IsEmpty() || request.ReceiptJson == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("ReceiptJson"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("ReceiptJson"), request.ReceiptJson);
-    }
-    if (request.Signature.IsEmpty() || request.Signature == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("Signature"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("Signature"), request.Signature);
-    }
-    if (request.CurrencyCode.IsEmpty() || request.CurrencyCode == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("CurrencyCode"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("CurrencyCode"), request.CurrencyCode);
-    }
-    OutRestJsonObj->SetNumberField(TEXT("PurchasePrice"), request.PurchasePrice);
-
-    // Add Request to manager
-    manager->SetRequestObject(OutRestJsonObj);
-
-    return manager;
-}
-
-// Implements FOnPlayFabClientRequestCompleted
-void UPlayFabClientAPI::HelperValidateGooglePlayPurchase(FPlayFabBaseModel response, UObject* customData, bool successful)
-{
-    FPlayFabError error = response.responseError;
-    if (error.hasError)
-    {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
-    }
-    else
-    {
-        FClientValidateGooglePlayPurchaseResult result = UPlayFabClientModelDecoder::decodeValidateGooglePlayPurchaseResultResponse(response.responseData);
-        if (OnSuccessValidateGooglePlayPurchase.IsBound())
-        {
-            OnSuccessValidateGooglePlayPurchase.Execute(result, mCustomData);
         }
     }
 }
@@ -6462,10 +6155,6 @@ void UPlayFabClientAPI::HelperUpdateSharedGroupData(FPlayFabBaseModel response, 
     }
 }
 
-
-///////////////////////////////////////////////////////
-// Sony-specific APIs
-//////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////
 // Server-Side Cloud Script
@@ -7214,80 +6903,6 @@ void UPlayFabClientAPI::HelperUpdateCharacterData(FPlayFabBaseModel response, UO
 
 
 ///////////////////////////////////////////////////////
-// Amazon-Specific APIs
-//////////////////////////////////////////////////////
-/** Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches the purchased catalog item */
-UPlayFabClientAPI* UPlayFabClientAPI::ValidateAmazonIAPReceipt(FClientValidateAmazonReceiptRequest request,
-    FDelegateOnSuccessValidateAmazonIAPReceipt onSuccess,
-    FDelegateOnFailurePlayFabError onFailure,
-    UObject* customData)
-{
-    // Objects containing request data
-    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
-    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->mCustomData = customData;
-
-    // Assign delegates
-    manager->OnSuccessValidateAmazonIAPReceipt = onSuccess;
-    manager->OnFailure = onFailure;
-    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperValidateAmazonIAPReceipt);
-
-    // Setup the request
-    manager->PlayFabRequestURL = "/Client/ValidateAmazonIAPReceipt";
-    manager->useSessionTicket = true;
-
-    // Serialize all the request properties to json
-    if (request.ReceiptId.IsEmpty() || request.ReceiptId == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("ReceiptId"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("ReceiptId"), request.ReceiptId);
-    }
-    if (request.UserId.IsEmpty() || request.UserId == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("UserId"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("UserId"), request.UserId);
-    }
-    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
-    }
-    if (request.CurrencyCode.IsEmpty() || request.CurrencyCode == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("CurrencyCode"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("CurrencyCode"), request.CurrencyCode);
-    }
-    OutRestJsonObj->SetNumberField(TEXT("PurchasePrice"), request.PurchasePrice);
-
-    // Add Request to manager
-    manager->SetRequestObject(OutRestJsonObj);
-
-    return manager;
-}
-
-// Implements FOnPlayFabClientRequestCompleted
-void UPlayFabClientAPI::HelperValidateAmazonIAPReceipt(FPlayFabBaseModel response, UObject* customData, bool successful)
-{
-    FPlayFabError error = response.responseError;
-    if (error.hasError)
-    {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
-    }
-    else
-    {
-        FClientValidateAmazonReceiptResult result = UPlayFabClientModelDecoder::decodeValidateAmazonReceiptResultResponse(response.responseData);
-        if (OnSuccessValidateAmazonIAPReceipt.IsBound())
-        {
-            OnSuccessValidateAmazonIAPReceipt.Execute(result, mCustomData);
-        }
-    }
-}
-
-
-///////////////////////////////////////////////////////
 // Trading
 //////////////////////////////////////////////////////
 /** Accepts an open trade (one that has not yet been accepted or cancelled), if the locally signed-in player is in the  allowed player list for the trade, or it is open to all players. If the call is successful, the offered and accepted items will be swapped  between the two players' inventories. */
@@ -7776,8 +7391,377 @@ void UPlayFabClientAPI::HelperGetPlayerTags(FPlayFabBaseModel response, UObject*
 
 
 ///////////////////////////////////////////////////////
-// Windows
+// Platform Specific Methods
 //////////////////////////////////////////////////////
+/** Registers the Android device to receive push notifications */
+UPlayFabClientAPI* UPlayFabClientAPI::AndroidDevicePushNotificationRegistration(FClientAndroidDevicePushNotificationRegistrationRequest request,
+    FDelegateOnSuccessAndroidDevicePushNotificationRegistration onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessAndroidDevicePushNotificationRegistration = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperAndroidDevicePushNotificationRegistration);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/AndroidDevicePushNotificationRegistration";
+    manager->useSessionTicket = true;
+
+    // Serialize all the request properties to json
+    if (request.DeviceToken.IsEmpty() || request.DeviceToken == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("DeviceToken"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("DeviceToken"), request.DeviceToken);
+    }
+    OutRestJsonObj->SetBoolField(TEXT("SendPushNotificationConfirmation"), request.SendPushNotificationConfirmation);
+    if (request.ConfirmationMessage.IsEmpty() || request.ConfirmationMessage == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("ConfirmationMessage"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("ConfirmationMessage"), request.ConfirmationMessage);
+    }
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperAndroidDevicePushNotificationRegistration(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientAndroidDevicePushNotificationRegistrationResult result = UPlayFabClientModelDecoder::decodeAndroidDevicePushNotificationRegistrationResultResponse(response.responseData);
+        if (OnSuccessAndroidDevicePushNotificationRegistration.IsBound())
+        {
+            OnSuccessAndroidDevicePushNotificationRegistration.Execute(result, mCustomData);
+        }
+    }
+}
+
+/** Registers the iOS device to receive push notifications */
+UPlayFabClientAPI* UPlayFabClientAPI::RegisterForIOSPushNotification(FClientRegisterForIOSPushNotificationRequest request,
+    FDelegateOnSuccessRegisterForIOSPushNotification onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessRegisterForIOSPushNotification = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperRegisterForIOSPushNotification);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/RegisterForIOSPushNotification";
+    manager->useSessionTicket = true;
+
+    // Serialize all the request properties to json
+    if (request.DeviceToken.IsEmpty() || request.DeviceToken == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("DeviceToken"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("DeviceToken"), request.DeviceToken);
+    }
+    OutRestJsonObj->SetBoolField(TEXT("SendPushNotificationConfirmation"), request.SendPushNotificationConfirmation);
+    if (request.ConfirmationMessage.IsEmpty() || request.ConfirmationMessage == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("ConfirmationMessage"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("ConfirmationMessage"), request.ConfirmationMessage);
+    }
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperRegisterForIOSPushNotification(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientRegisterForIOSPushNotificationResult result = UPlayFabClientModelDecoder::decodeRegisterForIOSPushNotificationResultResponse(response.responseData);
+        if (OnSuccessRegisterForIOSPushNotification.IsBound())
+        {
+            OnSuccessRegisterForIOSPushNotification.Execute(result, mCustomData);
+        }
+    }
+}
+
+/** Restores all in-app purchases based on the given restore receipt */
+UPlayFabClientAPI* UPlayFabClientAPI::RestoreIOSPurchases(FClientRestoreIOSPurchasesRequest request,
+    FDelegateOnSuccessRestoreIOSPurchases onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessRestoreIOSPurchases = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperRestoreIOSPurchases);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/RestoreIOSPurchases";
+    manager->useSessionTicket = true;
+
+    // Serialize all the request properties to json
+    if (request.ReceiptData.IsEmpty() || request.ReceiptData == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("ReceiptData"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("ReceiptData"), request.ReceiptData);
+    }
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperRestoreIOSPurchases(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientRestoreIOSPurchasesResult result = UPlayFabClientModelDecoder::decodeRestoreIOSPurchasesResultResponse(response.responseData);
+        if (OnSuccessRestoreIOSPurchases.IsBound())
+        {
+            OnSuccessRestoreIOSPurchases.Execute(result, mCustomData);
+        }
+    }
+}
+
+/** Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches the purchased catalog item */
+UPlayFabClientAPI* UPlayFabClientAPI::ValidateAmazonIAPReceipt(FClientValidateAmazonReceiptRequest request,
+    FDelegateOnSuccessValidateAmazonIAPReceipt onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessValidateAmazonIAPReceipt = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperValidateAmazonIAPReceipt);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/ValidateAmazonIAPReceipt";
+    manager->useSessionTicket = true;
+
+    // Serialize all the request properties to json
+    if (request.ReceiptId.IsEmpty() || request.ReceiptId == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("ReceiptId"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("ReceiptId"), request.ReceiptId);
+    }
+    if (request.UserId.IsEmpty() || request.UserId == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("UserId"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("UserId"), request.UserId);
+    }
+    if (request.CatalogVersion.IsEmpty() || request.CatalogVersion == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("CatalogVersion"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("CatalogVersion"), request.CatalogVersion);
+    }
+    if (request.CurrencyCode.IsEmpty() || request.CurrencyCode == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("CurrencyCode"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("CurrencyCode"), request.CurrencyCode);
+    }
+    OutRestJsonObj->SetNumberField(TEXT("PurchasePrice"), request.PurchasePrice);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperValidateAmazonIAPReceipt(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientValidateAmazonReceiptResult result = UPlayFabClientModelDecoder::decodeValidateAmazonReceiptResultResponse(response.responseData);
+        if (OnSuccessValidateAmazonIAPReceipt.IsBound())
+        {
+            OnSuccessValidateAmazonIAPReceipt.Execute(result, mCustomData);
+        }
+    }
+}
+
+/** Validates a Google Play purchase and gives the corresponding item to the player. */
+UPlayFabClientAPI* UPlayFabClientAPI::ValidateGooglePlayPurchase(FClientValidateGooglePlayPurchaseRequest request,
+    FDelegateOnSuccessValidateGooglePlayPurchase onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessValidateGooglePlayPurchase = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperValidateGooglePlayPurchase);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/ValidateGooglePlayPurchase";
+    manager->useSessionTicket = true;
+
+    // Serialize all the request properties to json
+    if (request.ReceiptJson.IsEmpty() || request.ReceiptJson == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("ReceiptJson"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("ReceiptJson"), request.ReceiptJson);
+    }
+    if (request.Signature.IsEmpty() || request.Signature == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("Signature"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("Signature"), request.Signature);
+    }
+    if (request.CurrencyCode.IsEmpty() || request.CurrencyCode == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("CurrencyCode"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("CurrencyCode"), request.CurrencyCode);
+    }
+    OutRestJsonObj->SetNumberField(TEXT("PurchasePrice"), request.PurchasePrice);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperValidateGooglePlayPurchase(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientValidateGooglePlayPurchaseResult result = UPlayFabClientModelDecoder::decodeValidateGooglePlayPurchaseResultResponse(response.responseData);
+        if (OnSuccessValidateGooglePlayPurchase.IsBound())
+        {
+            OnSuccessValidateGooglePlayPurchase.Execute(result, mCustomData);
+        }
+    }
+}
+
+/** Validates with the Apple store that the receipt for an iOS in-app purchase is valid and that it matches the purchased catalog item */
+UPlayFabClientAPI* UPlayFabClientAPI::ValidateIOSReceipt(FClientValidateIOSReceiptRequest request,
+    FDelegateOnSuccessValidateIOSReceipt onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessValidateIOSReceipt = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperValidateIOSReceipt);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/ValidateIOSReceipt";
+    manager->useSessionTicket = true;
+
+    // Serialize all the request properties to json
+    if (request.ReceiptData.IsEmpty() || request.ReceiptData == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("ReceiptData"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("ReceiptData"), request.ReceiptData);
+    }
+    if (request.CurrencyCode.IsEmpty() || request.CurrencyCode == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("CurrencyCode"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("CurrencyCode"), request.CurrencyCode);
+    }
+    OutRestJsonObj->SetNumberField(TEXT("PurchasePrice"), request.PurchasePrice);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperValidateIOSReceipt(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientValidateIOSReceiptResult result = UPlayFabClientModelDecoder::decodeValidateIOSReceiptResultResponse(response.responseData);
+        if (OnSuccessValidateIOSReceipt.IsBound())
+        {
+            OnSuccessValidateIOSReceipt.Execute(result, mCustomData);
+        }
+    }
+}
+
 /** Validates with Windows that the receipt for an Windows App Store in-app purchase is valid and that it matches the purchased catalog item */
 UPlayFabClientAPI* UPlayFabClientAPI::ValidateWindowsStoreReceipt(FClientValidateWindowsReceiptRequest request,
     FDelegateOnSuccessValidateWindowsStoreReceipt onSuccess,
@@ -7843,10 +7827,6 @@ void UPlayFabClientAPI::HelperValidateWindowsStoreReceipt(FPlayFabBaseModel resp
     }
 }
 
-
-///////////////////////////////////////////////////////
-// Xsolla-specific APIs
-//////////////////////////////////////////////////////
 
 
 void UPlayFabClientAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)

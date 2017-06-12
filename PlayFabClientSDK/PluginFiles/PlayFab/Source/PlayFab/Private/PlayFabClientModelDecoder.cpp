@@ -816,40 +816,7 @@ FClientSetFriendTagsResult UPlayFabClientModelDecoder::decodeSetFriendTagsResult
 
 
 ///////////////////////////////////////////////////////
-// IOS-Specific APIs
-//////////////////////////////////////////////////////
-
-FClientRegisterForIOSPushNotificationResult UPlayFabClientModelDecoder::decodeRegisterForIOSPushNotificationResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FClientRegisterForIOSPushNotificationResult tempStruct;
-
-
-    return tempStruct;
-}
-
-FClientRestoreIOSPurchasesResult UPlayFabClientModelDecoder::decodeRestoreIOSPurchasesResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FClientRestoreIOSPurchasesResult tempStruct;
-
-
-    return tempStruct;
-}
-
-FClientValidateIOSReceiptResult UPlayFabClientModelDecoder::decodeValidateIOSReceiptResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FClientValidateIOSReceiptResult tempStruct;
-
-
-    return tempStruct;
-}
-
-
-
-///////////////////////////////////////////////////////
-// Matchmaking APIs
+// Matchmaking
 //////////////////////////////////////////////////////
 
 FClientCurrentGamesResult UPlayFabClientModelDecoder::decodeCurrentGamesResultResponse(UPlayFabJsonObject* response)
@@ -905,30 +872,6 @@ FClientStartGameResult UPlayFabClientModelDecoder::decodeStartGameResultResponse
     tempStruct.Ticket = !(dataObj->HasField("Ticket")) ? TEXT("") : dataObj->GetStringField("Ticket");
     tempStruct.Expires = !(dataObj->HasField("Expires")) ? TEXT("") : dataObj->GetStringField("Expires");
     tempStruct.Password = !(dataObj->HasField("Password")) ? TEXT("") : dataObj->GetStringField("Password");
-
-    return tempStruct;
-}
-
-
-
-///////////////////////////////////////////////////////
-// Android-Specific APIs
-//////////////////////////////////////////////////////
-
-FClientAndroidDevicePushNotificationRegistrationResult UPlayFabClientModelDecoder::decodeAndroidDevicePushNotificationRegistrationResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FClientAndroidDevicePushNotificationRegistrationResult tempStruct;
-
-
-    return tempStruct;
-}
-
-FClientValidateGooglePlayPurchaseResult UPlayFabClientModelDecoder::decodeValidateGooglePlayPurchaseResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FClientValidateGooglePlayPurchaseResult tempStruct;
-
 
     return tempStruct;
 }
@@ -1005,12 +948,6 @@ FClientUpdateSharedGroupDataResult UPlayFabClientModelDecoder::decodeUpdateShare
 
     return tempStruct;
 }
-
-
-
-///////////////////////////////////////////////////////
-// Sony-specific APIs
-//////////////////////////////////////////////////////
 
 
 
@@ -1173,21 +1110,6 @@ FClientUpdateCharacterDataResult UPlayFabClientModelDecoder::decodeUpdateCharact
 
 
 ///////////////////////////////////////////////////////
-// Amazon-Specific APIs
-//////////////////////////////////////////////////////
-
-FClientValidateAmazonReceiptResult UPlayFabClientModelDecoder::decodeValidateAmazonReceiptResultResponse(UPlayFabJsonObject* response)
-{
-    // Temp ustruct
-    FClientValidateAmazonReceiptResult tempStruct;
-
-
-    return tempStruct;
-}
-
-
-
-///////////////////////////////////////////////////////
 // Trading
 //////////////////////////////////////////////////////
 
@@ -1300,8 +1222,62 @@ FClientGetPlayerTagsResult UPlayFabClientModelDecoder::decodeGetPlayerTagsResult
 
 
 ///////////////////////////////////////////////////////
-// Windows
+// Platform Specific Methods
 //////////////////////////////////////////////////////
+
+FClientAndroidDevicePushNotificationRegistrationResult UPlayFabClientModelDecoder::decodeAndroidDevicePushNotificationRegistrationResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientAndroidDevicePushNotificationRegistrationResult tempStruct;
+
+
+    return tempStruct;
+}
+
+FClientRegisterForIOSPushNotificationResult UPlayFabClientModelDecoder::decodeRegisterForIOSPushNotificationResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientRegisterForIOSPushNotificationResult tempStruct;
+
+
+    return tempStruct;
+}
+
+FClientRestoreIOSPurchasesResult UPlayFabClientModelDecoder::decodeRestoreIOSPurchasesResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientRestoreIOSPurchasesResult tempStruct;
+
+
+    return tempStruct;
+}
+
+FClientValidateAmazonReceiptResult UPlayFabClientModelDecoder::decodeValidateAmazonReceiptResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientValidateAmazonReceiptResult tempStruct;
+
+
+    return tempStruct;
+}
+
+FClientValidateGooglePlayPurchaseResult UPlayFabClientModelDecoder::decodeValidateGooglePlayPurchaseResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientValidateGooglePlayPurchaseResult tempStruct;
+
+
+    return tempStruct;
+}
+
+FClientValidateIOSReceiptResult UPlayFabClientModelDecoder::decodeValidateIOSReceiptResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientValidateIOSReceiptResult tempStruct;
+
+
+    return tempStruct;
+}
 
 FClientValidateWindowsReceiptResult UPlayFabClientModelDecoder::decodeValidateWindowsReceiptResultResponse(UPlayFabJsonObject* response)
 {
@@ -1311,11 +1287,5 @@ FClientValidateWindowsReceiptResult UPlayFabClientModelDecoder::decodeValidateWi
 
     return tempStruct;
 }
-
-
-
-///////////////////////////////////////////////////////
-// Xsolla-specific APIs
-//////////////////////////////////////////////////////
 
 

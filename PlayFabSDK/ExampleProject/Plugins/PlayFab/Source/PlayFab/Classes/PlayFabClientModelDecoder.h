@@ -343,56 +343,24 @@ public:
 
 
     ///////////////////////////////////////////////////////
-    // IOS-Specific APIs
-    //////////////////////////////////////////////////////
-
-    /** Decode the RegisterForIOSPushNotificationResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | IOS-Specific APIs Models")
-        static FClientRegisterForIOSPushNotificationResult decodeRegisterForIOSPushNotificationResultResponse(UPlayFabJsonObject* response);
-
-    /** Decode the RestoreIOSPurchasesResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | IOS-Specific APIs Models")
-        static FClientRestoreIOSPurchasesResult decodeRestoreIOSPurchasesResultResponse(UPlayFabJsonObject* response);
-
-    /** Decode the ValidateIOSReceiptResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | IOS-Specific APIs Models")
-        static FClientValidateIOSReceiptResult decodeValidateIOSReceiptResultResponse(UPlayFabJsonObject* response);
-
-
-
-    ///////////////////////////////////////////////////////
-    // Matchmaking APIs
+    // Matchmaking
     //////////////////////////////////////////////////////
 
     /** Decode the CurrentGamesResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking Models")
         static FClientCurrentGamesResult decodeCurrentGamesResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the GameServerRegionsResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking Models")
         static FClientGameServerRegionsResult decodeGameServerRegionsResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the MatchmakeResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking Models")
         static FClientMatchmakeResult decodeMatchmakeResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the StartGameResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs Models")
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking Models")
         static FClientStartGameResult decodeStartGameResultResponse(UPlayFabJsonObject* response);
-
-
-
-    ///////////////////////////////////////////////////////
-    // Android-Specific APIs
-    //////////////////////////////////////////////////////
-
-    /** Decode the AndroidDevicePushNotificationRegistrationResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Android-Specific APIs Models")
-        static FClientAndroidDevicePushNotificationRegistrationResult decodeAndroidDevicePushNotificationRegistrationResultResponse(UPlayFabJsonObject* response);
-
-    /** Decode the ValidateGooglePlayPurchaseResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Android-Specific APIs Models")
-        static FClientValidateGooglePlayPurchaseResult decodeValidateGooglePlayPurchaseResultResponse(UPlayFabJsonObject* response);
 
 
 
@@ -429,12 +397,6 @@ public:
     /** Decode the UpdateSharedGroupDataResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Shared Group Data Models")
         static FClientUpdateSharedGroupDataResult decodeUpdateSharedGroupDataResultResponse(UPlayFabJsonObject* response);
-
-
-
-    ///////////////////////////////////////////////////////
-    // Sony-specific APIs
-    //////////////////////////////////////////////////////
 
 
 
@@ -507,16 +469,6 @@ public:
 
 
     ///////////////////////////////////////////////////////
-    // Amazon-Specific APIs
-    //////////////////////////////////////////////////////
-
-    /** Decode the ValidateAmazonReceiptResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Amazon-Specific APIs Models")
-        static FClientValidateAmazonReceiptResult decodeValidateAmazonReceiptResultResponse(UPlayFabJsonObject* response);
-
-
-
-    ///////////////////////////////////////////////////////
     // Trading
     //////////////////////////////////////////////////////
 
@@ -573,18 +525,36 @@ public:
 
 
     ///////////////////////////////////////////////////////
-    // Windows
+    // Platform Specific Methods
     //////////////////////////////////////////////////////
+
+    /** Decode the AndroidDevicePushNotificationRegistrationResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods Models")
+        static FClientAndroidDevicePushNotificationRegistrationResult decodeAndroidDevicePushNotificationRegistrationResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the RegisterForIOSPushNotificationResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods Models")
+        static FClientRegisterForIOSPushNotificationResult decodeRegisterForIOSPushNotificationResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the RestoreIOSPurchasesResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods Models")
+        static FClientRestoreIOSPurchasesResult decodeRestoreIOSPurchasesResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the ValidateAmazonReceiptResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods Models")
+        static FClientValidateAmazonReceiptResult decodeValidateAmazonReceiptResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the ValidateGooglePlayPurchaseResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods Models")
+        static FClientValidateGooglePlayPurchaseResult decodeValidateGooglePlayPurchaseResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the ValidateIOSReceiptResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods Models")
+        static FClientValidateIOSReceiptResult decodeValidateIOSReceiptResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the ValidateWindowsReceiptResult response object*/
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Windows Models")
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods Models")
         static FClientValidateWindowsReceiptResult decodeValidateWindowsReceiptResultResponse(UPlayFabJsonObject* response);
-
-
-
-    ///////////////////////////////////////////////////////
-    // Xsolla-specific APIs
-    //////////////////////////////////////////////////////
 
 
 

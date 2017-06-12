@@ -1226,132 +1226,59 @@ public:
 
 
     ///////////////////////////////////////////////////////
-    // IOS-Specific APIs
-    //////////////////////////////////////////////////////
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRegisterForIOSPushNotification, FClientRegisterForIOSPushNotificationResult, result, UObject*, customData);
-
-    /** Registers the iOS device to receive push notifications */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | IOS-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabClientAPI* RegisterForIOSPushNotification(FClientRegisterForIOSPushNotificationRequest request,
-            FDelegateOnSuccessRegisterForIOSPushNotification onSuccess,
-            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | IOS-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        void HelperRegisterForIOSPushNotification(FPlayFabBaseModel response, UObject* customData, bool successful);
-
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRestoreIOSPurchases, FClientRestoreIOSPurchasesResult, result, UObject*, customData);
-
-    /** Restores all in-app purchases based on the given restore receipt */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | IOS-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabClientAPI* RestoreIOSPurchases(FClientRestoreIOSPurchasesRequest request,
-            FDelegateOnSuccessRestoreIOSPurchases onSuccess,
-            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | IOS-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        void HelperRestoreIOSPurchases(FPlayFabBaseModel response, UObject* customData, bool successful);
-
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessValidateIOSReceipt, FClientValidateIOSReceiptResult, result, UObject*, customData);
-
-    /** Validates with the Apple store that the receipt for an iOS in-app purchase is valid and that it matches the purchased catalog item */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | IOS-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabClientAPI* ValidateIOSReceipt(FClientValidateIOSReceiptRequest request,
-            FDelegateOnSuccessValidateIOSReceipt onSuccess,
-            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | IOS-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        void HelperValidateIOSReceipt(FPlayFabBaseModel response, UObject* customData, bool successful);
-
-
-    ///////////////////////////////////////////////////////
-    // Matchmaking APIs
+    // Matchmaking
     //////////////////////////////////////////////////////
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetCurrentGames, FClientCurrentGamesResult, result, UObject*, customData);
 
     /** Get details about all current running game servers matching the given parameters. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetCurrentGames(FClientCurrentGamesRequest request,
             FDelegateOnSuccessGetCurrentGames onSuccess,
             FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperGetCurrentGames(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetGameServerRegions, FClientGameServerRegionsResult, result, UObject*, customData);
 
     /**  Get details about the regions hosting game servers matching the given parameters. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* GetGameServerRegions(FClientGameServerRegionsRequest request,
             FDelegateOnSuccessGetGameServerRegions onSuccess,
             FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperGetGameServerRegions(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessMatchmake, FClientMatchmakeResult, result, UObject*, customData);
 
     /** Attempts to locate a game session matching the given parameters. If the goal is to match the player into a specific active session, only the LobbyId is required. Otherwise, the BuildVersion, GameMode, and Region are all required parameters. Note that parameters specified in the search are required (they are not weighting factors). If a slot is found in a server instance matching the parameters, the slot will be assigned to that player, removing it from the availabe set. In that case, the information on the game session will be returned, otherwise the Status returned will be GameNotFound. Note that EnableQueue is deprecated at this time. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* Matchmake(FClientMatchmakeRequest request,
             FDelegateOnSuccessMatchmake onSuccess,
             FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperMatchmake(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessStartGame, FClientStartGameResult, result, UObject*, customData);
 
     /** Start a new game server with a given configuration, add the current player and return the connection information. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* StartGame(FClientStartGameRequest request,
             FDelegateOnSuccessStartGame onSuccess,
             FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking APIs ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Matchmaking ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperStartGame(FPlayFabBaseModel response, UObject* customData, bool successful);
-
-
-    ///////////////////////////////////////////////////////
-    // Android-Specific APIs
-    //////////////////////////////////////////////////////
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessAndroidDevicePushNotificationRegistration, FClientAndroidDevicePushNotificationRegistrationResult, result, UObject*, customData);
-
-    /** Registers the Android device to receive push notifications */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Android-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabClientAPI* AndroidDevicePushNotificationRegistration(FClientAndroidDevicePushNotificationRegistrationRequest request,
-            FDelegateOnSuccessAndroidDevicePushNotificationRegistration onSuccess,
-            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Android-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        void HelperAndroidDevicePushNotificationRegistration(FPlayFabBaseModel response, UObject* customData, bool successful);
-
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessValidateGooglePlayPurchase, FClientValidateGooglePlayPurchaseResult, result, UObject*, customData);
-
-    /** Validates a Google Play purchase and gives the corresponding item to the player. */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Android-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabClientAPI* ValidateGooglePlayPurchase(FClientValidateGooglePlayPurchaseRequest request,
-            FDelegateOnSuccessValidateGooglePlayPurchase onSuccess,
-            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Android-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        void HelperValidateGooglePlayPurchase(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
@@ -1465,10 +1392,6 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Shared Group Data ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperUpdateSharedGroupData(FPlayFabBaseModel response, UObject* customData, bool successful);
 
-
-    ///////////////////////////////////////////////////////
-    // Sony-specific APIs
-    //////////////////////////////////////////////////////
 
     ///////////////////////////////////////////////////////
     // Server-Side Cloud Script
@@ -1643,23 +1566,6 @@ public:
 
 
     ///////////////////////////////////////////////////////
-    // Amazon-Specific APIs
-    //////////////////////////////////////////////////////
-    // callbacks
-    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessValidateAmazonIAPReceipt, FClientValidateAmazonReceiptResult, result, UObject*, customData);
-
-    /** Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches the purchased catalog item */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Amazon-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        static UPlayFabClientAPI* ValidateAmazonIAPReceipt(FClientValidateAmazonReceiptRequest request,
-            FDelegateOnSuccessValidateAmazonIAPReceipt onSuccess,
-            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
-
-    // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Amazon-Specific APIs ", meta = (BlueprintInternalUseOnly = "true"))
-        void HelperValidateAmazonIAPReceipt(FPlayFabBaseModel response, UObject* customData, bool successful);
-
-
-    ///////////////////////////////////////////////////////
     // Trading
     //////////////////////////////////////////////////////
     // callbacks
@@ -1780,25 +1686,99 @@ public:
 
 
     ///////////////////////////////////////////////////////
-    // Windows
+    // Platform Specific Methods
     //////////////////////////////////////////////////////
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessAndroidDevicePushNotificationRegistration, FClientAndroidDevicePushNotificationRegistrationResult, result, UObject*, customData);
+
+    /** Registers the Android device to receive push notifications */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* AndroidDevicePushNotificationRegistration(FClientAndroidDevicePushNotificationRegistrationRequest request,
+            FDelegateOnSuccessAndroidDevicePushNotificationRegistration onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperAndroidDevicePushNotificationRegistration(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRegisterForIOSPushNotification, FClientRegisterForIOSPushNotificationResult, result, UObject*, customData);
+
+    /** Registers the iOS device to receive push notifications */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* RegisterForIOSPushNotification(FClientRegisterForIOSPushNotificationRequest request,
+            FDelegateOnSuccessRegisterForIOSPushNotification onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperRegisterForIOSPushNotification(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessRestoreIOSPurchases, FClientRestoreIOSPurchasesResult, result, UObject*, customData);
+
+    /** Restores all in-app purchases based on the given restore receipt */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* RestoreIOSPurchases(FClientRestoreIOSPurchasesRequest request,
+            FDelegateOnSuccessRestoreIOSPurchases onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperRestoreIOSPurchases(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessValidateAmazonIAPReceipt, FClientValidateAmazonReceiptResult, result, UObject*, customData);
+
+    /** Validates with Amazon that the receipt for an Amazon App Store in-app purchase is valid and that it matches the purchased catalog item */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* ValidateAmazonIAPReceipt(FClientValidateAmazonReceiptRequest request,
+            FDelegateOnSuccessValidateAmazonIAPReceipt onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperValidateAmazonIAPReceipt(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessValidateGooglePlayPurchase, FClientValidateGooglePlayPurchaseResult, result, UObject*, customData);
+
+    /** Validates a Google Play purchase and gives the corresponding item to the player. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* ValidateGooglePlayPurchase(FClientValidateGooglePlayPurchaseRequest request,
+            FDelegateOnSuccessValidateGooglePlayPurchase onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperValidateGooglePlayPurchase(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessValidateIOSReceipt, FClientValidateIOSReceiptResult, result, UObject*, customData);
+
+    /** Validates with the Apple store that the receipt for an iOS in-app purchase is valid and that it matches the purchased catalog item */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* ValidateIOSReceipt(FClientValidateIOSReceiptRequest request,
+            FDelegateOnSuccessValidateIOSReceipt onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperValidateIOSReceipt(FPlayFabBaseModel response, UObject* customData, bool successful);
+
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessValidateWindowsStoreReceipt, FClientValidateWindowsReceiptResult, result, UObject*, customData);
 
     /** Validates with Windows that the receipt for an Windows App Store in-app purchase is valid and that it matches the purchased catalog item */
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Windows ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabClientAPI* ValidateWindowsStoreReceipt(FClientValidateWindowsReceiptRequest request,
             FDelegateOnSuccessValidateWindowsStoreReceipt onSuccess,
             FDelegateOnFailurePlayFabError onFailure, UObject* customData);
 
     // Implements FOnPlayFabClientRequestCompleted
-    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Windows ", meta = (BlueprintInternalUseOnly = "true"))
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Platform Specific Methods ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperValidateWindowsStoreReceipt(FPlayFabBaseModel response, UObject* customData, bool successful);
 
-
-    ///////////////////////////////////////////////////////
-    // Xsolla-specific APIs
-    //////////////////////////////////////////////////////
 
 
     /** PlayFab Request Info */
@@ -1903,15 +1883,10 @@ public:
     FDelegateOnSuccessGetFriendsList OnSuccessGetFriendsList;
     FDelegateOnSuccessRemoveFriend OnSuccessRemoveFriend;
     FDelegateOnSuccessSetFriendTags OnSuccessSetFriendTags;
-    FDelegateOnSuccessRegisterForIOSPushNotification OnSuccessRegisterForIOSPushNotification;
-    FDelegateOnSuccessRestoreIOSPurchases OnSuccessRestoreIOSPurchases;
-    FDelegateOnSuccessValidateIOSReceipt OnSuccessValidateIOSReceipt;
     FDelegateOnSuccessGetCurrentGames OnSuccessGetCurrentGames;
     FDelegateOnSuccessGetGameServerRegions OnSuccessGetGameServerRegions;
     FDelegateOnSuccessMatchmake OnSuccessMatchmake;
     FDelegateOnSuccessStartGame OnSuccessStartGame;
-    FDelegateOnSuccessAndroidDevicePushNotificationRegistration OnSuccessAndroidDevicePushNotificationRegistration;
-    FDelegateOnSuccessValidateGooglePlayPurchase OnSuccessValidateGooglePlayPurchase;
     FDelegateOnSuccessWriteCharacterEvent OnSuccessWriteCharacterEvent;
     FDelegateOnSuccessWritePlayerEvent OnSuccessWritePlayerEvent;
     FDelegateOnSuccessWriteTitleEvent OnSuccessWriteTitleEvent;
@@ -1932,7 +1907,6 @@ public:
     FDelegateOnSuccessGetCharacterData OnSuccessGetCharacterData;
     FDelegateOnSuccessGetCharacterReadOnlyData OnSuccessGetCharacterReadOnlyData;
     FDelegateOnSuccessUpdateCharacterData OnSuccessUpdateCharacterData;
-    FDelegateOnSuccessValidateAmazonIAPReceipt OnSuccessValidateAmazonIAPReceipt;
     FDelegateOnSuccessAcceptTrade OnSuccessAcceptTrade;
     FDelegateOnSuccessCancelTrade OnSuccessCancelTrade;
     FDelegateOnSuccessGetPlayerTrades OnSuccessGetPlayerTrades;
@@ -1941,6 +1915,12 @@ public:
     FDelegateOnSuccessAttributeInstall OnSuccessAttributeInstall;
     FDelegateOnSuccessGetPlayerSegments OnSuccessGetPlayerSegments;
     FDelegateOnSuccessGetPlayerTags OnSuccessGetPlayerTags;
+    FDelegateOnSuccessAndroidDevicePushNotificationRegistration OnSuccessAndroidDevicePushNotificationRegistration;
+    FDelegateOnSuccessRegisterForIOSPushNotification OnSuccessRegisterForIOSPushNotification;
+    FDelegateOnSuccessRestoreIOSPurchases OnSuccessRestoreIOSPurchases;
+    FDelegateOnSuccessValidateAmazonIAPReceipt OnSuccessValidateAmazonIAPReceipt;
+    FDelegateOnSuccessValidateGooglePlayPurchase OnSuccessValidateGooglePlayPurchase;
+    FDelegateOnSuccessValidateIOSReceipt OnSuccessValidateIOSReceipt;
     FDelegateOnSuccessValidateWindowsStoreReceipt OnSuccessValidateWindowsStoreReceipt;
 
 private:

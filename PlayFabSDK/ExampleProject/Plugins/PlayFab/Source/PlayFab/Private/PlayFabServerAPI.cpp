@@ -4261,7 +4261,7 @@ void UPlayFabServerAPI::HelperSetFriendTags(FPlayFabBaseModel response, UObject*
 
 
 ///////////////////////////////////////////////////////
-// Matchmaking APIs
+// Matchmaking
 //////////////////////////////////////////////////////
 /** Inform the matchmaker that a Game Server Instance is removed. */
 UPlayFabServerAPI* UPlayFabServerAPI::DeregisterGame(FServerDeregisterGameRequest request,
@@ -4737,65 +4737,6 @@ void UPlayFabServerAPI::HelperSetGameServerInstanceTags(FPlayFabBaseModel respon
         if (OnSuccessSetGameServerInstanceTags.IsBound())
         {
             OnSuccessSetGameServerInstanceTags.Execute(result, mCustomData);
-        }
-    }
-}
-
-
-///////////////////////////////////////////////////////
-// Steam-Specific APIs
-//////////////////////////////////////////////////////
-/** Awards the specified users the specified Steam achievements */
-UPlayFabServerAPI* UPlayFabServerAPI::AwardSteamAchievement(FServerAwardSteamAchievementRequest request,
-    FDelegateOnSuccessAwardSteamAchievement onSuccess,
-    FDelegateOnFailurePlayFabError onFailure,
-    UObject* customData)
-{
-    // Objects containing request data
-    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
-    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
-    manager->mCustomData = customData;
-
-    // Assign delegates
-    manager->OnSuccessAwardSteamAchievement = onSuccess;
-    manager->OnFailure = onFailure;
-    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperAwardSteamAchievement);
-
-    // Setup the request
-    manager->PlayFabRequestURL = "/Server/AwardSteamAchievement";
-    manager->useSessionTicket = false;
-    manager->useSecretKey = true;
-
-    // Serialize all the request properties to json
-    if (request.Achievements.Num() == 0) {
-        OutRestJsonObj->SetFieldNull(TEXT("Achievements"));
-    } else {
-        OutRestJsonObj->SetObjectArrayField(TEXT("Achievements"), request.Achievements);
-    }
-
-    // Add Request to manager
-    manager->SetRequestObject(OutRestJsonObj);
-
-    return manager;
-}
-
-// Implements FOnPlayFabServerRequestCompleted
-void UPlayFabServerAPI::HelperAwardSteamAchievement(FPlayFabBaseModel response, UObject* customData, bool successful)
-{
-    FPlayFabError error = response.responseError;
-    if (error.hasError)
-    {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
-    }
-    else
-    {
-        FServerAwardSteamAchievementResult result = UPlayFabServerModelDecoder::decodeAwardSteamAchievementResultResponse(response.responseData);
-        if (OnSuccessAwardSteamAchievement.IsBound())
-        {
-            OnSuccessAwardSteamAchievement.Execute(result, mCustomData);
         }
     }
 }
@@ -6841,6 +6782,65 @@ void UPlayFabServerAPI::HelperRemovePlayerTag(FPlayFabBaseModel response, UObjec
         if (OnSuccessRemovePlayerTag.IsBound())
         {
             OnSuccessRemovePlayerTag.Execute(result, mCustomData);
+        }
+    }
+}
+
+
+///////////////////////////////////////////////////////
+// Platform Specific Methods
+//////////////////////////////////////////////////////
+/** Awards the specified users the specified Steam achievements */
+UPlayFabServerAPI* UPlayFabServerAPI::AwardSteamAchievement(FServerAwardSteamAchievementRequest request,
+    FDelegateOnSuccessAwardSteamAchievement onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessAwardSteamAchievement = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperAwardSteamAchievement);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/AwardSteamAchievement";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+    // Serialize all the request properties to json
+    if (request.Achievements.Num() == 0) {
+        OutRestJsonObj->SetFieldNull(TEXT("Achievements"));
+    } else {
+        OutRestJsonObj->SetObjectArrayField(TEXT("Achievements"), request.Achievements);
+    }
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperAwardSteamAchievement(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FServerAwardSteamAchievementResult result = UPlayFabServerModelDecoder::decodeAwardSteamAchievementResultResponse(response.responseData);
+        if (OnSuccessAwardSteamAchievement.IsBound())
+        {
+            OnSuccessAwardSteamAchievement.Execute(result, mCustomData);
         }
     }
 }
