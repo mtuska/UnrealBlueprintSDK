@@ -534,6 +534,15 @@ enum class EPushNotificationPlatform : uint8
     pfenum_GoogleCloudMessaging UMETA(DisplayName = "GoogleCloudMessaging"),
 };
 
+// Enum for PushSetupPlatform
+UENUM(BlueprintType)
+enum class EPushSetupPlatform : uint8
+{
+    pfenum_GCM UMETA(DisplayName = "GCM"),
+    pfenum_APNS UMETA(DisplayName = "APNS"),
+    pfenum_APNS_SANDBOX UMETA(DisplayName = "APNS_SANDBOX"),
+};
+
 // Enum for Region
 UENUM(BlueprintType)
 enum class ERegion : uint8

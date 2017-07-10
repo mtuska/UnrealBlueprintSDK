@@ -61,6 +61,19 @@ public:
         void HelperGetPhotonAuthenticationToken(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetTitlePublicKey, FClientGetTitlePublicKeyResult, result, UObject*, customData);
+
+    /** Returns the title's base 64 encoded RSA CSP blob. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* GetTitlePublicKey(FClientGetTitlePublicKeyRequest request,
+            FDelegateOnSuccessGetTitlePublicKey onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetTitlePublicKey(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetWindowsHelloChallenge, FClientGetWindowsHelloChallengeResponse, result, UObject*, customData);
 
     /** Requests a challenge from the server to be signed by Windows Hello Passport service to authenticate. */
@@ -254,6 +267,19 @@ public:
     // Implements FOnPlayFabClientRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperRegisterWithWindowsHello(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSetPlayerSecret, FClientSetPlayerSecretResult, result, UObject*, customData);
+
+    /** Sets the player's secret if it is not already set. Player secrets are used to sign API requests. To reset a player's secret use the Admin or Server API method SetPlayerSecret. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabClientAPI* SetPlayerSecret(FClientSetPlayerSecretRequest request,
+            FDelegateOnSuccessSetPlayerSecret onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabClientRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperSetPlayerSecret(FPlayFabBaseModel response, UObject* customData, bool successful);
 
 
     ///////////////////////////////////////////////////////
@@ -1795,6 +1821,7 @@ public:
 
     FDelegateOnFailurePlayFabError OnFailure;
     FDelegateOnSuccessGetPhotonAuthenticationToken OnSuccessGetPhotonAuthenticationToken;
+    FDelegateOnSuccessGetTitlePublicKey OnSuccessGetTitlePublicKey;
     FDelegateOnSuccessGetWindowsHelloChallenge OnSuccessGetWindowsHelloChallenge;
     FDelegateOnSuccessLoginWithAndroidDeviceID OnSuccessLoginWithAndroidDeviceID;
     FDelegateOnSuccessLoginWithCustomID OnSuccessLoginWithCustomID;
@@ -1810,6 +1837,7 @@ public:
     FDelegateOnSuccessLoginWithWindowsHello OnSuccessLoginWithWindowsHello;
     FDelegateOnSuccessRegisterPlayFabUser OnSuccessRegisterPlayFabUser;
     FDelegateOnSuccessRegisterWithWindowsHello OnSuccessRegisterWithWindowsHello;
+    FDelegateOnSuccessSetPlayerSecret OnSuccessSetPlayerSecret;
     FDelegateOnSuccessAddGenericID OnSuccessAddGenericID;
     FDelegateOnSuccessAddUsernamePassword OnSuccessAddUsernamePassword;
     FDelegateOnSuccessGetAccountInfo OnSuccessGetAccountInfo;

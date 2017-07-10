@@ -60,6 +60,166 @@ FString UPlayFabAdminAPI::PercentEncode(const FString& Text)
 ///////////////////////////////////////////////////////
 // Authentication
 //////////////////////////////////////////////////////
+/** Creates a new Player Shared Secret Key. It may take up to 5 minutes for this key to become generally available after this API returns. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::CreatePlayerSharedSecret(FAdminCreatePlayerSharedSecretRequest request,
+    FDelegateOnSuccessCreatePlayerSharedSecret onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessCreatePlayerSharedSecret = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperCreatePlayerSharedSecret);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/CreatePlayerSharedSecret";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+    // Serialize all the request properties to json
+    if (request.FriendlyName.IsEmpty() || request.FriendlyName == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("FriendlyName"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("FriendlyName"), request.FriendlyName);
+    }
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperCreatePlayerSharedSecret(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminCreatePlayerSharedSecretResult result = UPlayFabAdminModelDecoder::decodeCreatePlayerSharedSecretResultResponse(response.responseData);
+        if (OnSuccessCreatePlayerSharedSecret.IsBound())
+        {
+            OnSuccessCreatePlayerSharedSecret.Execute(result, mCustomData);
+        }
+    }
+}
+
+/** Deletes an existing Player Shared Secret Key. It may take up to 5 minutes for this delete to be reflected after this API returns. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::DeletePlayerSharedSecret(FAdminDeletePlayerSharedSecretRequest request,
+    FDelegateOnSuccessDeletePlayerSharedSecret onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessDeletePlayerSharedSecret = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperDeletePlayerSharedSecret);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/DeletePlayerSharedSecret";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+    // Serialize all the request properties to json
+    if (request.SecretKey.IsEmpty() || request.SecretKey == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("SecretKey"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("SecretKey"), request.SecretKey);
+    }
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperDeletePlayerSharedSecret(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminDeletePlayerSharedSecretResult result = UPlayFabAdminModelDecoder::decodeDeletePlayerSharedSecretResultResponse(response.responseData);
+        if (OnSuccessDeletePlayerSharedSecret.IsBound())
+        {
+            OnSuccessDeletePlayerSharedSecret.Execute(result, mCustomData);
+        }
+    }
+}
+
+/** Returns all Player Shared Secret Keys including disabled and expired. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerSharedSecrets(FAdminGetPlayerSharedSecretsRequest request,
+    FDelegateOnSuccessGetPlayerSharedSecrets onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetPlayerSharedSecrets = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperGetPlayerSharedSecrets);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/GetPlayerSharedSecrets";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+    // Serialize all the request properties to json
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperGetPlayerSharedSecrets(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminGetPlayerSharedSecretsResult result = UPlayFabAdminModelDecoder::decodeGetPlayerSharedSecretsResultResponse(response.responseData);
+        if (OnSuccessGetPlayerSharedSecrets.IsBound())
+        {
+            OnSuccessGetPlayerSharedSecrets.Execute(result, mCustomData);
+        }
+    }
+}
+
 /** Gets the requested policy. */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetPolicy(FAdminGetPolicyRequest request,
     FDelegateOnSuccessGetPolicy onSuccess,
@@ -111,6 +271,127 @@ void UPlayFabAdminAPI::HelperGetPolicy(FPlayFabBaseModel response, UObject* cust
         if (OnSuccessGetPolicy.IsBound())
         {
             OnSuccessGetPolicy.Execute(result, mCustomData);
+        }
+    }
+}
+
+/** Sets or resets the player's secret. Player secrets are used to sign API requests. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::SetPlayerSecret(FAdminSetPlayerSecretRequest request,
+    FDelegateOnSuccessSetPlayerSecret onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessSetPlayerSecret = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperSetPlayerSecret);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/SetPlayerSecret";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+    // Serialize all the request properties to json
+    if (request.PlayerSecret.IsEmpty() || request.PlayerSecret == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayerSecret"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("PlayerSecret"), request.PlayerSecret);
+    }
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperSetPlayerSecret(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminSetPlayerSecretResult result = UPlayFabAdminModelDecoder::decodeSetPlayerSecretResultResponse(response.responseData);
+        if (OnSuccessSetPlayerSecret.IsBound())
+        {
+            OnSuccessSetPlayerSecret.Execute(result, mCustomData);
+        }
+    }
+}
+
+/** Updates a existing Player Shared Secret Key. It may take up to 5 minutes for this update to become generally available after this API returns. */
+UPlayFabAdminAPI* UPlayFabAdminAPI::UpdatePlayerSharedSecret(FAdminUpdatePlayerSharedSecretRequest request,
+    FDelegateOnSuccessUpdatePlayerSharedSecret onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessUpdatePlayerSharedSecret = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperUpdatePlayerSharedSecret);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/UpdatePlayerSharedSecret";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+    // Serialize all the request properties to json
+    if (request.SecretKey.IsEmpty() || request.SecretKey == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("SecretKey"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("SecretKey"), request.SecretKey);
+    }
+    if (request.FriendlyName.IsEmpty() || request.FriendlyName == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("FriendlyName"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("FriendlyName"), request.FriendlyName);
+    }
+    OutRestJsonObj->SetBoolField(TEXT("Disabled"), request.Disabled);
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperUpdatePlayerSharedSecret(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminUpdatePlayerSharedSecretResult result = UPlayFabAdminModelDecoder::decodeUpdatePlayerSharedSecretResultResponse(response.responseData);
+        if (OnSuccessUpdatePlayerSharedSecret.IsBound())
+        {
+            OnSuccessUpdatePlayerSharedSecret.Execute(result, mCustomData);
         }
     }
 }
@@ -2976,11 +3257,9 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetupPushNotification(FAdminSetupPushNotific
     } else {
         OutRestJsonObj->SetStringField(TEXT("Name"), request.Name);
     }
-    if (request.Platform.IsEmpty() || request.Platform == "") {
-        OutRestJsonObj->SetFieldNull(TEXT("Platform"));
-    } else {
-        OutRestJsonObj->SetStringField(TEXT("Platform"), request.Platform);
-    }
+    FString temp_Platform;
+    if (GetEnumValueToString<EPushSetupPlatform>(TEXT("EPushSetupPlatform"), request.Platform, temp_Platform))
+        OutRestJsonObj->SetStringField(TEXT("Platform"), temp_Platform);
     if (request.Key.IsEmpty() || request.Key == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Key"));
     } else {

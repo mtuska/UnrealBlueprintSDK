@@ -42,6 +42,26 @@ public:
         UPlayFabJsonObject* UserInfo;
 };
 
+USTRUCT(BlueprintType)
+struct FServerSetPlayerSecretRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Player secret that is used to verify API request signatures (Enterprise Only). */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Authentication Models")
+        FString PlayerSecret;
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Authentication Models")
+        FString PlayFabId;
+};
+
+USTRUCT(BlueprintType)
+struct FServerSetPlayerSecretResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
+
 
 ///////////////////////////////////////////////////////
 // Account Management
@@ -221,6 +241,9 @@ public:
     /** Text of message to send. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
         FString Message;
+    /** Defines all possible push attributes like message, title, icon, etc */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
+        UPlayFabJsonObject* Package;
     /** Subject of message to send (may not be displayed in all platforms. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Account Management Models")
         FString Subject;
@@ -318,10 +341,10 @@ public:
     /** Indicates whether Facebook friends should be included in the response. Default is true. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         bool IncludeFacebookFriends;
-    /** The version of the leaderboard to get, when UseSpecificVersion is true. */
+    /** The version of the leaderboard to get. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         int32 Version;
-    /** If true, uses the specified version. If false, gets the most recent version. */
+    /** If set to false, Version is considered null. If true, uses the specified Version */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         bool UseSpecificVersion;
     /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
@@ -362,10 +385,10 @@ public:
     /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         UPlayFabJsonObject* ProfileConstraints;
-    /** The version of the leaderboard to get, when UseSpecificVersion is true. */
+    /** The version of the leaderboard to get. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         int32 Version;
-    /** If true, uses the specified version. If false, gets the most recent version. */
+    /** If set to false, Version is considered null. If true, uses the specified Version */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         bool UseSpecificVersion;
 };
@@ -387,10 +410,10 @@ public:
     /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         UPlayFabJsonObject* ProfileConstraints;
-    /** The version of the leaderboard to get, when UseSpecificVersion is true. */
+    /** The version of the leaderboard to get. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         int32 Version;
-    /** If true, uses the specified version. If false, gets the most recent version. */
+    /** If set to false, Version is considered null. If true, uses the specified Version */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Player Data Management Models")
         bool UseSpecificVersion;
 };
@@ -1506,6 +1529,9 @@ struct FServerRegisterGameRequest
 {
     GENERATED_USTRUCT_BODY()
 public:
+    /** Previous lobby id if re-registering an existing game. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
+        FString LobbyId;
     /** IP address of the Game Server Instance. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString ServerHost;
@@ -1531,7 +1557,7 @@ struct FServerRegisterGameResponse
 {
     GENERATED_USTRUCT_BODY()
 public:
-    /** Unique identifier generated for the Game Server Instance that is registered. */
+    /** Unique identifier generated for the Game Server Instance that is registered. If LobbyId is specified in request and the game still exists in PlayFab, the LobbyId in request is returned. Otherwise a new lobby id will be returned. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Server | Matchmaking Models")
         FString LobbyId;
 };

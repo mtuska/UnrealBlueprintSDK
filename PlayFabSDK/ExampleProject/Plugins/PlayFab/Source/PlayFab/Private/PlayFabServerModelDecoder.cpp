@@ -27,6 +27,15 @@ FServerAuthenticateSessionTicketResult UPlayFabServerModelDecoder::decodeAuthent
     return tempStruct;
 }
 
+FServerSetPlayerSecretResult UPlayFabServerModelDecoder::decodeSetPlayerSecretResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FServerSetPlayerSecretResult tempStruct;
+
+
+    return tempStruct;
+}
+
 
 
 ///////////////////////////////////////////////////////

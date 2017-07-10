@@ -115,6 +115,66 @@ void UPlayFabServerAPI::HelperAuthenticateSessionTicket(FPlayFabBaseModel respon
     }
 }
 
+/** Sets the player's secret if it is not already set. Player secrets are used to sign API requests. To reset a player's secret use the Admin or Server API method SetPlayerSecret. */
+UPlayFabServerAPI* UPlayFabServerAPI::SetPlayerSecret(FServerSetPlayerSecretRequest request,
+    FDelegateOnSuccessSetPlayerSecret onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabServerAPI* manager = NewObject<UPlayFabServerAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessSetPlayerSecret = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabServerAPI::HelperSetPlayerSecret);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Server/SetPlayerSecret";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+    // Serialize all the request properties to json
+    if (request.PlayerSecret.IsEmpty() || request.PlayerSecret == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayerSecret"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("PlayerSecret"), request.PlayerSecret);
+    }
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabServerRequestCompleted
+void UPlayFabServerAPI::HelperSetPlayerSecret(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FServerSetPlayerSecretResult result = UPlayFabServerModelDecoder::decodeSetPlayerSecretResultResponse(response.responseData);
+        if (OnSuccessSetPlayerSecret.IsBound())
+        {
+            OnSuccessSetPlayerSecret.Execute(result, mCustomData);
+        }
+    }
+}
+
 
 ///////////////////////////////////////////////////////
 // Account Management
@@ -601,6 +661,7 @@ UPlayFabServerAPI* UPlayFabServerAPI::SendPushNotification(FServerSendPushNotifi
     } else {
         OutRestJsonObj->SetStringField(TEXT("Message"), request.Message);
     }
+    if (request.Package != nullptr) OutRestJsonObj->SetObjectField(TEXT("Package"), request.Package);
     if (request.Subject.IsEmpty() || request.Subject == "") {
         OutRestJsonObj->SetFieldNull(TEXT("Subject"));
     } else {
@@ -4515,6 +4576,11 @@ UPlayFabServerAPI* UPlayFabServerAPI::RegisterGame(FServerRegisterGameRequest re
     manager->useSecretKey = true;
 
     // Serialize all the request properties to json
+    if (request.LobbyId.IsEmpty() || request.LobbyId == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("LobbyId"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("LobbyId"), request.LobbyId);
+    }
     if (request.ServerHost.IsEmpty() || request.ServerHost == "") {
         OutRestJsonObj->SetFieldNull(TEXT("ServerHost"));
     } else {

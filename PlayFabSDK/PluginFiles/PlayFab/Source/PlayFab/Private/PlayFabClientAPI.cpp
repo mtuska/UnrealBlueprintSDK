@@ -115,6 +115,62 @@ void UPlayFabClientAPI::HelperGetPhotonAuthenticationToken(FPlayFabBaseModel res
     }
 }
 
+/** Returns the title's base 64 encoded RSA CSP blob. */
+UPlayFabClientAPI* UPlayFabClientAPI::GetTitlePublicKey(FClientGetTitlePublicKeyRequest request,
+    FDelegateOnSuccessGetTitlePublicKey onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessGetTitlePublicKey = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperGetTitlePublicKey);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/GetTitlePublicKey";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = false;
+
+    // Serialize all the request properties to json
+    OutRestJsonObj->SetStringField(TEXT("TitleId"), IPlayFab::Get().getGameTitleId());
+    if (request.TitleSharedSecret.IsEmpty() || request.TitleSharedSecret == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("TitleSharedSecret"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("TitleSharedSecret"), request.TitleSharedSecret);
+    }
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperGetTitlePublicKey(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientGetTitlePublicKeyResult result = UPlayFabClientModelDecoder::decodeGetTitlePublicKeyResultResponse(response.responseData);
+        if (OnSuccessGetTitlePublicKey.IsBound())
+        {
+            OnSuccessGetTitlePublicKey.Execute(result, mCustomData);
+        }
+    }
+}
+
 /** Requests a challenge from the server to be signed by Windows Hello Passport service to authenticate. */
 UPlayFabClientAPI* UPlayFabClientAPI::GetWindowsHelloChallenge(FClientGetWindowsHelloChallengeRequest request,
     FDelegateOnSuccessGetWindowsHelloChallenge onSuccess,
@@ -1163,6 +1219,66 @@ void UPlayFabClientAPI::HelperRegisterWithWindowsHello(FPlayFabBaseModel respons
         if (OnSuccessRegisterWithWindowsHello.IsBound())
         {
             OnSuccessRegisterWithWindowsHello.Execute(result, mCustomData);
+        }
+    }
+}
+
+/** Sets the player's secret if it is not already set. Player secrets are used to sign API requests. To reset a player's secret use the Admin or Server API method SetPlayerSecret. */
+UPlayFabClientAPI* UPlayFabClientAPI::SetPlayerSecret(FClientSetPlayerSecretRequest request,
+    FDelegateOnSuccessSetPlayerSecret onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabClientAPI* manager = NewObject<UPlayFabClientAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessSetPlayerSecret = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabClientAPI::HelperSetPlayerSecret);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Client/SetPlayerSecret";
+    manager->useSessionTicket = true;
+    manager->useSecretKey = false;
+
+    // Serialize all the request properties to json
+    if (request.PlayerSecret.IsEmpty() || request.PlayerSecret == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayerSecret"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("PlayerSecret"), request.PlayerSecret);
+    }
+    if (request.EncryptedRequest.IsEmpty() || request.EncryptedRequest == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("EncryptedRequest"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("EncryptedRequest"), request.EncryptedRequest);
+    }
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabClientRequestCompleted
+void UPlayFabClientAPI::HelperSetPlayerSecret(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FClientSetPlayerSecretResult result = UPlayFabClientModelDecoder::decodeSetPlayerSecretResultResponse(response.responseData);
+        if (OnSuccessSetPlayerSecret.IsBound())
+        {
+            OnSuccessSetPlayerSecret.Execute(result, mCustomData);
         }
     }
 }

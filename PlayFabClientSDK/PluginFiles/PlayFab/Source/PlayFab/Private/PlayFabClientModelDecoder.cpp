@@ -27,6 +27,17 @@ FClientGetPhotonAuthenticationTokenResult UPlayFabClientModelDecoder::decodeGetP
     return tempStruct;
 }
 
+FClientGetTitlePublicKeyResult UPlayFabClientModelDecoder::decodeGetTitlePublicKeyResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientGetTitlePublicKeyResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.RSAPublicKey = !(dataObj->HasField("RSAPublicKey")) ? TEXT("") : dataObj->GetStringField("RSAPublicKey");
+
+    return tempStruct;
+}
+
 FClientGetWindowsHelloChallengeResponse UPlayFabClientModelDecoder::decodeGetWindowsHelloChallengeResponseResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -64,6 +75,15 @@ FClientRegisterPlayFabUserResult UPlayFabClientModelDecoder::decodeRegisterPlayF
     tempStruct.SessionTicket = !(dataObj->HasField("SessionTicket")) ? TEXT("") : dataObj->GetStringField("SessionTicket");
     tempStruct.Username = !(dataObj->HasField("Username")) ? TEXT("") : dataObj->GetStringField("Username");
     tempStruct.SettingsForUser = !(dataObj->HasField("SettingsForUser")) ? nullptr : dataObj->GetObjectField("SettingsForUser");
+
+    return tempStruct;
+}
+
+FClientSetPlayerSecretResult UPlayFabClientModelDecoder::decodeSetPlayerSecretResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FClientSetPlayerSecretResult tempStruct;
+
 
     return tempStruct;
 }

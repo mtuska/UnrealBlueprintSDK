@@ -23,6 +23,60 @@ class UPlayFabJsonObject;
 //////////////////////////////////////////////////////
 
 USTRUCT(BlueprintType)
+struct FAdminCreatePlayerSharedSecretRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Friendly name for this key */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Authentication Models")
+        FString FriendlyName;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminCreatePlayerSharedSecretResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** The player shared secret to use when calling Client/GetTitlePublicKey */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Authentication Models")
+        FString SecretKey;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminDeletePlayerSharedSecretRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** The shared secret key to delete */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Authentication Models")
+        FString SecretKey;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminDeletePlayerSharedSecretResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetPlayerSharedSecretsRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
+
+USTRUCT(BlueprintType)
+struct FAdminGetPlayerSharedSecretsResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** The player shared secret to use when calling Client/GetTitlePublicKey */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Authentication Models")
+        TArray<UPlayFabJsonObject*> SharedSecrets;
+};
+
+USTRUCT(BlueprintType)
 struct FAdminGetPolicyRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -43,6 +97,49 @@ public:
     /** The statements in the requested policy. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Authentication Models")
         TArray<UPlayFabJsonObject*> Statements;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminSetPlayerSecretRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Player secret that is used to verify API request signatures (Enterprise Only). */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Authentication Models")
+        FString PlayerSecret;
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Authentication Models")
+        FString PlayFabId;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminSetPlayerSecretResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
+
+USTRUCT(BlueprintType)
+struct FAdminUpdatePlayerSharedSecretRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** The shared secret key to update */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Authentication Models")
+        FString SecretKey;
+    /** Friendly name for this key */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Authentication Models")
+        FString FriendlyName;
+    /** Disable or Enable this key */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Authentication Models")
+        bool Disabled;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminUpdatePlayerSharedSecretResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
 };
 
 USTRUCT(BlueprintType)
@@ -856,7 +953,7 @@ public:
         FString Name;
     /** supported notification platforms are Apple Push Notification Service (APNS and APNS_SANDBOX) for iOS and Google Cloud Messaging (GCM) for Android */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
-        FString Platform;
+        EPushSetupPlatform Platform;
     /** for APNS, this is the PlatformPrincipal (SSL Certificate) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
         FString Key;

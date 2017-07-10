@@ -34,6 +34,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication Models")
         static FClientGetPhotonAuthenticationTokenResult decodeGetPhotonAuthenticationTokenResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the GetTitlePublicKeyResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication Models")
+        static FClientGetTitlePublicKeyResult decodeGetTitlePublicKeyResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetWindowsHelloChallengeResponse response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication Models")
         static FClientGetWindowsHelloChallengeResponse decodeGetWindowsHelloChallengeResponseResponse(UPlayFabJsonObject* response);
@@ -45,6 +49,10 @@ public:
     /** Decode the RegisterPlayFabUserResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication Models")
         static FClientRegisterPlayFabUserResult decodeRegisterPlayFabUserResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the SetPlayerSecretResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Client | Authentication Models")
+        static FClientSetPlayerSecretResult decodeSetPlayerSecretResultResponse(UPlayFabJsonObject* response);
 
 
 

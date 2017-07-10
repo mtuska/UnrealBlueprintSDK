@@ -48,6 +48,45 @@ public:
     // Authentication
     //////////////////////////////////////////////////////
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessCreatePlayerSharedSecret, FAdminCreatePlayerSharedSecretResult, result, UObject*, customData);
+
+    /** Creates a new Player Shared Secret Key. It may take up to 5 minutes for this key to become generally available after this API returns. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* CreatePlayerSharedSecret(FAdminCreatePlayerSharedSecretRequest request,
+            FDelegateOnSuccessCreatePlayerSharedSecret onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperCreatePlayerSharedSecret(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessDeletePlayerSharedSecret, FAdminDeletePlayerSharedSecretResult, result, UObject*, customData);
+
+    /** Deletes an existing Player Shared Secret Key. It may take up to 5 minutes for this delete to be reflected after this API returns. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* DeletePlayerSharedSecret(FAdminDeletePlayerSharedSecretRequest request,
+            FDelegateOnSuccessDeletePlayerSharedSecret onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperDeletePlayerSharedSecret(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPlayerSharedSecrets, FAdminGetPlayerSharedSecretsResult, result, UObject*, customData);
+
+    /** Returns all Player Shared Secret Keys including disabled and expired. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* GetPlayerSharedSecrets(FAdminGetPlayerSharedSecretsRequest request,
+            FDelegateOnSuccessGetPlayerSharedSecrets onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperGetPlayerSharedSecrets(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetPolicy, FAdminGetPolicyResponse, result, UObject*, customData);
 
     /** Gets the requested policy. */
@@ -59,6 +98,32 @@ public:
     // Implements FOnPlayFabAdminRequestCompleted
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperGetPolicy(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSetPlayerSecret, FAdminSetPlayerSecretResult, result, UObject*, customData);
+
+    /** Sets or resets the player's secret. Player secrets are used to sign API requests. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* SetPlayerSecret(FAdminSetPlayerSecretRequest request,
+            FDelegateOnSuccessSetPlayerSecret onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperSetPlayerSecret(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdatePlayerSharedSecret, FAdminUpdatePlayerSharedSecretResult, result, UObject*, customData);
+
+    /** Updates a existing Player Shared Secret Key. It may take up to 5 minutes for this update to become generally available after this API returns. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* UpdatePlayerSharedSecret(FAdminUpdatePlayerSharedSecretRequest request,
+            FDelegateOnSuccessUpdatePlayerSharedSecret onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperUpdatePlayerSharedSecret(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdatePolicy, FAdminUpdatePolicyResponse, result, UObject*, customData);
@@ -1306,7 +1371,12 @@ public:
     UObject* mCustomData;
 
     FDelegateOnFailurePlayFabError OnFailure;
+    FDelegateOnSuccessCreatePlayerSharedSecret OnSuccessCreatePlayerSharedSecret;
+    FDelegateOnSuccessDeletePlayerSharedSecret OnSuccessDeletePlayerSharedSecret;
+    FDelegateOnSuccessGetPlayerSharedSecrets OnSuccessGetPlayerSharedSecrets;
     FDelegateOnSuccessGetPolicy OnSuccessGetPolicy;
+    FDelegateOnSuccessSetPlayerSecret OnSuccessSetPlayerSecret;
+    FDelegateOnSuccessUpdatePlayerSharedSecret OnSuccessUpdatePlayerSharedSecret;
     FDelegateOnSuccessUpdatePolicy OnSuccessUpdatePolicy;
     FDelegateOnSuccessBanUsers OnSuccessBanUsers;
     FDelegateOnSuccessGetUserAccountInfo OnSuccessGetUserAccountInfo;

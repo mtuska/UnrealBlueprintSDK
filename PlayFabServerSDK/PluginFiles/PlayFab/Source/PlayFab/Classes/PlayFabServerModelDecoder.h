@@ -34,6 +34,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Authentication Models")
         static FServerAuthenticateSessionTicketResult decodeAuthenticateSessionTicketResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the SetPlayerSecretResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Authentication Models")
+        static FServerSetPlayerSecretResult decodeSetPlayerSecretResultResponse(UPlayFabJsonObject* response);
+
 
 
     ///////////////////////////////////////////////////////

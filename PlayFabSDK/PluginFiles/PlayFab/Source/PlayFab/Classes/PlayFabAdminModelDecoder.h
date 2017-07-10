@@ -30,9 +30,29 @@ public:
     // Authentication
     //////////////////////////////////////////////////////
 
+    /** Decode the CreatePlayerSharedSecretResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication Models")
+        static FAdminCreatePlayerSharedSecretResult decodeCreatePlayerSharedSecretResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the DeletePlayerSharedSecretResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication Models")
+        static FAdminDeletePlayerSharedSecretResult decodeDeletePlayerSharedSecretResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the GetPlayerSharedSecretsResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication Models")
+        static FAdminGetPlayerSharedSecretsResult decodeGetPlayerSharedSecretsResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the GetPolicyResponse response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication Models")
         static FAdminGetPolicyResponse decodeGetPolicyResponseResponse(UPlayFabJsonObject* response);
+
+    /** Decode the SetPlayerSecretResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication Models")
+        static FAdminSetPlayerSecretResult decodeSetPlayerSecretResultResponse(UPlayFabJsonObject* response);
+
+    /** Decode the UpdatePlayerSharedSecretResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication Models")
+        static FAdminUpdatePlayerSharedSecretResult decodeUpdatePlayerSharedSecretResultResponse(UPlayFabJsonObject* response);
 
     /** Decode the UpdatePolicyResponse response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Authentication Models")

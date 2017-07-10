@@ -16,6 +16,37 @@
 // Authentication
 //////////////////////////////////////////////////////
 
+FAdminCreatePlayerSharedSecretResult UPlayFabAdminModelDecoder::decodeCreatePlayerSharedSecretResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminCreatePlayerSharedSecretResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.SecretKey = !(dataObj->HasField("SecretKey")) ? TEXT("") : dataObj->GetStringField("SecretKey");
+
+    return tempStruct;
+}
+
+FAdminDeletePlayerSharedSecretResult UPlayFabAdminModelDecoder::decodeDeletePlayerSharedSecretResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminDeletePlayerSharedSecretResult tempStruct;
+
+
+    return tempStruct;
+}
+
+FAdminGetPlayerSharedSecretsResult UPlayFabAdminModelDecoder::decodeGetPlayerSharedSecretsResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminGetPlayerSharedSecretsResult tempStruct;
+    UPlayFabJsonObject* dataObj = !(response->HasField("data")) ? nullptr : response->GetObjectField("data");
+
+    tempStruct.SharedSecrets = !(dataObj->HasField("SharedSecrets")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("SharedSecrets");
+
+    return tempStruct;
+}
+
 FAdminGetPolicyResponse UPlayFabAdminModelDecoder::decodeGetPolicyResponseResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct
@@ -24,6 +55,24 @@ FAdminGetPolicyResponse UPlayFabAdminModelDecoder::decodeGetPolicyResponseRespon
 
     tempStruct.PolicyName = !(dataObj->HasField("PolicyName")) ? TEXT("") : dataObj->GetStringField("PolicyName");
     tempStruct.Statements = !(dataObj->HasField("Statements")) ? TArray<UPlayFabJsonObject*>() : dataObj->GetObjectArrayField("Statements");
+
+    return tempStruct;
+}
+
+FAdminSetPlayerSecretResult UPlayFabAdminModelDecoder::decodeSetPlayerSecretResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminSetPlayerSecretResult tempStruct;
+
+
+    return tempStruct;
+}
+
+FAdminUpdatePlayerSharedSecretResult UPlayFabAdminModelDecoder::decodeUpdatePlayerSharedSecretResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminUpdatePlayerSharedSecretResult tempStruct;
+
 
     return tempStruct;
 }

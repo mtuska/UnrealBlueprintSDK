@@ -60,6 +60,19 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
         void HelperAuthenticateSessionTicket(FPlayFabBaseModel response, UObject* customData, bool successful);
 
+    // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessSetPlayerSecret, FServerSetPlayerSecretResult, result, UObject*, customData);
+
+    /** Sets the player's secret if it is not already set. Player secrets are used to sign API requests. To reset a player's secret use the Admin or Server API method SetPlayerSecret. */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabServerAPI* SetPlayerSecret(FServerSetPlayerSecretRequest request,
+            FDelegateOnSuccessSetPlayerSecret onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabServerRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Authentication ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperSetPlayerSecret(FPlayFabBaseModel response, UObject* customData, bool successful);
+
 
     ///////////////////////////////////////////////////////
     // Account Management
@@ -1527,6 +1540,7 @@ public:
 
     FDelegateOnFailurePlayFabError OnFailure;
     FDelegateOnSuccessAuthenticateSessionTicket OnSuccessAuthenticateSessionTicket;
+    FDelegateOnSuccessSetPlayerSecret OnSuccessSetPlayerSecret;
     FDelegateOnSuccessBanUsers OnSuccessBanUsers;
     FDelegateOnSuccessGetPlayerProfile OnSuccessGetPlayerProfile;
     FDelegateOnSuccessGetPlayFabIDsFromFacebookIDs OnSuccessGetPlayFabIDsFromFacebookIDs;
