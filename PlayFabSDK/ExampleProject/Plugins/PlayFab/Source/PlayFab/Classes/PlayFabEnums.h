@@ -495,6 +495,15 @@ enum class EEffectType : uint8
     pfenum_Deny UMETA(DisplayName = "Deny"),
 };
 
+// Enum for EmailVerificationStatus
+UENUM(BlueprintType)
+enum class EEmailVerificationStatus : uint8
+{
+    pfenum_Unverified UMETA(DisplayName = "Unverified"),
+    pfenum_Pending UMETA(DisplayName = "Pending"),
+    pfenum_Confirmed UMETA(DisplayName = "Confirmed"),
+};
+
 // Enum for GameBuildStatus
 UENUM(BlueprintType)
 enum class EGameBuildStatus : uint8

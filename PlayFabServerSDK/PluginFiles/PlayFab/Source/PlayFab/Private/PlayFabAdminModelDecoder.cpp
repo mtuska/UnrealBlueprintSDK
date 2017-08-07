@@ -106,6 +106,15 @@ FAdminBanUsersResult UPlayFabAdminModelDecoder::decodeBanUsersResultResponse(UPl
     return tempStruct;
 }
 
+FAdminDeletePlayerResult UPlayFabAdminModelDecoder::decodeDeletePlayerResultResponse(UPlayFabJsonObject* response)
+{
+    // Temp ustruct
+    FAdminDeletePlayerResult tempStruct;
+
+
+    return tempStruct;
+}
+
 FAdminLookupUserAccountInfoResult UPlayFabAdminModelDecoder::decodeLookupUserAccountInfoResultResponse(UPlayFabJsonObject* response)
 {
     // Temp ustruct

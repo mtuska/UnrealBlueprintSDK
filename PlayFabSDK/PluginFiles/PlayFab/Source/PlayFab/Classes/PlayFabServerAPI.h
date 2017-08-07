@@ -1372,7 +1372,7 @@ public:
     // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessUpdateCharacterData, FServerUpdateCharacterDataResult, result, UObject*, customData);
 
-    /** Updates the title-specific custom data for the user's chjaracter which is readable and writable by the client */
+    /** Updates the title-specific custom data for the user's character which is readable and writable by the client */
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Server | Character Data ", meta = (BlueprintInternalUseOnly = "true"))
         static UPlayFabServerAPI* UpdateCharacterData(FServerUpdateCharacterDataRequest request,
             FDelegateOnSuccessUpdateCharacterData onSuccess,

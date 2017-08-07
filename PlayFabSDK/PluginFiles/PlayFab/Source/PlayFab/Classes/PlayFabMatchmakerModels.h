@@ -50,10 +50,10 @@ struct FMatchmakerPlayerJoinedRequest
 {
     GENERATED_USTRUCT_BODY()
 public:
-    /** Unique identifier of the Game Server Instance the user is joining. */
+    /** Unique identifier of the Game Server Instance the user is joining. This must be a Game Server Instance started with the Matchmaker/StartGame API. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Matchmaker | Matchmaking Models")
         FString LobbyId;
-    /** PlayFab unique identifier for the user joining. */
+    /** PlayFab unique identifier for the player joining. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Matchmaker | Matchmaking Models")
         FString PlayFabId;
 };
@@ -70,10 +70,10 @@ struct FMatchmakerPlayerLeftRequest
 {
     GENERATED_USTRUCT_BODY()
 public:
-    /** Unique identifier of the Game Server Instance the user is leaving. */
+    /** Unique identifier of the Game Server Instance the user is leaving. This must be a Game Server Instance started with the Matchmaker/StartGame API. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Matchmaker | Matchmaking Models")
         FString LobbyId;
-    /** PlayFab unique identifier for the user leaving. */
+    /** PlayFab unique identifier for the player leaving. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Matchmaker | Matchmaking Models")
         FString PlayFabId;
 };
@@ -158,7 +158,7 @@ public:
         UPlayFabJsonObject* VirtualCurrency;
     /** Array of remaining times and timestamps for virtual currencies. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Matchmaker | Matchmaking Models")
-        UPlayFabJsonObject* VirtualCurrencyRechargeTimes;
+        UPlayFabJsonObject* VirtualCurrencyRechargeTimes = nullptr;
     /** Boolean indicating whether the user is a developer. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Matchmaker | Matchmaking Models")
         bool IsDeveloper;

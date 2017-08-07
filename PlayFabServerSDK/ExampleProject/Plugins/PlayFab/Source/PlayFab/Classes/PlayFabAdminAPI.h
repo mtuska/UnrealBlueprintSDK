@@ -156,6 +156,19 @@ public:
         void HelperBanUsers(FPlayFabBaseModel response, UObject* customData, bool successful);
 
     // callbacks
+    DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessDeletePlayer, FAdminDeletePlayerResult, result, UObject*, customData);
+
+    /** Removes a user's player account from a title and deletes all associated data */
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        static UPlayFabAdminAPI* DeletePlayer(FAdminDeletePlayerRequest request,
+            FDelegateOnSuccessDeletePlayer onSuccess,
+            FDelegateOnFailurePlayFabError onFailure, UObject* customData);
+
+    // Implements FOnPlayFabAdminRequestCompleted
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Account Management ", meta = (BlueprintInternalUseOnly = "true"))
+        void HelperDeletePlayer(FPlayFabBaseModel response, UObject* customData, bool successful);
+
+    // callbacks
     DECLARE_DYNAMIC_DELEGATE_TwoParams(FDelegateOnSuccessGetUserAccountInfo, FAdminLookupUserAccountInfoResult, result, UObject*, customData);
 
     /** Retrieves the relevant details for a specified user, based upon a match against a supplied unique identifier */
@@ -1379,6 +1392,7 @@ public:
     FDelegateOnSuccessUpdatePlayerSharedSecret OnSuccessUpdatePlayerSharedSecret;
     FDelegateOnSuccessUpdatePolicy OnSuccessUpdatePolicy;
     FDelegateOnSuccessBanUsers OnSuccessBanUsers;
+    FDelegateOnSuccessDeletePlayer OnSuccessDeletePlayer;
     FDelegateOnSuccessGetUserAccountInfo OnSuccessGetUserAccountInfo;
     FDelegateOnSuccessGetUserBans OnSuccessGetUserBans;
     FDelegateOnSuccessResetUsers OnSuccessResetUsers;

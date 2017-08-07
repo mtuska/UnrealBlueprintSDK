@@ -516,6 +516,61 @@ void UPlayFabAdminAPI::HelperBanUsers(FPlayFabBaseModel response, UObject* custo
     }
 }
 
+/** Removes a user's player account from a title and deletes all associated data */
+UPlayFabAdminAPI* UPlayFabAdminAPI::DeletePlayer(FAdminDeletePlayerRequest request,
+    FDelegateOnSuccessDeletePlayer onSuccess,
+    FDelegateOnFailurePlayFabError onFailure,
+    UObject* customData)
+{
+    // Objects containing request data
+    UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
+    manager->mCustomData = customData;
+
+    // Assign delegates
+    manager->OnSuccessDeletePlayer = onSuccess;
+    manager->OnFailure = onFailure;
+    manager->OnPlayFabResponse.AddDynamic(manager, &UPlayFabAdminAPI::HelperDeletePlayer);
+
+    // Setup the request
+    manager->PlayFabRequestURL = "/Admin/DeletePlayer";
+    manager->useSessionTicket = false;
+    manager->useSecretKey = true;
+
+    // Serialize all the request properties to json
+    if (request.PlayFabId.IsEmpty() || request.PlayFabId == "") {
+        OutRestJsonObj->SetFieldNull(TEXT("PlayFabId"));
+    } else {
+        OutRestJsonObj->SetStringField(TEXT("PlayFabId"), request.PlayFabId);
+    }
+
+    // Add Request to manager
+    manager->SetRequestObject(OutRestJsonObj);
+
+    return manager;
+}
+
+// Implements FOnPlayFabAdminRequestCompleted
+void UPlayFabAdminAPI::HelperDeletePlayer(FPlayFabBaseModel response, UObject* customData, bool successful)
+{
+    FPlayFabError error = response.responseError;
+    if (error.hasError)
+    {
+        if (OnFailure.IsBound())
+        {
+            OnFailure.Execute(error, customData);
+        }
+    }
+    else
+    {
+        FAdminDeletePlayerResult result = UPlayFabAdminModelDecoder::decodeDeletePlayerResultResponse(response.responseData);
+        if (OnSuccessDeletePlayer.IsBound())
+        {
+            OnSuccessDeletePlayer.Execute(result, mCustomData);
+        }
+    }
+}
+
 /** Retrieves the relevant details for a specified user, based upon a match against a supplied unique identifier */
 UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserAccountInfo(FAdminLookupUserAccountInfoRequest request,
     FDelegateOnSuccessGetUserAccountInfo onSuccess,

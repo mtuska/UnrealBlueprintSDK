@@ -68,6 +68,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Account Management Models")
         static FAdminBanUsersResult decodeBanUsersResultResponse(UPlayFabJsonObject* response);
 
+    /** Decode the DeletePlayerResult response object*/
+    UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Account Management Models")
+        static FAdminDeletePlayerResult decodeDeletePlayerResultResponse(UPlayFabJsonObject* response);
+
     /** Decode the LookupUserAccountInfoResult response object*/
     UFUNCTION(BlueprintCallable, Category = "PlayFab | Admin | Account Management Models")
         static FAdminLookupUserAccountInfoResult decodeLookupUserAccountInfoResultResponse(UPlayFabJsonObject* response);

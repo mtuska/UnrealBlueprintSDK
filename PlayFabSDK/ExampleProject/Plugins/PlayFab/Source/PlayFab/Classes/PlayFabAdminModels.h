@@ -197,6 +197,23 @@ public:
 };
 
 USTRUCT(BlueprintType)
+struct FAdminDeletePlayerRequest
+{
+    GENERATED_USTRUCT_BODY()
+public:
+    /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Account Management Models")
+        FString PlayFabId;
+};
+
+USTRUCT(BlueprintType)
+struct FAdminDeletePlayerResult
+{
+    GENERATED_USTRUCT_BODY()
+public:
+};
+
+USTRUCT(BlueprintType)
 struct FAdminLookupUserAccountInfoRequest
 {
     GENERATED_USTRUCT_BODY()
@@ -222,7 +239,7 @@ struct FAdminLookupUserAccountInfoResult
 public:
     /** User info for the user matching the request */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Account Management Models")
-        UPlayFabJsonObject* UserInfo;
+        UPlayFabJsonObject* UserInfo = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -390,7 +407,7 @@ struct FAdminCreatePlayerStatisticDefinitionResult
 public:
     /** created statistic definition */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
-        UPlayFabJsonObject* Statistic;
+        UPlayFabJsonObject* Statistic = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -505,7 +522,7 @@ public:
         int32 DataVersion;
     /** User specific data for this title. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
-        UPlayFabJsonObject* Data;
+        UPlayFabJsonObject* Data = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -525,7 +542,7 @@ struct FAdminIncrementPlayerStatisticVersionResult
 public:
     /** version change history of the statistic */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
-        UPlayFabJsonObject* StatisticVersion;
+        UPlayFabJsonObject* StatisticVersion = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -623,7 +640,7 @@ struct FAdminUpdatePlayerStatisticDefinitionResult
 public:
     /** updated statistic definition */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
-        UPlayFabJsonObject* Statistic;
+        UPlayFabJsonObject* Statistic = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -789,7 +806,7 @@ struct FAdminGetRandomResultTablesResult
 public:
     /** array of random result tables currently available */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
-        UPlayFabJsonObject* Tables;
+        UPlayFabJsonObject* Tables = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -824,7 +841,7 @@ public:
         FString StoreId;
     /** Additional data about the store. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
-        UPlayFabJsonObject* MarketingData;
+        UPlayFabJsonObject* MarketingData = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -910,7 +927,7 @@ public:
         FString StoreId;
     /** Additional data about the store */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
-        UPlayFabJsonObject* MarketingData;
+        UPlayFabJsonObject* MarketingData = nullptr;
     /** Array of store items - references to catalog items, with specific pricing - to be added */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
         TArray<UPlayFabJsonObject*> Store;
@@ -1061,7 +1078,7 @@ public:
         UPlayFabJsonObject* VirtualCurrency;
     /** Array of remaining times and timestamps for virtual currencies. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Item Management Models")
-        UPlayFabJsonObject* VirtualCurrencyRechargeTimes;
+        UPlayFabJsonObject* VirtualCurrencyRechargeTimes = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -1875,7 +1892,7 @@ public:
         bool IsActive;
     /** Task details related to segment and action */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
-        UPlayFabJsonObject* Parameter;
+        UPlayFabJsonObject* Parameter = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -1907,7 +1924,7 @@ public:
         bool IsActive;
     /** Task details related to CloudScript */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
-        UPlayFabJsonObject* Parameter;
+        UPlayFabJsonObject* Parameter = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -1917,7 +1934,7 @@ struct FAdminDeleteTaskRequest
 public:
     /** Specify either the task ID or the name of task to be deleted. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
-        UPlayFabJsonObject* Identifier;
+        UPlayFabJsonObject* Identifier = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -1927,10 +1944,10 @@ struct FAdminGetActionsOnPlayersInSegmentTaskInstanceResult
 public:
     /** Status summary of the actions-on-players-in-segment task instance */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
-        UPlayFabJsonObject* Summary;
+        UPlayFabJsonObject* Summary = nullptr;
     /** Parameter of this task instance */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
-        UPlayFabJsonObject* Parameter;
+        UPlayFabJsonObject* Parameter = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -1950,10 +1967,10 @@ struct FAdminGetCloudScriptTaskInstanceResult
 public:
     /** Status summary of the CloudScript task instance */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
-        UPlayFabJsonObject* Summary;
+        UPlayFabJsonObject* Summary = nullptr;
     /** Parameter of this task instance */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
-        UPlayFabJsonObject* Parameter;
+        UPlayFabJsonObject* Parameter = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -1963,7 +1980,7 @@ struct FAdminGetTaskInstancesRequest
 public:
     /** Name or ID of the task whose instances are being queried. If not specified, return all task instances that satisfy conditions set by other filters. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
-        UPlayFabJsonObject* TaskIdentifier;
+        UPlayFabJsonObject* TaskIdentifier = nullptr;
     /** Optional filter for task instances that are of a specific status. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
         ETaskInstanceStatus StatusFilter;
@@ -1992,7 +2009,7 @@ struct FAdminGetTasksRequest
 public:
     /** Provide either the task ID or the task name to get a specific task. If not specified, return all defined tasks. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
-        UPlayFabJsonObject* Identifier;
+        UPlayFabJsonObject* Identifier = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -2012,7 +2029,7 @@ struct FAdminRunTaskRequest
 public:
     /** Provide either the task ID or the task name to run a task. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
-        UPlayFabJsonObject* Identifier;
+        UPlayFabJsonObject* Identifier = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -2032,7 +2049,7 @@ struct FAdminUpdateTaskRequest
 public:
     /** Specify either the task ID or the name of the task to be updated. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
-        UPlayFabJsonObject* Identifier;
+        UPlayFabJsonObject* Identifier = nullptr;
     /** Name of the task. This is a unique identifier for tasks in the title. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
         FString Name;
@@ -2050,6 +2067,6 @@ public:
         EScheduledTaskType Type;
     /** Parameter object specific to the task type. See each task type's create API documentation for details. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
-        UPlayFabJsonObject* Parameter;
+        UPlayFabJsonObject* Parameter = nullptr;
 };
 

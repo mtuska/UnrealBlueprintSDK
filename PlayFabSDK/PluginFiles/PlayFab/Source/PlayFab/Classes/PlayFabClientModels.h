@@ -98,13 +98,13 @@ public:
         bool NewlyCreated;
     /** Settings specific to this user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* SettingsForUser;
+        UPlayFabJsonObject* SettingsForUser = nullptr;
     /** The time of this user's previous login. If there was no previous login, then it's DateTime.MinValue */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString LastLoginTime;
     /** Results for requested info. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* InfoResultPayload;
+        UPlayFabJsonObject* InfoResultPayload = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -132,7 +132,7 @@ public:
         FString PlayerSecret;
     /** Flags for which pieces of info to return for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* InfoRequestParameters;
+        UPlayFabJsonObject* InfoRequestParameters = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -154,7 +154,7 @@ public:
         FString PlayerSecret;
     /** Flags for which pieces of info to return for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* InfoRequestParameters;
+        UPlayFabJsonObject* InfoRequestParameters = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -170,7 +170,7 @@ public:
         FString Password;
     /** Flags for which pieces of info to return for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* InfoRequestParameters;
+        UPlayFabJsonObject* InfoRequestParameters = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -192,7 +192,7 @@ public:
         FString PlayerSecret;
     /** Flags for which pieces of info to return for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* InfoRequestParameters;
+        UPlayFabJsonObject* InfoRequestParameters = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -214,7 +214,7 @@ public:
         FString PlayerSecret;
     /** Flags for which pieces of info to return for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* InfoRequestParameters;
+        UPlayFabJsonObject* InfoRequestParameters = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -236,7 +236,7 @@ public:
         FString PlayerSecret;
     /** Flags for which pieces of info to return for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* InfoRequestParameters;
+        UPlayFabJsonObject* InfoRequestParameters = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -264,7 +264,7 @@ public:
         FString PlayerSecret;
     /** Flags for which pieces of info to return for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* InfoRequestParameters;
+        UPlayFabJsonObject* InfoRequestParameters = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -283,7 +283,7 @@ public:
         bool CreateAccount;
     /** Flags for which pieces of info to return for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* InfoRequestParameters;
+        UPlayFabJsonObject* InfoRequestParameters = nullptr;
     /** Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString EncryptedRequest;
@@ -305,7 +305,7 @@ public:
         FString Password;
     /** Flags for which pieces of info to return for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* InfoRequestParameters;
+        UPlayFabJsonObject* InfoRequestParameters = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -327,7 +327,7 @@ public:
         FString PlayerSecret;
     /** Flags for which pieces of info to return for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* InfoRequestParameters;
+        UPlayFabJsonObject* InfoRequestParameters = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -349,7 +349,7 @@ public:
         FString PlayerSecret;
     /** Flags for which pieces of info to return for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* InfoRequestParameters;
+        UPlayFabJsonObject* InfoRequestParameters = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -365,7 +365,7 @@ public:
         FString PublicKeyHint;
     /** Flags for which pieces of info to return for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* InfoRequestParameters;
+        UPlayFabJsonObject* InfoRequestParameters = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -396,7 +396,7 @@ public:
         FString PlayerSecret;
     /** Flags for which pieces of info to return for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* InfoRequestParameters;
+        UPlayFabJsonObject* InfoRequestParameters = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -415,7 +415,7 @@ public:
         FString Username;
     /** Settings specific to this user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* SettingsForUser;
+        UPlayFabJsonObject* SettingsForUser = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -440,7 +440,7 @@ public:
         FString PlayerSecret;
     /** Flags for which pieces of info to return for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        UPlayFabJsonObject* InfoRequestParameters;
+        UPlayFabJsonObject* InfoRequestParameters = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -475,7 +475,7 @@ struct FClientAddGenericIDRequest
 public:
     /** Generic service identifier to add to the player account. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        UPlayFabJsonObject* GenericId;
+        UPlayFabJsonObject* GenericId = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -537,7 +537,7 @@ struct FClientGetAccountInfoResult
 public:
     /** Account information for the local user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        UPlayFabJsonObject* AccountInfo;
+        UPlayFabJsonObject* AccountInfo = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -550,7 +550,7 @@ public:
         FString PlayFabId;
     /** Flags for which pieces of info to return for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        UPlayFabJsonObject* InfoRequestParameters;
+        UPlayFabJsonObject* InfoRequestParameters = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -563,7 +563,7 @@ public:
         FString PlayFabId;
     /** Results for requested info. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        UPlayFabJsonObject* InfoResultPayload;
+        UPlayFabJsonObject* InfoResultPayload = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -576,7 +576,7 @@ public:
         FString PlayFabId;
     /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        UPlayFabJsonObject* ProfileConstraints;
+        UPlayFabJsonObject* ProfileConstraints = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -586,7 +586,7 @@ struct FClientGetPlayerProfileResult
 public:
     /** The profile of the player. This profile is not guaranteed to be up-to-date. For a new player, this profile will not exist. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        UPlayFabJsonObject* PlayerProfile;
+        UPlayFabJsonObject* PlayerProfile = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -957,7 +957,7 @@ struct FClientRemoveGenericIDRequest
 public:
     /** Generic service identifier to be removed from the player. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        UPlayFabJsonObject* GenericId;
+        UPlayFabJsonObject* GenericId = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -1232,7 +1232,7 @@ public:
         bool UseSpecificVersion;
     /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        UPlayFabJsonObject* ProfileConstraints;
+        UPlayFabJsonObject* ProfileConstraints = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -1279,7 +1279,7 @@ public:
         bool UseSpecificVersion;
     /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        UPlayFabJsonObject* ProfileConstraints;
+        UPlayFabJsonObject* ProfileConstraints = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -1320,7 +1320,7 @@ public:
         bool UseSpecificVersion;
     /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        UPlayFabJsonObject* ProfileConstraints;
+        UPlayFabJsonObject* ProfileConstraints = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -1345,7 +1345,7 @@ public:
         bool UseSpecificVersion;
     /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        UPlayFabJsonObject* ProfileConstraints;
+        UPlayFabJsonObject* ProfileConstraints = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -1430,7 +1430,7 @@ struct FClientGetUserDataResult
 public:
     /** User specific data for this title. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        UPlayFabJsonObject* Data;
+        UPlayFabJsonObject* Data = nullptr;
     /** Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         int32 DataVersion;
@@ -1556,7 +1556,7 @@ public:
         FString StoreId;
     /** Additional data about the store. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
-        UPlayFabJsonObject* MarketingData;
+        UPlayFabJsonObject* MarketingData = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -1737,7 +1737,7 @@ public:
         UPlayFabJsonObject* VirtualCurrency;
     /** Array of remaining times and timestamps for virtual currencies. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        UPlayFabJsonObject* VirtualCurrencyRechargeTimes;
+        UPlayFabJsonObject* VirtualCurrencyRechargeTimes = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -1792,7 +1792,7 @@ public:
         UPlayFabJsonObject* VirtualCurrency;
     /** Array of remaining times and timestamps for virtual currencies. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        UPlayFabJsonObject* VirtualCurrencyRechargeTimes;
+        UPlayFabJsonObject* VirtualCurrencyRechargeTimes = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -2132,7 +2132,7 @@ public:
         FString StatisticName;
     /** Filter to include and/or exclude Game Server Instances associated with certain tags. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
-        UPlayFabJsonObject* TagFilter;
+        UPlayFabJsonObject* TagFilter = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -2199,7 +2199,7 @@ public:
         bool StartNewIfNoneFound;
     /** Filter to include and/or exclude Game Server Instances associated with certain Tags */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
-        UPlayFabJsonObject* TagFilter;
+        UPlayFabJsonObject* TagFilter = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -2301,7 +2301,7 @@ public:
         FString Timestamp;
     /** Custom event properties. Each property consists of a name (string) and a value (JSON object). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Analytics Models")
-        UPlayFabJsonObject* Body;
+        UPlayFabJsonObject* Body = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -2327,7 +2327,7 @@ public:
         FString Timestamp;
     /** Custom data properties associated with the event. Each property consists of a name (string) and a value (JSON object). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Analytics Models")
-        UPlayFabJsonObject* Body;
+        UPlayFabJsonObject* Body = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -2343,7 +2343,7 @@ public:
         FString Timestamp;
     /** Custom event properties. Each property consists of a name (string) and a value (JSON object). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Analytics Models")
-        UPlayFabJsonObject* Body;
+        UPlayFabJsonObject* Body = nullptr;
 };
 
 
@@ -2414,7 +2414,7 @@ struct FClientGetSharedGroupDataResult
 public:
     /** Data for the requested keys. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Shared Group Data Models")
-        UPlayFabJsonObject* Data;
+        UPlayFabJsonObject* Data = nullptr;
     /** List of PlayFabId identifiers for the members of this group, if requested. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Shared Group Data Models")
         FString Members;
@@ -2481,7 +2481,7 @@ public:
         FString FunctionName;
     /** Object that is passed in to the function as the first argument */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        UPlayFabJsonObject* FunctionParameter;
+        UPlayFabJsonObject* FunctionParameter = nullptr;
     /** Option for which revision of the CloudScript to execute. 'Latest' executes the most recently created revision, 'Live' executes the current live, published revision, and 'Specific' executes the specified revision. The default value is 'Specific', if the SpeificRevision parameter is specified, otherwise it is 'Live'. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
         ECloudScriptRevisionOption RevisionSelection;
@@ -2506,7 +2506,7 @@ public:
         int32 Revision;
     /** The object returned from the CloudScript function, if any */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        UPlayFabJsonObject* FunctionResult;
+        UPlayFabJsonObject* FunctionResult = nullptr;
     /** Flag indicating if the FunctionResult was too large and was subsequently dropped from this event. This only occurs if the total event size is larger than 350KB. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
         bool FunctionResultTooLarge;
@@ -2531,7 +2531,7 @@ public:
         int32 HttpRequestsIssued;
     /** Information about the error, if any, that occurred during execution */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        UPlayFabJsonObject* Error;
+        UPlayFabJsonObject* Error = nullptr;
 };
 
 
@@ -2777,7 +2777,7 @@ public:
         FString CharacterId;
     /** User specific data for this title. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Character Data Models")
-        UPlayFabJsonObject* Data;
+        UPlayFabJsonObject* Data = nullptr;
     /** Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Character Data Models")
         int32 DataVersion;
@@ -2840,7 +2840,7 @@ struct FClientAcceptTradeResponse
 public:
     /** Details about trade which was just accepted. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
-        UPlayFabJsonObject* Trade;
+        UPlayFabJsonObject* Trade = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -2860,7 +2860,7 @@ struct FClientCancelTradeResponse
 public:
     /** Details about trade which was just canceled. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
-        UPlayFabJsonObject* Trade;
+        UPlayFabJsonObject* Trade = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -2906,7 +2906,7 @@ struct FClientGetTradeStatusResponse
 public:
     /** Information about the requested trade. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
-        UPlayFabJsonObject* Trade;
+        UPlayFabJsonObject* Trade = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -2932,7 +2932,7 @@ struct FClientOpenTradeResponse
 public:
     /** The information about the trade that was just opened. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Trading Models")
-        UPlayFabJsonObject* Trade;
+        UPlayFabJsonObject* Trade = nullptr;
 };
 
 

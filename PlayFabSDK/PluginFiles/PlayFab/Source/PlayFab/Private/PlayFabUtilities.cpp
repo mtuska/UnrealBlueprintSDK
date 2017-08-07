@@ -330,6 +330,25 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1304: returnText = "BadPartnerConfiguration"; break;
     case 1305: returnText = "XboxBPCertificateFailure"; break;
     case 1306: returnText = "XboxXASSExchangeFailure"; break;
+    case 1307: returnText = "InvalidEntityId"; break;
+    case 1308: returnText = "StatisticValueAggregationOverflow"; break;
+    case 1309: returnText = "EmailMessageFromAddressIsMissing"; break;
+    case 1310: returnText = "EmailMessageToAddressIsMissing"; break;
+    case 1311: returnText = "SmtpServerAuthenticationError"; break;
+    case 1312: returnText = "SmtpServerLimitExceeded"; break;
+    case 1313: returnText = "SmtpServerInsufficientStorage"; break;
+    case 1314: returnText = "SmtpServerCommunicationError"; break;
+    case 1315: returnText = "SmtpServerGeneralFailure"; break;
+    case 1316: returnText = "EmailClientTimeout"; break;
+    case 1317: returnText = "EmailClientCanceledTask"; break;
+    case 1318: returnText = "EmailTemplateMissing"; break;
+    case 1319: returnText = "InvalidHostForTitleId"; break;
+    case 1320: returnText = "EmailConfirmationTokenDoesNotExist"; break;
+    case 1321: returnText = "EmailConfirmationTokenExpired"; break;
+    case 1322: returnText = "AccountDeleted"; break;
+    case 1323: returnText = "PlayerSecretNotConfigured"; break;
+    case 1324: returnText = "InvalidSignatureTime"; break;
+    case 1325: returnText = "NoContactEmailAddressFound"; break;
     }
 
     // Return the text

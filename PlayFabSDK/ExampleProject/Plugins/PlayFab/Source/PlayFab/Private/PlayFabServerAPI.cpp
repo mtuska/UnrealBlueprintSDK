@@ -6231,7 +6231,7 @@ void UPlayFabServerAPI::HelperGetCharacterReadOnlyData(FPlayFabBaseModel respons
     }
 }
 
-/** Updates the title-specific custom data for the user's chjaracter which is readable and writable by the client */
+/** Updates the title-specific custom data for the user's character which is readable and writable by the client */
 UPlayFabServerAPI* UPlayFabServerAPI::UpdateCharacterData(FServerUpdateCharacterDataRequest request,
     FDelegateOnSuccessUpdateCharacterData onSuccess,
     FDelegateOnFailurePlayFabError onFailure,
