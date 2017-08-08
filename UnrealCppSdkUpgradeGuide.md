@@ -81,3 +81,9 @@ where the BP SDK called with global static functions:
 A simple regex should solve this one.
 
 **Callback Implementation**: As mentioned above, your callback functions must be UFunctions, but otherwise they should work pretty similarly.
+
+**Memory Management**: The API calls create a blueprint UObject which is part of the Unreal memory management system.  If it is not referenced by another UObject, it will immediately garbage collect and your program will experience undesired behavior (api won't complete, and/or the program will crash).  You will need to ensure that you reference this object somewhere so that it stays active.  The example keeps a list of all nodes called under the test-entity that causes the tests to run.
+
+We hope that this step will go away in the next release, it's kindof silly to force you to do this.  This occurs because it's all driven from blueprints and therefore must be UObjects.
+
+**Extra activation step for UE BP**: Because these are blueprints, and you're invoking them from C++, you will need to manually take the returned callObj, and activate it.  There is no workaround for this, it's just an extra line of code that you will always need.  Unlike the memory management problem, we can't do much about this without doubling the size of the plugin, so this will not change.
