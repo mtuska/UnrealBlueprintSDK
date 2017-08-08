@@ -5,6 +5,8 @@
 
 Unreal 4.14 - 4.16 Blueprint SDKs for PlayFab
 
+Our example project requires setting a #define if you're using an older version.  See the Setup section below.
+
 The Unreal Blueprint SDK-Collection includes three separate Unreal plugins.  You should only install 1 of these plugins in any Unreal project.
 
 * Unreal Client SDK for distribution to End-Users
@@ -59,6 +61,12 @@ Existing Projects:
 * In Visual Studio, "Rebuild Solution" - This process may take several minutes
 * You should now be able to create blueprints that utilize PlayFab API calls
 
+### Using the Example Project with older versions
+
+UE 4.16 introduced a few syntax changes that are not reverse compatible. As such, we've had to add a #define swtich that will let you run on older versions, but it requires a manual step, because UE doesn't set up #define symbols in their C# build code.
+
+Search the *.target.cs and *.build.cs files for: PF_UNREAL_OLD_4_14_TO_4_15, and enable this define if you're using an older version.
+After the next release, you should be able to [click here](https://github.com/PlayFab/UnrealBlueprintSDK/search?utf8=%E2%9C%93&q=) to see the #defines
 
 ### Developer Console
 
