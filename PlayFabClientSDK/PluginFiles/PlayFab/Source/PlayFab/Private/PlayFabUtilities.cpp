@@ -349,6 +349,10 @@ FString UPlayFabUtilities::getErrorText(int32 code)
     case 1323: returnText = "PlayerSecretNotConfigured"; break;
     case 1324: returnText = "InvalidSignatureTime"; break;
     case 1325: returnText = "NoContactEmailAddressFound"; break;
+    case 1326: returnText = "InvalidAuthToken"; break;
+    case 1327: returnText = "AuthTokenDoesNotExist"; break;
+    case 1328: returnText = "AuthTokenExpired"; break;
+    case 1329: returnText = "AuthTokenAlreadyUsedToResetPassword"; break;
     }
 
     // Return the text

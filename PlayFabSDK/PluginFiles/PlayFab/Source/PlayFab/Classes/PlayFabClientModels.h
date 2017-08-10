@@ -95,7 +95,7 @@ public:
         FString PlayFabId;
     /** True if the account was newly created on this login. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        bool NewlyCreated;
+        bool NewlyCreated = false;
     /** Settings specific to this user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         UPlayFabJsonObject* SettingsForUser = nullptr;
@@ -123,7 +123,7 @@ public:
         FString AndroidDevice;
     /** Automatically create a PlayFab account if one is not currently linked to this ID. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        bool CreateAccount;
+        bool CreateAccount = false;
     /** Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString EncryptedRequest;
@@ -145,7 +145,7 @@ public:
         FString CustomId;
     /** Automatically create a PlayFab account if one is not currently linked to this ID. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        bool CreateAccount;
+        bool CreateAccount = false;
     /** Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString EncryptedRequest;
@@ -183,7 +183,7 @@ public:
         FString AccessToken;
     /** Automatically create a PlayFab account if one is not currently linked to this ID. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        bool CreateAccount;
+        bool CreateAccount = false;
     /** Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString EncryptedRequest;
@@ -205,7 +205,7 @@ public:
         FString PlayerId;
     /** Automatically create a PlayFab account if one is not currently linked to this ID. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        bool CreateAccount;
+        bool CreateAccount = false;
     /** Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString EncryptedRequest;
@@ -227,7 +227,7 @@ public:
         FString ServerAuthCode;
     /** Automatically create a PlayFab account if one is not currently linked to this ID. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        bool CreateAccount;
+        bool CreateAccount = false;
     /** Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString EncryptedRequest;
@@ -255,7 +255,7 @@ public:
         FString DeviceModel;
     /** Automatically create a PlayFab account if one is not currently linked to this ID. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        bool CreateAccount;
+        bool CreateAccount = false;
     /** Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString EncryptedRequest;
@@ -280,7 +280,7 @@ public:
         FString AuthTicket;
     /** Automatically create a PlayFab account if one is not currently linked to this ID. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        bool CreateAccount;
+        bool CreateAccount = false;
     /** Flags for which pieces of info to return for the user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         UPlayFabJsonObject* InfoRequestParameters = nullptr;
@@ -318,7 +318,7 @@ public:
         FString SteamTicket;
     /** Automatically create a PlayFab account if one is not currently linked to this ID. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        bool CreateAccount;
+        bool CreateAccount = false;
     /** Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString EncryptedRequest;
@@ -340,7 +340,7 @@ public:
         FString AccessToken;
     /** Automatically create a PlayFab account if one is not currently linked to this ID. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        bool CreateAccount;
+        bool CreateAccount = false;
     /** Base64 encoded body that is encrypted with the Title's public RSA key (Enterprise Only). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString EncryptedRequest;
@@ -384,7 +384,7 @@ public:
         FString Password;
     /** An optional parameter that specifies whether both the username and email parameters are required. If true, both parameters are required; if false, the user must supply either the username or email parameter. The default value is true. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
-        bool RequireBothUsernameAndEmail;
+        bool RequireBothUsernameAndEmail = false;
     /** An optional parameter for setting the display name for this title (3-25 characters). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Authentication Models")
         FString DisplayName;
@@ -574,7 +574,7 @@ public:
     /** Unique PlayFab assigned ID of the user on whom the operation will be performed. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         FString PlayFabId;
-    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
+    /** If non-null, this determines which properties of the resulting player profiles to return. For API calls from the client, only the allowed client profile properties for the title may be requested. These allowed properties are configured in the Game Manager "Client Profile Options" tab in the "Settings" section. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
         UPlayFabJsonObject* ProfileConstraints = nullptr;
 };
@@ -745,7 +745,7 @@ public:
         FString AndroidDevice;
     /** If another user is already linked to the device, unlink the other user and re-link. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        bool ForceLink;
+        bool ForceLink = false;
 };
 
 USTRUCT(BlueprintType)
@@ -765,7 +765,7 @@ public:
         FString CustomId;
     /** If another user is already linked to the custom ID, unlink the other user and re-link. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        bool ForceLink;
+        bool ForceLink = false;
 };
 
 USTRUCT(BlueprintType)
@@ -785,7 +785,7 @@ public:
         FString AccessToken;
     /** If another user is already linked to the account, unlink the other user and re-link. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        bool ForceLink;
+        bool ForceLink = false;
 };
 
 USTRUCT(BlueprintType)
@@ -805,7 +805,7 @@ public:
         FString GameCenterId;
     /** If another user is already linked to the account, unlink the other user and re-link. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        bool ForceLink;
+        bool ForceLink = false;
 };
 
 USTRUCT(BlueprintType)
@@ -825,7 +825,7 @@ public:
         FString ServerAuthCode;
     /** If another user is already linked to the account, unlink the other user and re-link. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        bool ForceLink;
+        bool ForceLink = false;
 };
 
 USTRUCT(BlueprintType)
@@ -851,7 +851,7 @@ public:
         FString DeviceModel;
     /** If another user is already linked to the device, unlink the other user and re-link. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        bool ForceLink;
+        bool ForceLink = false;
 };
 
 USTRUCT(BlueprintType)
@@ -874,7 +874,7 @@ public:
         FString AuthTicket;
     /** If another user is already linked to the account, unlink the other user and re-link. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        bool ForceLink;
+        bool ForceLink = false;
 };
 
 USTRUCT(BlueprintType)
@@ -894,7 +894,7 @@ public:
         FString SteamTicket;
     /** If another user is already linked to the account, unlink the other user and re-link. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        bool ForceLink;
+        bool ForceLink = false;
 };
 
 USTRUCT(BlueprintType)
@@ -914,7 +914,7 @@ public:
         FString AccessToken;
     /** If another user is already linked to the account, unlink the other user and re-link. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        bool ForceLink;
+        bool ForceLink = false;
 };
 
 USTRUCT(BlueprintType)
@@ -940,7 +940,7 @@ public:
         FString DeviceName;
     /** If another user is already linked to the account, unlink the other user and re-link. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        bool ForceLink;
+        bool ForceLink = false;
 };
 
 USTRUCT(BlueprintType)
@@ -987,10 +987,10 @@ struct FClientReportPlayerClientResult
 public:
     /** Deprecated: Always true */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        bool Updated;
+        bool Updated = false;
     /** The number of remaining reports which may be filed today. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Account Management Models")
-        int32 SubmissionsRemaining;
+        int32 SubmissionsRemaining = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -1214,23 +1214,23 @@ public:
         FString StatisticName;
     /** Position in the leaderboard to start this listing (defaults to the first entry). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 StartPosition;
+        int32 StartPosition = 0;
     /** Maximum number of entries to retrieve. Default 10, maximum 100. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 MaxResultsCount;
+        int32 MaxResultsCount = 0;
     /** Indicates whether Steam service friends should be included in the response. Default is true. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        bool IncludeSteamFriends;
+        bool IncludeSteamFriends = false;
     /** Indicates whether Facebook friends should be included in the response. Default is true. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        bool IncludeFacebookFriends;
+        bool IncludeFacebookFriends = false;
     /** The version of the leaderboard to get. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 Version;
+        int32 Version = 0;
     /** If set to false, Version is considered null. If true, uses the specified Version */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        bool UseSpecificVersion;
-    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
+        bool UseSpecificVersion = false;
+    /** If non-null, this determines which properties of the resulting player profiles to return. For API calls from the client, only the allowed client profile properties for the title may be requested. These allowed properties are configured in the Game Manager "Client Profile Options" tab in the "Settings" section. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         UPlayFabJsonObject* ProfileConstraints = nullptr;
 };
@@ -1245,7 +1245,7 @@ public:
         TArray<UPlayFabJsonObject*> Leaderboard;
     /** The version of the leaderboard returned. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 Version;
+        int32 Version = 0;
     /** The time the next scheduled reset will occur. Null if the leaderboard does not reset on a schedule. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         FString NextReset;
@@ -1261,23 +1261,23 @@ public:
         FString StatisticName;
     /** Maximum number of entries to retrieve. Default 10, maximum 100. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 MaxResultsCount;
+        int32 MaxResultsCount = 0;
     /** PlayFab unique identifier of the user to center the leaderboard around. If null will center on the logged in user. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         FString PlayFabId;
     /** Indicates whether Steam service friends should be included in the response. Default is true. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        bool IncludeSteamFriends;
+        bool IncludeSteamFriends = false;
     /** Indicates whether Facebook friends should be included in the response. Default is true. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        bool IncludeFacebookFriends;
+        bool IncludeFacebookFriends = false;
     /** The version of the leaderboard to get. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 Version;
+        int32 Version = 0;
     /** If set to false, Version is considered null. If true, uses the specified Version */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        bool UseSpecificVersion;
-    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
+        bool UseSpecificVersion = false;
+    /** If non-null, this determines which properties of the resulting player profiles to return. For API calls from the client, only the allowed client profile properties for the title may be requested. These allowed properties are configured in the Game Manager "Client Profile Options" tab in the "Settings" section. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         UPlayFabJsonObject* ProfileConstraints = nullptr;
 };
@@ -1292,7 +1292,7 @@ public:
         TArray<UPlayFabJsonObject*> Leaderboard;
     /** The version of the leaderboard returned. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 Version;
+        int32 Version = 0;
     /** The time the next scheduled reset will occur. Null if the leaderboard does not reset on a schedule. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         FString NextReset;
@@ -1308,17 +1308,17 @@ public:
         FString StatisticName;
     /** Position in the leaderboard to start this listing (defaults to the first entry). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 StartPosition;
+        int32 StartPosition = 0;
     /** Maximum number of entries to retrieve. Default 10, maximum 100. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 MaxResultsCount;
+        int32 MaxResultsCount = 0;
     /** The version of the leaderboard to get. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 Version;
+        int32 Version = 0;
     /** If set to false, Version is considered null. If true, uses the specified Version */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        bool UseSpecificVersion;
-    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
+        bool UseSpecificVersion = false;
+    /** If non-null, this determines which properties of the resulting player profiles to return. For API calls from the client, only the allowed client profile properties for the title may be requested. These allowed properties are configured in the Game Manager "Client Profile Options" tab in the "Settings" section. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         UPlayFabJsonObject* ProfileConstraints = nullptr;
 };
@@ -1336,14 +1336,14 @@ public:
         FString StatisticName;
     /** Maximum number of entries to retrieve. Default 10, maximum 100. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 MaxResultsCount;
+        int32 MaxResultsCount = 0;
     /** The version of the leaderboard to get. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 Version;
+        int32 Version = 0;
     /** If set to false, Version is considered null. If true, uses the specified Version */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        bool UseSpecificVersion;
-    /** If non-null, this determines which properties of the profile to return. If null, playfab will only include display names. For API calls from the client, only ShowDisplayName, ShowAvatarUrl are allowed at this time. */
+        bool UseSpecificVersion = false;
+    /** If non-null, this determines which properties of the resulting player profiles to return. For API calls from the client, only the allowed client profile properties for the title may be requested. These allowed properties are configured in the Game Manager "Client Profile Options" tab in the "Settings" section. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         UPlayFabJsonObject* ProfileConstraints = nullptr;
 };
@@ -1358,7 +1358,7 @@ public:
         TArray<UPlayFabJsonObject*> Leaderboard;
     /** The version of the leaderboard returned. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 Version;
+        int32 Version = 0;
     /** The time the next scheduled reset will occur. Null if the leaderboard does not reset on a schedule. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
         FString NextReset;
@@ -1420,7 +1420,7 @@ public:
         FString PlayFabId;
     /** The version that currently exists according to the caller. The call will return the data for all of the keys if the version in the system is greater than this. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 IfChangedFromDataVersion;
+        int32 IfChangedFromDataVersion = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -1433,7 +1433,7 @@ public:
         UPlayFabJsonObject* Data = nullptr;
     /** Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 DataVersion;
+        int32 DataVersion = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -1476,7 +1476,7 @@ struct FClientUpdateUserDataResult
 public:
     /** Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Data Management Models")
-        int32 DataVersion;
+        int32 DataVersion = 0;
 };
 
 
@@ -1603,7 +1603,7 @@ struct FClientGetTitleNewsRequest
 public:
     /** Limits the results to the last n entries. Defaults to 10 if not set. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Title-Wide Data Management Models")
-        int32 Count;
+        int32 Count = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -1631,7 +1631,7 @@ public:
         FString VirtualCurrency;
     /** Amount to be added to the user balance of the specified virtual currency. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        int32 Amount;
+        int32 Amount = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -1647,10 +1647,10 @@ public:
         FString VirtualCurrency;
     /** Amount added or subtracted from the user's virtual currency. Maximum VC balance is Int32 (2,147,483,647). Any increase over this value will be discarded. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        int32 BalanceChange;
+        int32 BalanceChange = 0;
     /** Balance of the virtual currency after modification. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        int32 Balance;
+        int32 Balance = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -1689,7 +1689,7 @@ public:
         FString ItemInstanceId;
     /** Number of uses to consume from the item. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        int32 ConsumeCount;
+        int32 ConsumeCount = 0;
     /** Unique PlayFab assigned ID for a specific character owned by a user */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
         FString CharacterId;
@@ -1705,7 +1705,7 @@ public:
         FString ItemInstanceId;
     /** Number of uses remaining on the item. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        int32 RemainingUses;
+        int32 RemainingUses = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -1833,10 +1833,10 @@ public:
         FString PurchaseCurrency;
     /** Real world cost of the transaction. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        int32 PurchasePrice;
+        int32 PurchasePrice = 0;
     /** Local credit applied to the transaction (provider specific). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        int32 CreditApplied;
+        int32 CreditApplied = 0;
     /** Provider used for the transaction. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
         FString ProviderData;
@@ -1864,7 +1864,7 @@ public:
         FString VirtualCurrency;
     /** Price the client expects to pay for the item (in case a new catalog or store was uploaded, with new prices). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        int32 Price;
+        int32 Price = 0;
     /** Catalog version for the items to be purchased (defaults to most recent version. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
         FString CatalogVersion;
@@ -1957,7 +1957,7 @@ public:
         FString VirtualCurrency;
     /** Amount to be subtracted from the user balance of the specified virtual currency. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Player Item Management Models")
-        int32 Amount;
+        int32 Amount = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -2045,7 +2045,7 @@ struct FClientAddFriendResult
 public:
     /** True if the friend request was processed successfully. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Friend List Management Models")
-        bool Created;
+        bool Created = false;
 };
 
 USTRUCT(BlueprintType)
@@ -2055,10 +2055,13 @@ struct FClientGetFriendsListRequest
 public:
     /** Indicates whether Steam service friends should be included in the response. Default is true. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Friend List Management Models")
-        bool IncludeSteamFriends;
+        bool IncludeSteamFriends = false;
     /** Indicates whether Facebook friends should be included in the response. Default is true. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Friend List Management Models")
-        bool IncludeFacebookFriends;
+        bool IncludeFacebookFriends = false;
+    /** If non-null, this determines which properties of the resulting player profiles to return. For API calls from the client, only the allowed client profile properties for the title may be requested. These allowed properties are configured in the Game Manager "Client Profile Options" tab in the "Settings" section. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Friend List Management Models")
+        UPlayFabJsonObject* ProfileConstraints = nullptr;
 };
 
 USTRUCT(BlueprintType)
@@ -2145,10 +2148,10 @@ public:
         TArray<UPlayFabJsonObject*> Games;
     /** total number of players across all servers */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
-        int32 PlayerCount;
+        int32 PlayerCount = 0;
     /** number of games running */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
-        int32 GameCount;
+        int32 GameCount = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -2196,7 +2199,7 @@ public:
         FString CharacterId;
     /** Start a game session if one with an open slot is not found. Defaults to true. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
-        bool StartNewIfNoneFound;
+        bool StartNewIfNoneFound = false;
     /** Filter to include and/or exclude Game Server Instances associated with certain Tags */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         UPlayFabJsonObject* TagFilter = nullptr;
@@ -2215,7 +2218,7 @@ public:
         FString ServerHostname;
     /** port number to use for non-http communications with the server */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
-        int32 ServerPort;
+        int32 ServerPort = 0;
     /** server authorization ticket (used by RedeemMatchmakerTicket to validate user insertion into the game) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString Ticket;
@@ -2224,7 +2227,7 @@ public:
         FString Expires;
     /** time in milliseconds the application is configured to wait on matchmaking results */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
-        int32 PollWaitTimeMS;
+        int32 PollWaitTimeMS = 0;
     /** result of match making process */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         EMatchmakeStatus Status;
@@ -2268,7 +2271,7 @@ public:
         FString ServerHostname;
     /** port on the server to be used for communication */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
-        int32 ServerPort;
+        int32 ServerPort = 0;
     /** unique identifier for the server */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Matchmaking Models")
         FString Ticket;
@@ -2404,7 +2407,7 @@ public:
         FString Keys;
     /** If true, return the list of all members of the shared group. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Shared Group Data Models")
-        bool GetMembers;
+        bool GetMembers = false;
 };
 
 USTRUCT(BlueprintType)
@@ -2487,10 +2490,10 @@ public:
         ECloudScriptRevisionOption RevisionSelection;
     /** The specivic revision to execute, when RevisionSelection is set to 'Specific' */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        int32 SpecificRevision;
+        int32 SpecificRevision = 0;
     /** Generate a 'player_executed_cloudscript' PlayStream event containing the results of the function execution and other contextual information. This event will show up in the PlayStream debugger console for the player in Game Manager. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        bool GeneratePlayStreamEvent;
+        bool GeneratePlayStreamEvent = false;
 };
 
 USTRUCT(BlueprintType)
@@ -2503,32 +2506,32 @@ public:
         FString FunctionName;
     /** The revision of the CloudScript that executed */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        int32 Revision;
+        int32 Revision = 0;
     /** The object returned from the CloudScript function, if any */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
         UPlayFabJsonObject* FunctionResult = nullptr;
     /** Flag indicating if the FunctionResult was too large and was subsequently dropped from this event. This only occurs if the total event size is larger than 350KB. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        bool FunctionResultTooLarge;
+        bool FunctionResultTooLarge = false;
     /** Entries logged during the function execution. These include both entries logged in the function code using log.info() and log.error() and error entries for API and HTTP request failures. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
         TArray<UPlayFabJsonObject*> Logs;
     /** Flag indicating if the logs were too large and were subsequently dropped from this event. This only occurs if the total event size is larger than 350KB after the FunctionResult was removed. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        bool LogsTooLarge;
+        bool LogsTooLarge = false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        int32 ExecutionTimeSeconds;
+        int32 ExecutionTimeSeconds = 0;
     /** Processor time consumed while executing the function. This does not include time spent waiting on API calls or HTTP requests. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        int32 ProcessorTimeSeconds;
+        int32 ProcessorTimeSeconds = 0;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        int32 MemoryConsumedBytes;
+        int32 MemoryConsumedBytes = 0;
     /** Number of PlayFab API requests issued by the CloudScript function */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        int32 APIRequestsIssued;
+        int32 APIRequestsIssued = 0;
     /** Number of external HTTP requests issued by the CloudScript function */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
-        int32 HttpRequestsIssued;
+        int32 HttpRequestsIssued = 0;
     /** Information about the error, if any, that occurred during execution */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Server-Side Cloud Script Models")
         UPlayFabJsonObject* Error = nullptr;
@@ -2552,7 +2555,7 @@ public:
         FString HttpMethod;
     /** True if download through CDN. CDN provides better download bandwidth and time. However, if you want latest, non-cached version of the content, set this to false. Default is true. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Content Models")
-        bool ThruCDN;
+        bool ThruCDN = false;
 };
 
 USTRUCT(BlueprintType)
@@ -2603,10 +2606,10 @@ public:
         FString StatisticName;
     /** First entry in the leaderboard to be retrieved. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
-        int32 StartPosition;
+        int32 StartPosition = 0;
     /** Maximum number of entries to retrieve. Default 10, maximum 100. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
-        int32 MaxResultsCount;
+        int32 MaxResultsCount = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -2655,7 +2658,7 @@ public:
         FString CharacterType;
     /** Maximum number of entries to retrieve. Default 10, maximum 100. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
-        int32 MaxResultsCount;
+        int32 MaxResultsCount = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -2678,7 +2681,7 @@ public:
         FString StatisticName;
     /** Maximum number of entries to retrieve. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
-        int32 MaxResultsCount;
+        int32 MaxResultsCount = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -2720,7 +2723,7 @@ public:
         FString CharacterType;
     /** Indicates whether this character was created successfully. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Characters Models")
-        bool Result;
+        bool Result = false;
 };
 
 USTRUCT(BlueprintType)
@@ -2764,7 +2767,7 @@ public:
         FString Keys;
     /** The version that currently exists according to the caller. The call will return the data for all of the keys if the version in the system is greater than this. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Character Data Models")
-        int32 IfChangedFromDataVersion;
+        int32 IfChangedFromDataVersion = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -2780,7 +2783,7 @@ public:
         UPlayFabJsonObject* Data = nullptr;
     /** Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Character Data Models")
-        int32 DataVersion;
+        int32 DataVersion = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -2809,7 +2812,7 @@ struct FClientUpdateCharacterDataResult
 public:
     /** Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Character Data Models")
-        int32 DataVersion;
+        int32 DataVersion = 0;
 };
 
 
@@ -3028,7 +3031,7 @@ public:
         FString DeviceToken;
     /** If true, send a test push message immediately after sucessful registration. Defaults to false. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
-        bool SendPushNotificationConfirmation;
+        bool SendPushNotificationConfirmation = false;
     /** Message to display when confirming push notification. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
         FString ConfirmationMessage;
@@ -3051,7 +3054,7 @@ public:
         FString DeviceToken;
     /** If true, send a test push message immediately after sucessful registration. Defaults to false. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
-        bool SendPushNotificationConfirmation;
+        bool SendPushNotificationConfirmation = false;
     /** Message to display when confirming push notification. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
         FString ConfirmationMessage;
@@ -3100,7 +3103,7 @@ public:
         FString CurrencyCode;
     /** Amount of the stated currency paid for the object. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
-        int32 PurchasePrice;
+        int32 PurchasePrice = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -3126,7 +3129,7 @@ public:
         FString CurrencyCode;
     /** Amount of the stated currency paid for the object. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
-        int32 PurchasePrice;
+        int32 PurchasePrice = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -3149,7 +3152,7 @@ public:
         FString CurrencyCode;
     /** Amount of the stated currency paid for the object. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
-        int32 PurchasePrice;
+        int32 PurchasePrice = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -3175,7 +3178,7 @@ public:
         FString CurrencyCode;
     /** Amount of the stated currency paid for the object. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Client | Platform Specific Methods Models")
-        int32 PurchasePrice;
+        int32 PurchasePrice = 0;
 };
 
 USTRUCT(BlueprintType)

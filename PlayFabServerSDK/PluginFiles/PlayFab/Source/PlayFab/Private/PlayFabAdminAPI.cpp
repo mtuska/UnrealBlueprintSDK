@@ -68,6 +68,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::CreatePlayerSharedSecret(FAdminCreatePlayerS
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -98,21 +99,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::CreatePlayerSharedSecret(FAdminCreatePlayerS
 void UPlayFabAdminAPI::HelperCreatePlayerSharedSecret(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessCreatePlayerSharedSecret.IsBound())
     {
         FAdminCreatePlayerSharedSecretResult result = UPlayFabAdminModelDecoder::decodeCreatePlayerSharedSecretResultResponse(response.responseData);
-        if (OnSuccessCreatePlayerSharedSecret.IsBound())
-        {
-            OnSuccessCreatePlayerSharedSecret.Execute(result, mCustomData);
-        }
+        OnSuccessCreatePlayerSharedSecret.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Deletes an existing Player Shared Secret Key. It may take up to 5 minutes for this delete to be reflected after this API returns. */
@@ -123,6 +119,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeletePlayerSharedSecret(FAdminDeletePlayerS
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -153,21 +150,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeletePlayerSharedSecret(FAdminDeletePlayerS
 void UPlayFabAdminAPI::HelperDeletePlayerSharedSecret(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessDeletePlayerSharedSecret.IsBound())
     {
         FAdminDeletePlayerSharedSecretResult result = UPlayFabAdminModelDecoder::decodeDeletePlayerSharedSecretResultResponse(response.responseData);
-        if (OnSuccessDeletePlayerSharedSecret.IsBound())
-        {
-            OnSuccessDeletePlayerSharedSecret.Execute(result, mCustomData);
-        }
+        OnSuccessDeletePlayerSharedSecret.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Returns all Player Shared Secret Keys including disabled and expired. */
@@ -178,6 +170,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerSharedSecrets(FAdminGetPlayerShared
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -203,21 +196,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerSharedSecrets(FAdminGetPlayerShared
 void UPlayFabAdminAPI::HelperGetPlayerSharedSecrets(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetPlayerSharedSecrets.IsBound())
     {
         FAdminGetPlayerSharedSecretsResult result = UPlayFabAdminModelDecoder::decodeGetPlayerSharedSecretsResultResponse(response.responseData);
-        if (OnSuccessGetPlayerSharedSecrets.IsBound())
-        {
-            OnSuccessGetPlayerSharedSecrets.Execute(result, mCustomData);
-        }
+        OnSuccessGetPlayerSharedSecrets.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Gets the requested policy. */
@@ -228,6 +216,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPolicy(FAdminGetPolicyRequest request,
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -258,21 +247,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPolicy(FAdminGetPolicyRequest request,
 void UPlayFabAdminAPI::HelperGetPolicy(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetPolicy.IsBound())
     {
         FAdminGetPolicyResponse result = UPlayFabAdminModelDecoder::decodeGetPolicyResponseResponse(response.responseData);
-        if (OnSuccessGetPolicy.IsBound())
-        {
-            OnSuccessGetPolicy.Execute(result, mCustomData);
-        }
+        OnSuccessGetPolicy.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Sets or resets the player's secret. Player secrets are used to sign API requests. */
@@ -283,6 +267,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetPlayerSecret(FAdminSetPlayerSecretRequest
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -318,21 +303,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetPlayerSecret(FAdminSetPlayerSecretRequest
 void UPlayFabAdminAPI::HelperSetPlayerSecret(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessSetPlayerSecret.IsBound())
     {
         FAdminSetPlayerSecretResult result = UPlayFabAdminModelDecoder::decodeSetPlayerSecretResultResponse(response.responseData);
-        if (OnSuccessSetPlayerSecret.IsBound())
-        {
-            OnSuccessSetPlayerSecret.Execute(result, mCustomData);
-        }
+        OnSuccessSetPlayerSecret.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Updates a existing Player Shared Secret Key. It may take up to 5 minutes for this update to become generally available after this API returns. */
@@ -343,6 +323,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdatePlayerSharedSecret(FAdminUpdatePlayerS
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -379,21 +360,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdatePlayerSharedSecret(FAdminUpdatePlayerS
 void UPlayFabAdminAPI::HelperUpdatePlayerSharedSecret(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessUpdatePlayerSharedSecret.IsBound())
     {
         FAdminUpdatePlayerSharedSecretResult result = UPlayFabAdminModelDecoder::decodeUpdatePlayerSharedSecretResultResponse(response.responseData);
-        if (OnSuccessUpdatePlayerSharedSecret.IsBound())
-        {
-            OnSuccessUpdatePlayerSharedSecret.Execute(result, mCustomData);
-        }
+        OnSuccessUpdatePlayerSharedSecret.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Changes a policy for a title */
@@ -404,6 +380,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdatePolicy(FAdminUpdatePolicyRequest reque
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -440,21 +417,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdatePolicy(FAdminUpdatePolicyRequest reque
 void UPlayFabAdminAPI::HelperUpdatePolicy(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessUpdatePolicy.IsBound())
     {
         FAdminUpdatePolicyResponse result = UPlayFabAdminModelDecoder::decodeUpdatePolicyResponseResponse(response.responseData);
-        if (OnSuccessUpdatePolicy.IsBound())
-        {
-            OnSuccessUpdatePolicy.Execute(result, mCustomData);
-        }
+        OnSuccessUpdatePolicy.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 
@@ -469,6 +441,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::BanUsers(FAdminBanUsersRequest request,
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -499,21 +472,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::BanUsers(FAdminBanUsersRequest request,
 void UPlayFabAdminAPI::HelperBanUsers(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessBanUsers.IsBound())
     {
         FAdminBanUsersResult result = UPlayFabAdminModelDecoder::decodeBanUsersResultResponse(response.responseData);
-        if (OnSuccessBanUsers.IsBound())
-        {
-            OnSuccessBanUsers.Execute(result, mCustomData);
-        }
+        OnSuccessBanUsers.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Removes a user's player account from a title and deletes all associated data */
@@ -524,6 +492,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeletePlayer(FAdminDeletePlayerRequest reque
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -554,21 +523,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeletePlayer(FAdminDeletePlayerRequest reque
 void UPlayFabAdminAPI::HelperDeletePlayer(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessDeletePlayer.IsBound())
     {
         FAdminDeletePlayerResult result = UPlayFabAdminModelDecoder::decodeDeletePlayerResultResponse(response.responseData);
-        if (OnSuccessDeletePlayer.IsBound())
-        {
-            OnSuccessDeletePlayer.Execute(result, mCustomData);
-        }
+        OnSuccessDeletePlayer.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the relevant details for a specified user, based upon a match against a supplied unique identifier */
@@ -579,6 +543,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserAccountInfo(FAdminLookupUserAccountIn
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -624,21 +589,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserAccountInfo(FAdminLookupUserAccountIn
 void UPlayFabAdminAPI::HelperGetUserAccountInfo(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetUserAccountInfo.IsBound())
     {
         FAdminLookupUserAccountInfoResult result = UPlayFabAdminModelDecoder::decodeLookupUserAccountInfoResultResponse(response.responseData);
-        if (OnSuccessGetUserAccountInfo.IsBound())
-        {
-            OnSuccessGetUserAccountInfo.Execute(result, mCustomData);
-        }
+        OnSuccessGetUserAccountInfo.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Gets all bans for a user. */
@@ -649,6 +609,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserBans(FAdminGetUserBansRequest request
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -679,21 +640,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserBans(FAdminGetUserBansRequest request
 void UPlayFabAdminAPI::HelperGetUserBans(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetUserBans.IsBound())
     {
         FAdminGetUserBansResult result = UPlayFabAdminModelDecoder::decodeGetUserBansResultResponse(response.responseData);
-        if (OnSuccessGetUserBans.IsBound())
-        {
-            OnSuccessGetUserBans.Execute(result, mCustomData);
-        }
+        OnSuccessGetUserBans.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Resets all title-specific information about a particular account, including user data, virtual currency balances, inventory, purchase history, and statistics */
@@ -704,6 +660,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUsers(FAdminResetUsersRequest request,
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -734,21 +691,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUsers(FAdminResetUsersRequest request,
 void UPlayFabAdminAPI::HelperResetUsers(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessResetUsers.IsBound())
     {
         FAdminBlankResult result = UPlayFabAdminModelDecoder::decodeBlankResultResponse(response.responseData);
-        if (OnSuccessResetUsers.IsBound())
-        {
-            OnSuccessResetUsers.Execute(result, mCustomData);
-        }
+        OnSuccessResetUsers.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Revoke all active bans for a user. */
@@ -759,6 +711,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RevokeAllBansForUser(FAdminRevokeAllBansForU
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -789,21 +742,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RevokeAllBansForUser(FAdminRevokeAllBansForU
 void UPlayFabAdminAPI::HelperRevokeAllBansForUser(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessRevokeAllBansForUser.IsBound())
     {
         FAdminRevokeAllBansForUserResult result = UPlayFabAdminModelDecoder::decodeRevokeAllBansForUserResultResponse(response.responseData);
-        if (OnSuccessRevokeAllBansForUser.IsBound())
-        {
-            OnSuccessRevokeAllBansForUser.Execute(result, mCustomData);
-        }
+        OnSuccessRevokeAllBansForUser.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Revoke all active bans specified with BanId. */
@@ -814,6 +762,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RevokeBans(FAdminRevokeBansRequest request,
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -847,21 +796,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RevokeBans(FAdminRevokeBansRequest request,
 void UPlayFabAdminAPI::HelperRevokeBans(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessRevokeBans.IsBound())
     {
         FAdminRevokeBansResult result = UPlayFabAdminModelDecoder::decodeRevokeBansResultResponse(response.responseData);
-        if (OnSuccessRevokeBans.IsBound())
-        {
-            OnSuccessRevokeBans.Execute(result, mCustomData);
-        }
+        OnSuccessRevokeBans.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Forces an email to be sent to the registered email address for the specified account, with a link allowing the user to change the password */
@@ -872,6 +816,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SendAccountRecoveryEmail(FAdminSendAccountRe
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -902,21 +847,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SendAccountRecoveryEmail(FAdminSendAccountRe
 void UPlayFabAdminAPI::HelperSendAccountRecoveryEmail(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessSendAccountRecoveryEmail.IsBound())
     {
         FAdminSendAccountRecoveryEmailResult result = UPlayFabAdminModelDecoder::decodeSendAccountRecoveryEmailResultResponse(response.responseData);
-        if (OnSuccessSendAccountRecoveryEmail.IsBound())
-        {
-            OnSuccessSendAccountRecoveryEmail.Execute(result, mCustomData);
-        }
+        OnSuccessSendAccountRecoveryEmail.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Updates information of a list of existing bans specified with Ban Ids. */
@@ -927,6 +867,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateBans(FAdminUpdateBansRequest request,
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -957,21 +898,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateBans(FAdminUpdateBansRequest request,
 void UPlayFabAdminAPI::HelperUpdateBans(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessUpdateBans.IsBound())
     {
         FAdminUpdateBansResult result = UPlayFabAdminModelDecoder::decodeUpdateBansResultResponse(response.responseData);
-        if (OnSuccessUpdateBans.IsBound())
-        {
-            OnSuccessUpdateBans.Execute(result, mCustomData);
-        }
+        OnSuccessUpdateBans.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Updates the title specific display name for a user */
@@ -982,6 +918,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserTitleDisplayName(FAdminUpdateUserT
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -1017,21 +954,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserTitleDisplayName(FAdminUpdateUserT
 void UPlayFabAdminAPI::HelperUpdateUserTitleDisplayName(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessUpdateUserTitleDisplayName.IsBound())
     {
         FAdminUpdateUserTitleDisplayNameResult result = UPlayFabAdminModelDecoder::decodeUpdateUserTitleDisplayNameResultResponse(response.responseData);
-        if (OnSuccessUpdateUserTitleDisplayName.IsBound())
-        {
-            OnSuccessUpdateUserTitleDisplayName.Execute(result, mCustomData);
-        }
+        OnSuccessUpdateUserTitleDisplayName.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 
@@ -1046,6 +978,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::CreatePlayerStatisticDefinition(FAdminCreate
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -1082,21 +1015,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::CreatePlayerStatisticDefinition(FAdminCreate
 void UPlayFabAdminAPI::HelperCreatePlayerStatisticDefinition(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessCreatePlayerStatisticDefinition.IsBound())
     {
         FAdminCreatePlayerStatisticDefinitionResult result = UPlayFabAdminModelDecoder::decodeCreatePlayerStatisticDefinitionResultResponse(response.responseData);
-        if (OnSuccessCreatePlayerStatisticDefinition.IsBound())
-        {
-            OnSuccessCreatePlayerStatisticDefinition.Execute(result, mCustomData);
-        }
+        OnSuccessCreatePlayerStatisticDefinition.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Deletes the users for the provided game. Deletes custom data, all account linkages, and statistics. This method does not remove the player's event history, login history, inventory items, nor virtual currencies. */
@@ -1107,6 +1035,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteUsers(FAdminDeleteUsersRequest request
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -1141,21 +1070,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteUsers(FAdminDeleteUsersRequest request
 void UPlayFabAdminAPI::HelperDeleteUsers(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessDeleteUsers.IsBound())
     {
         FAdminDeleteUsersResult result = UPlayFabAdminModelDecoder::decodeDeleteUsersResultResponse(response.responseData);
-        if (OnSuccessDeleteUsers.IsBound())
-        {
-            OnSuccessDeleteUsers.Execute(result, mCustomData);
-        }
+        OnSuccessDeleteUsers.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves a download URL for the requested report */
@@ -1166,6 +1090,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetDataReport(FAdminGetDataReportRequest req
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -1199,21 +1124,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetDataReport(FAdminGetDataReportRequest req
 void UPlayFabAdminAPI::HelperGetDataReport(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetDataReport.IsBound())
     {
         FAdminGetDataReportResult result = UPlayFabAdminModelDecoder::decodeGetDataReportResultResponse(response.responseData);
-        if (OnSuccessGetDataReport.IsBound())
-        {
-            OnSuccessGetDataReport.Execute(result, mCustomData);
-        }
+        OnSuccessGetDataReport.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the configuration information for all player statistics defined in the title, regardless of whether they have a reset interval. */
@@ -1224,6 +1144,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerStatisticDefinitions(FAdminGetPlaye
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -1249,21 +1170,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerStatisticDefinitions(FAdminGetPlaye
 void UPlayFabAdminAPI::HelperGetPlayerStatisticDefinitions(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetPlayerStatisticDefinitions.IsBound())
     {
         FAdminGetPlayerStatisticDefinitionsResult result = UPlayFabAdminModelDecoder::decodeGetPlayerStatisticDefinitionsResultResponse(response.responseData);
-        if (OnSuccessGetPlayerStatisticDefinitions.IsBound())
-        {
-            OnSuccessGetPlayerStatisticDefinitions.Execute(result, mCustomData);
-        }
+        OnSuccessGetPlayerStatisticDefinitions.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the information on the available versions of the specified statistic. */
@@ -1274,6 +1190,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerStatisticVersions(FAdminGetPlayerSt
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -1304,21 +1221,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerStatisticVersions(FAdminGetPlayerSt
 void UPlayFabAdminAPI::HelperGetPlayerStatisticVersions(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetPlayerStatisticVersions.IsBound())
     {
         FAdminGetPlayerStatisticVersionsResult result = UPlayFabAdminModelDecoder::decodeGetPlayerStatisticVersionsResultResponse(response.responseData);
-        if (OnSuccessGetPlayerStatisticVersions.IsBound())
-        {
-            OnSuccessGetPlayerStatisticVersions.Execute(result, mCustomData);
-        }
+        OnSuccessGetPlayerStatisticVersions.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the title-specific custom data for the user which is readable and writable by the client */
@@ -1329,6 +1241,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserData(FAdminGetUserDataRequest request
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -1368,21 +1281,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserData(FAdminGetUserDataRequest request
 void UPlayFabAdminAPI::HelperGetUserData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetUserData.IsBound())
     {
         FAdminGetUserDataResult result = UPlayFabAdminModelDecoder::decodeGetUserDataResultResponse(response.responseData);
-        if (OnSuccessGetUserData.IsBound())
-        {
-            OnSuccessGetUserData.Execute(result, mCustomData);
-        }
+        OnSuccessGetUserData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the title-specific custom data for the user which cannot be accessed by the client */
@@ -1393,6 +1301,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserInternalData(FAdminGetUserDataRequest
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -1432,21 +1341,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserInternalData(FAdminGetUserDataRequest
 void UPlayFabAdminAPI::HelperGetUserInternalData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetUserInternalData.IsBound())
     {
         FAdminGetUserDataResult result = UPlayFabAdminModelDecoder::decodeGetUserDataResultResponse(response.responseData);
-        if (OnSuccessGetUserInternalData.IsBound())
-        {
-            OnSuccessGetUserInternalData.Execute(result, mCustomData);
-        }
+        OnSuccessGetUserInternalData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the publisher-specific custom data for the user which is readable and writable by the client */
@@ -1457,6 +1361,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherData(FAdminGetUserDataReques
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -1496,21 +1401,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherData(FAdminGetUserDataReques
 void UPlayFabAdminAPI::HelperGetUserPublisherData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetUserPublisherData.IsBound())
     {
         FAdminGetUserDataResult result = UPlayFabAdminModelDecoder::decodeGetUserDataResultResponse(response.responseData);
-        if (OnSuccessGetUserPublisherData.IsBound())
-        {
-            OnSuccessGetUserPublisherData.Execute(result, mCustomData);
-        }
+        OnSuccessGetUserPublisherData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the publisher-specific custom data for the user which cannot be accessed by the client */
@@ -1521,6 +1421,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherInternalData(FAdminGetUserDa
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -1560,21 +1461,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherInternalData(FAdminGetUserDa
 void UPlayFabAdminAPI::HelperGetUserPublisherInternalData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetUserPublisherInternalData.IsBound())
     {
         FAdminGetUserDataResult result = UPlayFabAdminModelDecoder::decodeGetUserDataResultResponse(response.responseData);
-        if (OnSuccessGetUserPublisherInternalData.IsBound())
-        {
-            OnSuccessGetUserPublisherInternalData.Execute(result, mCustomData);
-        }
+        OnSuccessGetUserPublisherInternalData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the publisher-specific custom data for the user which can only be read by the client */
@@ -1585,6 +1481,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherReadOnlyData(FAdminGetUserDa
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -1624,21 +1521,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserPublisherReadOnlyData(FAdminGetUserDa
 void UPlayFabAdminAPI::HelperGetUserPublisherReadOnlyData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetUserPublisherReadOnlyData.IsBound())
     {
         FAdminGetUserDataResult result = UPlayFabAdminModelDecoder::decodeGetUserDataResultResponse(response.responseData);
-        if (OnSuccessGetUserPublisherReadOnlyData.IsBound())
-        {
-            OnSuccessGetUserPublisherReadOnlyData.Execute(result, mCustomData);
-        }
+        OnSuccessGetUserPublisherReadOnlyData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the title-specific custom data for the user which can only be read by the client */
@@ -1649,6 +1541,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserReadOnlyData(FAdminGetUserDataRequest
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -1688,21 +1581,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserReadOnlyData(FAdminGetUserDataRequest
 void UPlayFabAdminAPI::HelperGetUserReadOnlyData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetUserReadOnlyData.IsBound())
     {
         FAdminGetUserDataResult result = UPlayFabAdminModelDecoder::decodeGetUserDataResultResponse(response.responseData);
-        if (OnSuccessGetUserReadOnlyData.IsBound())
-        {
-            OnSuccessGetUserReadOnlyData.Execute(result, mCustomData);
-        }
+        OnSuccessGetUserReadOnlyData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Resets the indicated statistic, removing all player entries for it and backing up the old values. */
@@ -1713,6 +1601,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::IncrementPlayerStatisticVersion(FAdminIncrem
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -1743,21 +1632,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::IncrementPlayerStatisticVersion(FAdminIncrem
 void UPlayFabAdminAPI::HelperIncrementPlayerStatisticVersion(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessIncrementPlayerStatisticVersion.IsBound())
     {
         FAdminIncrementPlayerStatisticVersionResult result = UPlayFabAdminModelDecoder::decodeIncrementPlayerStatisticVersionResultResponse(response.responseData);
-        if (OnSuccessIncrementPlayerStatisticVersion.IsBound())
-        {
-            OnSuccessIncrementPlayerStatisticVersion.Execute(result, mCustomData);
-        }
+        OnSuccessIncrementPlayerStatisticVersion.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Attempts to process an order refund through the original real money payment provider. */
@@ -1768,6 +1652,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RefundPurchase(FAdminRefundPurchaseRequest r
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -1808,21 +1693,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RefundPurchase(FAdminRefundPurchaseRequest r
 void UPlayFabAdminAPI::HelperRefundPurchase(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessRefundPurchase.IsBound())
     {
         FAdminRefundPurchaseResponse result = UPlayFabAdminModelDecoder::decodeRefundPurchaseResponseResponse(response.responseData);
-        if (OnSuccessRefundPurchase.IsBound())
-        {
-            OnSuccessRefundPurchase.Execute(result, mCustomData);
-        }
+        OnSuccessRefundPurchase.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Completely removes all statistics for the specified user, for the current game */
@@ -1833,6 +1713,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUserStatistics(FAdminResetUserStatistic
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -1863,21 +1744,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResetUserStatistics(FAdminResetUserStatistic
 void UPlayFabAdminAPI::HelperResetUserStatistics(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessResetUserStatistics.IsBound())
     {
         FAdminResetUserStatisticsResult result = UPlayFabAdminModelDecoder::decodeResetUserStatisticsResultResponse(response.responseData);
-        if (OnSuccessResetUserStatistics.IsBound())
-        {
-            OnSuccessResetUserStatistics.Execute(result, mCustomData);
-        }
+        OnSuccessResetUserStatistics.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Attempts to resolve a dispute with the original order's payment provider. */
@@ -1888,6 +1764,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResolvePurchaseDispute(FAdminResolvePurchase
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -1931,21 +1808,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResolvePurchaseDispute(FAdminResolvePurchase
 void UPlayFabAdminAPI::HelperResolvePurchaseDispute(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessResolvePurchaseDispute.IsBound())
     {
         FAdminResolvePurchaseDisputeResponse result = UPlayFabAdminModelDecoder::decodeResolvePurchaseDisputeResponseResponse(response.responseData);
-        if (OnSuccessResolvePurchaseDispute.IsBound())
-        {
-            OnSuccessResolvePurchaseDispute.Execute(result, mCustomData);
-        }
+        OnSuccessResolvePurchaseDispute.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Updates a player statistic configuration for the title, optionally allowing the developer to specify a reset interval. */
@@ -1956,6 +1828,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdatePlayerStatisticDefinition(FAdminUpdate
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -1992,21 +1865,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdatePlayerStatisticDefinition(FAdminUpdate
 void UPlayFabAdminAPI::HelperUpdatePlayerStatisticDefinition(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessUpdatePlayerStatisticDefinition.IsBound())
     {
         FAdminUpdatePlayerStatisticDefinitionResult result = UPlayFabAdminModelDecoder::decodeUpdatePlayerStatisticDefinitionResultResponse(response.responseData);
-        if (OnSuccessUpdatePlayerStatisticDefinition.IsBound())
-        {
-            OnSuccessUpdatePlayerStatisticDefinition.Execute(result, mCustomData);
-        }
+        OnSuccessUpdatePlayerStatisticDefinition.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Updates the title-specific custom data for the user which is readable and writable by the client */
@@ -2017,6 +1885,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserData(FAdminUpdateUserDataRequest r
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -2059,21 +1928,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserData(FAdminUpdateUserDataRequest r
 void UPlayFabAdminAPI::HelperUpdateUserData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessUpdateUserData.IsBound())
     {
         FAdminUpdateUserDataResult result = UPlayFabAdminModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
-        if (OnSuccessUpdateUserData.IsBound())
-        {
-            OnSuccessUpdateUserData.Execute(result, mCustomData);
-        }
+        OnSuccessUpdateUserData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Updates the title-specific custom data for the user which cannot be accessed by the client */
@@ -2084,6 +1948,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserInternalData(FAdminUpdateUserInter
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -2123,21 +1988,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserInternalData(FAdminUpdateUserInter
 void UPlayFabAdminAPI::HelperUpdateUserInternalData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessUpdateUserInternalData.IsBound())
     {
         FAdminUpdateUserDataResult result = UPlayFabAdminModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
-        if (OnSuccessUpdateUserInternalData.IsBound())
-        {
-            OnSuccessUpdateUserInternalData.Execute(result, mCustomData);
-        }
+        OnSuccessUpdateUserInternalData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Updates the publisher-specific custom data for the user which is readable and writable by the client */
@@ -2148,6 +2008,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherData(FAdminUpdateUserData
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -2190,21 +2051,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherData(FAdminUpdateUserData
 void UPlayFabAdminAPI::HelperUpdateUserPublisherData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessUpdateUserPublisherData.IsBound())
     {
         FAdminUpdateUserDataResult result = UPlayFabAdminModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
-        if (OnSuccessUpdateUserPublisherData.IsBound())
-        {
-            OnSuccessUpdateUserPublisherData.Execute(result, mCustomData);
-        }
+        OnSuccessUpdateUserPublisherData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Updates the publisher-specific custom data for the user which cannot be accessed by the client */
@@ -2215,6 +2071,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherInternalData(FAdminUpdate
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -2254,21 +2111,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherInternalData(FAdminUpdate
 void UPlayFabAdminAPI::HelperUpdateUserPublisherInternalData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessUpdateUserPublisherInternalData.IsBound())
     {
         FAdminUpdateUserDataResult result = UPlayFabAdminModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
-        if (OnSuccessUpdateUserPublisherInternalData.IsBound())
-        {
-            OnSuccessUpdateUserPublisherInternalData.Execute(result, mCustomData);
-        }
+        OnSuccessUpdateUserPublisherInternalData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Updates the publisher-specific custom data for the user which can only be read by the client */
@@ -2279,6 +2131,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherReadOnlyData(FAdminUpdate
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -2321,21 +2174,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserPublisherReadOnlyData(FAdminUpdate
 void UPlayFabAdminAPI::HelperUpdateUserPublisherReadOnlyData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessUpdateUserPublisherReadOnlyData.IsBound())
     {
         FAdminUpdateUserDataResult result = UPlayFabAdminModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
-        if (OnSuccessUpdateUserPublisherReadOnlyData.IsBound())
-        {
-            OnSuccessUpdateUserPublisherReadOnlyData.Execute(result, mCustomData);
-        }
+        OnSuccessUpdateUserPublisherReadOnlyData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Updates the title-specific custom data for the user which can only be read by the client */
@@ -2346,6 +2194,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserReadOnlyData(FAdminUpdateUserDataR
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -2388,21 +2237,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateUserReadOnlyData(FAdminUpdateUserDataR
 void UPlayFabAdminAPI::HelperUpdateUserReadOnlyData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessUpdateUserReadOnlyData.IsBound())
     {
         FAdminUpdateUserDataResult result = UPlayFabAdminModelDecoder::decodeUpdateUserDataResultResponse(response.responseData);
-        if (OnSuccessUpdateUserReadOnlyData.IsBound())
-        {
-            OnSuccessUpdateUserReadOnlyData.Execute(result, mCustomData);
-        }
+        OnSuccessUpdateUserReadOnlyData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 
@@ -2417,6 +2261,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddNews(FAdminAddNewsRequest request,
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -2457,21 +2302,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddNews(FAdminAddNewsRequest request,
 void UPlayFabAdminAPI::HelperAddNews(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessAddNews.IsBound())
     {
         FAdminAddNewsResult result = UPlayFabAdminModelDecoder::decodeAddNewsResultResponse(response.responseData);
-        if (OnSuccessAddNews.IsBound())
-        {
-            OnSuccessAddNews.Execute(result, mCustomData);
-        }
+        OnSuccessAddNews.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Adds one or more virtual currencies to the set defined for the title. Virtual Currencies have a maximum value of 2,147,483,647 when granted to a player. Any value over that will be discarded. */
@@ -2482,6 +2322,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddVirtualCurrencyTypes(FAdminAddVirtualCurr
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -2512,21 +2353,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddVirtualCurrencyTypes(FAdminAddVirtualCurr
 void UPlayFabAdminAPI::HelperAddVirtualCurrencyTypes(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessAddVirtualCurrencyTypes.IsBound())
     {
         FAdminBlankResult result = UPlayFabAdminModelDecoder::decodeBlankResultResponse(response.responseData);
-        if (OnSuccessAddVirtualCurrencyTypes.IsBound())
-        {
-            OnSuccessAddVirtualCurrencyTypes.Execute(result, mCustomData);
-        }
+        OnSuccessAddVirtualCurrencyTypes.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Deletes an existing virtual item store */
@@ -2537,6 +2373,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteStore(FAdminDeleteStoreRequest request
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -2572,21 +2409,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteStore(FAdminDeleteStoreRequest request
 void UPlayFabAdminAPI::HelperDeleteStore(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessDeleteStore.IsBound())
     {
         FAdminDeleteStoreResult result = UPlayFabAdminModelDecoder::decodeDeleteStoreResultResponse(response.responseData);
-        if (OnSuccessDeleteStore.IsBound())
-        {
-            OnSuccessDeleteStore.Execute(result, mCustomData);
-        }
+        OnSuccessDeleteStore.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the specified version of the title's catalog of virtual goods, including all defined properties */
@@ -2597,6 +2429,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetCatalogItems(FAdminGetCatalogItemsRequest
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -2627,21 +2460,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetCatalogItems(FAdminGetCatalogItemsRequest
 void UPlayFabAdminAPI::HelperGetCatalogItems(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetCatalogItems.IsBound())
     {
         FAdminGetCatalogItemsResult result = UPlayFabAdminModelDecoder::decodeGetCatalogItemsResultResponse(response.responseData);
-        if (OnSuccessGetCatalogItems.IsBound())
-        {
-            OnSuccessGetCatalogItems.Execute(result, mCustomData);
-        }
+        OnSuccessGetCatalogItems.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the key-value store of custom publisher settings */
@@ -2652,6 +2480,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPublisherData(FAdminGetPublisherDataReque
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -2685,21 +2514,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPublisherData(FAdminGetPublisherDataReque
 void UPlayFabAdminAPI::HelperGetPublisherData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetPublisherData.IsBound())
     {
         FAdminGetPublisherDataResult result = UPlayFabAdminModelDecoder::decodeGetPublisherDataResultResponse(response.responseData);
-        if (OnSuccessGetPublisherData.IsBound())
-        {
-            OnSuccessGetPublisherData.Execute(result, mCustomData);
-        }
+        OnSuccessGetPublisherData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the random drop table configuration for the title */
@@ -2710,6 +2534,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetRandomResultTables(FAdminGetRandomResultT
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -2740,21 +2565,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetRandomResultTables(FAdminGetRandomResultT
 void UPlayFabAdminAPI::HelperGetRandomResultTables(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetRandomResultTables.IsBound())
     {
         FAdminGetRandomResultTablesResult result = UPlayFabAdminModelDecoder::decodeGetRandomResultTablesResultResponse(response.responseData);
-        if (OnSuccessGetRandomResultTables.IsBound())
-        {
-            OnSuccessGetRandomResultTables.Execute(result, mCustomData);
-        }
+        OnSuccessGetRandomResultTables.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the set of items defined for the specified store, including all prices defined */
@@ -2765,6 +2585,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetStoreItems(FAdminGetStoreItemsRequest req
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -2800,21 +2621,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetStoreItems(FAdminGetStoreItemsRequest req
 void UPlayFabAdminAPI::HelperGetStoreItems(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetStoreItems.IsBound())
     {
         FAdminGetStoreItemsResult result = UPlayFabAdminModelDecoder::decodeGetStoreItemsResultResponse(response.responseData);
-        if (OnSuccessGetStoreItems.IsBound())
-        {
-            OnSuccessGetStoreItems.Execute(result, mCustomData);
-        }
+        OnSuccessGetStoreItems.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the key-value store of custom title settings which can be read by the client */
@@ -2825,6 +2641,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetTitleData(FAdminGetTitleDataRequest reque
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -2858,21 +2675,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetTitleData(FAdminGetTitleDataRequest reque
 void UPlayFabAdminAPI::HelperGetTitleData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetTitleData.IsBound())
     {
         FAdminGetTitleDataResult result = UPlayFabAdminModelDecoder::decodeGetTitleDataResultResponse(response.responseData);
-        if (OnSuccessGetTitleData.IsBound())
-        {
-            OnSuccessGetTitleData.Execute(result, mCustomData);
-        }
+        OnSuccessGetTitleData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the key-value store of custom title settings which cannot be read by the client */
@@ -2883,6 +2695,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetTitleInternalData(FAdminGetTitleDataReque
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -2916,21 +2729,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetTitleInternalData(FAdminGetTitleDataReque
 void UPlayFabAdminAPI::HelperGetTitleInternalData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetTitleInternalData.IsBound())
     {
         FAdminGetTitleDataResult result = UPlayFabAdminModelDecoder::decodeGetTitleDataResultResponse(response.responseData);
-        if (OnSuccessGetTitleInternalData.IsBound())
-        {
-            OnSuccessGetTitleInternalData.Execute(result, mCustomData);
-        }
+        OnSuccessGetTitleInternalData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retuns the list of all defined virtual currencies for the title */
@@ -2941,6 +2749,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ListVirtualCurrencyTypes(FAdminListVirtualCu
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -2966,21 +2775,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ListVirtualCurrencyTypes(FAdminListVirtualCu
 void UPlayFabAdminAPI::HelperListVirtualCurrencyTypes(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessListVirtualCurrencyTypes.IsBound())
     {
         FAdminListVirtualCurrencyTypesResult result = UPlayFabAdminModelDecoder::decodeListVirtualCurrencyTypesResultResponse(response.responseData);
-        if (OnSuccessListVirtualCurrencyTypes.IsBound())
-        {
-            OnSuccessListVirtualCurrencyTypes.Execute(result, mCustomData);
-        }
+        OnSuccessListVirtualCurrencyTypes.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Removes one or more virtual currencies from the set defined for the title. */
@@ -2991,6 +2795,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RemoveVirtualCurrencyTypes(FAdminRemoveVirtu
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -3021,21 +2826,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RemoveVirtualCurrencyTypes(FAdminRemoveVirtu
 void UPlayFabAdminAPI::HelperRemoveVirtualCurrencyTypes(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessRemoveVirtualCurrencyTypes.IsBound())
     {
         FAdminBlankResult result = UPlayFabAdminModelDecoder::decodeBlankResultResponse(response.responseData);
-        if (OnSuccessRemoveVirtualCurrencyTypes.IsBound())
-        {
-            OnSuccessRemoveVirtualCurrencyTypes.Execute(result, mCustomData);
-        }
+        OnSuccessRemoveVirtualCurrencyTypes.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Creates the catalog configuration of all virtual goods for the specified catalog version */
@@ -3046,6 +2846,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetCatalogItems(FAdminUpdateCatalogItemsRequ
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -3082,21 +2883,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetCatalogItems(FAdminUpdateCatalogItemsRequ
 void UPlayFabAdminAPI::HelperSetCatalogItems(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessSetCatalogItems.IsBound())
     {
         FAdminUpdateCatalogItemsResult result = UPlayFabAdminModelDecoder::decodeUpdateCatalogItemsResultResponse(response.responseData);
-        if (OnSuccessSetCatalogItems.IsBound())
-        {
-            OnSuccessSetCatalogItems.Execute(result, mCustomData);
-        }
+        OnSuccessSetCatalogItems.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Sets all the items in one virtual store */
@@ -3107,6 +2903,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetStoreItems(FAdminUpdateStoreItemsRequest 
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -3148,21 +2945,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetStoreItems(FAdminUpdateStoreItemsRequest 
 void UPlayFabAdminAPI::HelperSetStoreItems(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessSetStoreItems.IsBound())
     {
         FAdminUpdateStoreItemsResult result = UPlayFabAdminModelDecoder::decodeUpdateStoreItemsResultResponse(response.responseData);
-        if (OnSuccessSetStoreItems.IsBound())
-        {
-            OnSuccessSetStoreItems.Execute(result, mCustomData);
-        }
+        OnSuccessSetStoreItems.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Creates and updates the key-value store of custom title settings which can be read by the client */
@@ -3173,6 +2965,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetTitleData(FAdminSetTitleDataRequest reque
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -3208,21 +3001,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetTitleData(FAdminSetTitleDataRequest reque
 void UPlayFabAdminAPI::HelperSetTitleData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessSetTitleData.IsBound())
     {
         FAdminSetTitleDataResult result = UPlayFabAdminModelDecoder::decodeSetTitleDataResultResponse(response.responseData);
-        if (OnSuccessSetTitleData.IsBound())
-        {
-            OnSuccessSetTitleData.Execute(result, mCustomData);
-        }
+        OnSuccessSetTitleData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Updates the key-value store of custom title settings which cannot be read by the client */
@@ -3233,6 +3021,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetTitleInternalData(FAdminSetTitleDataReque
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -3268,21 +3057,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetTitleInternalData(FAdminSetTitleDataReque
 void UPlayFabAdminAPI::HelperSetTitleInternalData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessSetTitleInternalData.IsBound())
     {
         FAdminSetTitleDataResult result = UPlayFabAdminModelDecoder::decodeSetTitleDataResultResponse(response.responseData);
-        if (OnSuccessSetTitleInternalData.IsBound())
-        {
-            OnSuccessSetTitleInternalData.Execute(result, mCustomData);
-        }
+        OnSuccessSetTitleInternalData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Sets the Amazon Resource Name (ARN) for iOS and Android push notifications. Documentation on the exact restrictions can be found at: http://docs.aws.amazon.com/sns/latest/api/API_CreatePlatformApplication.html. Currently, Amazon device Messaging is not supported. */
@@ -3293,6 +3077,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetupPushNotification(FAdminSetupPushNotific
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -3337,21 +3122,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetupPushNotification(FAdminSetupPushNotific
 void UPlayFabAdminAPI::HelperSetupPushNotification(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessSetupPushNotification.IsBound())
     {
         FAdminSetupPushNotificationResult result = UPlayFabAdminModelDecoder::decodeSetupPushNotificationResultResponse(response.responseData);
-        if (OnSuccessSetupPushNotification.IsBound())
-        {
-            OnSuccessSetupPushNotification.Execute(result, mCustomData);
-        }
+        OnSuccessSetupPushNotification.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Updates the catalog configuration for virtual goods in the specified catalog version */
@@ -3362,6 +3142,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateCatalogItems(FAdminUpdateCatalogItemsR
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -3398,21 +3179,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateCatalogItems(FAdminUpdateCatalogItemsR
 void UPlayFabAdminAPI::HelperUpdateCatalogItems(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessUpdateCatalogItems.IsBound())
     {
         FAdminUpdateCatalogItemsResult result = UPlayFabAdminModelDecoder::decodeUpdateCatalogItemsResultResponse(response.responseData);
-        if (OnSuccessUpdateCatalogItems.IsBound())
-        {
-            OnSuccessUpdateCatalogItems.Execute(result, mCustomData);
-        }
+        OnSuccessUpdateCatalogItems.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Updates the random drop table configuration for the title */
@@ -3423,6 +3199,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateRandomResultTables(FAdminUpdateRandomR
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -3458,21 +3235,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateRandomResultTables(FAdminUpdateRandomR
 void UPlayFabAdminAPI::HelperUpdateRandomResultTables(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessUpdateRandomResultTables.IsBound())
     {
         FAdminUpdateRandomResultTablesResult result = UPlayFabAdminModelDecoder::decodeUpdateRandomResultTablesResultResponse(response.responseData);
-        if (OnSuccessUpdateRandomResultTables.IsBound())
-        {
-            OnSuccessUpdateRandomResultTables.Execute(result, mCustomData);
-        }
+        OnSuccessUpdateRandomResultTables.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Updates an existing virtual item store with new or modified items */
@@ -3483,6 +3255,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateStoreItems(FAdminUpdateStoreItemsReque
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -3524,21 +3297,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateStoreItems(FAdminUpdateStoreItemsReque
 void UPlayFabAdminAPI::HelperUpdateStoreItems(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessUpdateStoreItems.IsBound())
     {
         FAdminUpdateStoreItemsResult result = UPlayFabAdminModelDecoder::decodeUpdateStoreItemsResultResponse(response.responseData);
-        if (OnSuccessUpdateStoreItems.IsBound())
-        {
-            OnSuccessUpdateStoreItems.Execute(result, mCustomData);
-        }
+        OnSuccessUpdateStoreItems.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 
@@ -3553,6 +3321,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddUserVirtualCurrency(FAdminAddUserVirtualC
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -3589,21 +3358,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddUserVirtualCurrency(FAdminAddUserVirtualC
 void UPlayFabAdminAPI::HelperAddUserVirtualCurrency(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessAddUserVirtualCurrency.IsBound())
     {
         FAdminModifyUserVirtualCurrencyResult result = UPlayFabAdminModelDecoder::decodeModifyUserVirtualCurrencyResultResponse(response.responseData);
-        if (OnSuccessAddUserVirtualCurrency.IsBound())
-        {
-            OnSuccessAddUserVirtualCurrency.Execute(result, mCustomData);
-        }
+        OnSuccessAddUserVirtualCurrency.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the specified user's current inventory of virtual goods */
@@ -3614,6 +3378,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserInventory(FAdminGetUserInventoryReque
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -3644,21 +3409,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetUserInventory(FAdminGetUserInventoryReque
 void UPlayFabAdminAPI::HelperGetUserInventory(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetUserInventory.IsBound())
     {
         FAdminGetUserInventoryResult result = UPlayFabAdminModelDecoder::decodeGetUserInventoryResultResponse(response.responseData);
-        if (OnSuccessGetUserInventory.IsBound())
-        {
-            OnSuccessGetUserInventory.Execute(result, mCustomData);
-        }
+        OnSuccessGetUserInventory.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Adds the specified items to the specified user inventories */
@@ -3669,6 +3429,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GrantItemsToUsers(FAdminGrantItemsToUsersReq
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -3704,21 +3465,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GrantItemsToUsers(FAdminGrantItemsToUsersReq
 void UPlayFabAdminAPI::HelperGrantItemsToUsers(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGrantItemsToUsers.IsBound())
     {
         FAdminGrantItemsToUsersResult result = UPlayFabAdminModelDecoder::decodeGrantItemsToUsersResultResponse(response.responseData);
-        if (OnSuccessGrantItemsToUsers.IsBound())
-        {
-            OnSuccessGrantItemsToUsers.Execute(result, mCustomData);
-        }
+        OnSuccessGrantItemsToUsers.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Revokes access to an item in a user's inventory */
@@ -3729,6 +3485,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RevokeInventoryItem(FAdminRevokeInventoryIte
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -3769,21 +3526,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RevokeInventoryItem(FAdminRevokeInventoryIte
 void UPlayFabAdminAPI::HelperRevokeInventoryItem(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessRevokeInventoryItem.IsBound())
     {
         FAdminRevokeInventoryResult result = UPlayFabAdminModelDecoder::decodeRevokeInventoryResultResponse(response.responseData);
-        if (OnSuccessRevokeInventoryItem.IsBound())
-        {
-            OnSuccessRevokeInventoryItem.Execute(result, mCustomData);
-        }
+        OnSuccessRevokeInventoryItem.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Decrements the specified virtual currency by the stated amount */
@@ -3794,6 +3546,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SubtractUserVirtualCurrency(FAdminSubtractUs
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -3830,21 +3583,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SubtractUserVirtualCurrency(FAdminSubtractUs
 void UPlayFabAdminAPI::HelperSubtractUserVirtualCurrency(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessSubtractUserVirtualCurrency.IsBound())
     {
         FAdminModifyUserVirtualCurrencyResult result = UPlayFabAdminModelDecoder::decodeModifyUserVirtualCurrencyResultResponse(response.responseData);
-        if (OnSuccessSubtractUserVirtualCurrency.IsBound())
-        {
-            OnSuccessSubtractUserVirtualCurrency.Execute(result, mCustomData);
-        }
+        OnSuccessSubtractUserVirtualCurrency.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 
@@ -3859,6 +3607,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetMatchmakerGameInfo(FAdminGetMatchmakerGam
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -3889,21 +3638,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetMatchmakerGameInfo(FAdminGetMatchmakerGam
 void UPlayFabAdminAPI::HelperGetMatchmakerGameInfo(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetMatchmakerGameInfo.IsBound())
     {
         FAdminGetMatchmakerGameInfoResult result = UPlayFabAdminModelDecoder::decodeGetMatchmakerGameInfoResultResponse(response.responseData);
-        if (OnSuccessGetMatchmakerGameInfo.IsBound())
-        {
-            OnSuccessGetMatchmakerGameInfo.Execute(result, mCustomData);
-        }
+        OnSuccessGetMatchmakerGameInfo.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the details of defined game modes for the specified game server executable */
@@ -3914,6 +3658,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetMatchmakerGameModes(FAdminGetMatchmakerGa
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -3944,21 +3689,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetMatchmakerGameModes(FAdminGetMatchmakerGa
 void UPlayFabAdminAPI::HelperGetMatchmakerGameModes(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetMatchmakerGameModes.IsBound())
     {
         FAdminGetMatchmakerGameModesResult result = UPlayFabAdminModelDecoder::decodeGetMatchmakerGameModesResultResponse(response.responseData);
-        if (OnSuccessGetMatchmakerGameModes.IsBound())
-        {
-            OnSuccessGetMatchmakerGameModes.Execute(result, mCustomData);
-        }
+        OnSuccessGetMatchmakerGameModes.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Updates the game server mode details for the specified game server executable */
@@ -3969,6 +3709,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ModifyMatchmakerGameModes(FAdminModifyMatchm
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -4004,21 +3745,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ModifyMatchmakerGameModes(FAdminModifyMatchm
 void UPlayFabAdminAPI::HelperModifyMatchmakerGameModes(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessModifyMatchmakerGameModes.IsBound())
     {
         FAdminModifyMatchmakerGameModesResult result = UPlayFabAdminModelDecoder::decodeModifyMatchmakerGameModesResultResponse(response.responseData);
-        if (OnSuccessModifyMatchmakerGameModes.IsBound())
-        {
-            OnSuccessModifyMatchmakerGameModes.Execute(result, mCustomData);
-        }
+        OnSuccessModifyMatchmakerGameModes.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 
@@ -4033,6 +3769,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddServerBuild(FAdminAddServerBuildRequest r
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -4088,21 +3825,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddServerBuild(FAdminAddServerBuildRequest r
 void UPlayFabAdminAPI::HelperAddServerBuild(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessAddServerBuild.IsBound())
     {
         FAdminAddServerBuildResult result = UPlayFabAdminModelDecoder::decodeAddServerBuildResultResponse(response.responseData);
-        if (OnSuccessAddServerBuild.IsBound())
-        {
-            OnSuccessAddServerBuild.Execute(result, mCustomData);
-        }
+        OnSuccessAddServerBuild.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the build details for the specified game server executable */
@@ -4113,6 +3845,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetServerBuildInfo(FAdminGetServerBuildInfoR
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -4143,21 +3876,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetServerBuildInfo(FAdminGetServerBuildInfoR
 void UPlayFabAdminAPI::HelperGetServerBuildInfo(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetServerBuildInfo.IsBound())
     {
         FAdminGetServerBuildInfoResult result = UPlayFabAdminModelDecoder::decodeGetServerBuildInfoResultResponse(response.responseData);
-        if (OnSuccessGetServerBuildInfo.IsBound())
-        {
-            OnSuccessGetServerBuildInfo.Execute(result, mCustomData);
-        }
+        OnSuccessGetServerBuildInfo.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the pre-authorized URL for uploading a game server package containing a build (does not enable the build for use - see AddServerBuild) */
@@ -4168,6 +3896,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetServerBuildUploadUrl(FAdminGetServerBuild
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -4198,21 +3927,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetServerBuildUploadUrl(FAdminGetServerBuild
 void UPlayFabAdminAPI::HelperGetServerBuildUploadUrl(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetServerBuildUploadUrl.IsBound())
     {
         FAdminGetServerBuildUploadURLResult result = UPlayFabAdminModelDecoder::decodeGetServerBuildUploadURLResultResponse(response.responseData);
-        if (OnSuccessGetServerBuildUploadUrl.IsBound())
-        {
-            OnSuccessGetServerBuildUploadUrl.Execute(result, mCustomData);
-        }
+        OnSuccessGetServerBuildUploadUrl.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the build details for all game server executables which are currently defined for the title */
@@ -4223,6 +3947,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ListServerBuilds(FAdminListBuildsRequest req
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -4248,21 +3973,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ListServerBuilds(FAdminListBuildsRequest req
 void UPlayFabAdminAPI::HelperListServerBuilds(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessListServerBuilds.IsBound())
     {
         FAdminListBuildsResult result = UPlayFabAdminModelDecoder::decodeListBuildsResultResponse(response.responseData);
-        if (OnSuccessListServerBuilds.IsBound())
-        {
-            OnSuccessListServerBuilds.Execute(result, mCustomData);
-        }
+        OnSuccessListServerBuilds.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Updates the build details for the specified game server executable */
@@ -4273,6 +3993,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ModifyServerBuild(FAdminModifyServerBuildReq
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -4333,21 +4054,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ModifyServerBuild(FAdminModifyServerBuildReq
 void UPlayFabAdminAPI::HelperModifyServerBuild(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessModifyServerBuild.IsBound())
     {
         FAdminModifyServerBuildResult result = UPlayFabAdminModelDecoder::decodeModifyServerBuildResultResponse(response.responseData);
-        if (OnSuccessModifyServerBuild.IsBound())
-        {
-            OnSuccessModifyServerBuild.Execute(result, mCustomData);
-        }
+        OnSuccessModifyServerBuild.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Removes the game server executable specified from the set of those a client is permitted to request in a call to StartGame */
@@ -4358,6 +4074,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RemoveServerBuild(FAdminRemoveServerBuildReq
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -4388,21 +4105,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RemoveServerBuild(FAdminRemoveServerBuildReq
 void UPlayFabAdminAPI::HelperRemoveServerBuild(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessRemoveServerBuild.IsBound())
     {
         FAdminRemoveServerBuildResult result = UPlayFabAdminModelDecoder::decodeRemoveServerBuildResultResponse(response.responseData);
-        if (OnSuccessRemoveServerBuild.IsBound())
-        {
-            OnSuccessRemoveServerBuild.Execute(result, mCustomData);
-        }
+        OnSuccessRemoveServerBuild.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 
@@ -4417,6 +4129,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetPublisherData(FAdminSetPublisherDataReque
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -4452,21 +4165,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetPublisherData(FAdminSetPublisherDataReque
 void UPlayFabAdminAPI::HelperSetPublisherData(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessSetPublisherData.IsBound())
     {
         FAdminSetPublisherDataResult result = UPlayFabAdminModelDecoder::decodeSetPublisherDataResultResponse(response.responseData);
-        if (OnSuccessSetPublisherData.IsBound())
-        {
-            OnSuccessSetPublisherData.Execute(result, mCustomData);
-        }
+        OnSuccessSetPublisherData.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 
@@ -4481,6 +4189,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetCloudScriptRevision(FAdminGetCloudScriptR
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -4508,21 +4217,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetCloudScriptRevision(FAdminGetCloudScriptR
 void UPlayFabAdminAPI::HelperGetCloudScriptRevision(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetCloudScriptRevision.IsBound())
     {
         FAdminGetCloudScriptRevisionResult result = UPlayFabAdminModelDecoder::decodeGetCloudScriptRevisionResultResponse(response.responseData);
-        if (OnSuccessGetCloudScriptRevision.IsBound())
-        {
-            OnSuccessGetCloudScriptRevision.Execute(result, mCustomData);
-        }
+        OnSuccessGetCloudScriptRevision.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Lists all the current cloud script versions. For each version, information about the current published and latest revisions is also listed. */
@@ -4533,6 +4237,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetCloudScriptVersions(FAdminGetCloudScriptV
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -4558,21 +4263,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetCloudScriptVersions(FAdminGetCloudScriptV
 void UPlayFabAdminAPI::HelperGetCloudScriptVersions(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetCloudScriptVersions.IsBound())
     {
         FAdminGetCloudScriptVersionsResult result = UPlayFabAdminModelDecoder::decodeGetCloudScriptVersionsResultResponse(response.responseData);
-        if (OnSuccessGetCloudScriptVersions.IsBound())
-        {
-            OnSuccessGetCloudScriptVersions.Execute(result, mCustomData);
-        }
+        OnSuccessGetCloudScriptVersions.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Sets the currently published revision of a title Cloud Script */
@@ -4583,6 +4283,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetPublishedRevision(FAdminSetPublishedRevis
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -4610,21 +4311,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::SetPublishedRevision(FAdminSetPublishedRevis
 void UPlayFabAdminAPI::HelperSetPublishedRevision(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessSetPublishedRevision.IsBound())
     {
         FAdminSetPublishedRevisionResult result = UPlayFabAdminModelDecoder::decodeSetPublishedRevisionResultResponse(response.responseData);
-        if (OnSuccessSetPublishedRevision.IsBound())
-        {
-            OnSuccessSetPublishedRevision.Execute(result, mCustomData);
-        }
+        OnSuccessSetPublishedRevision.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Creates a new Cloud Script revision and uploads source code to it. Note that at this time, only one file should be submitted in the revision. */
@@ -4635,6 +4331,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateCloudScript(FAdminUpdateCloudScriptReq
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -4671,21 +4368,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateCloudScript(FAdminUpdateCloudScriptReq
 void UPlayFabAdminAPI::HelperUpdateCloudScript(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessUpdateCloudScript.IsBound())
     {
         FAdminUpdateCloudScriptResult result = UPlayFabAdminModelDecoder::decodeUpdateCloudScriptResultResponse(response.responseData);
-        if (OnSuccessUpdateCloudScript.IsBound())
-        {
-            OnSuccessUpdateCloudScript.Execute(result, mCustomData);
-        }
+        OnSuccessUpdateCloudScript.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 
@@ -4700,6 +4392,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteContent(FAdminDeleteContentRequest req
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -4730,21 +4423,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteContent(FAdminDeleteContentRequest req
 void UPlayFabAdminAPI::HelperDeleteContent(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessDeleteContent.IsBound())
     {
         FAdminBlankResult result = UPlayFabAdminModelDecoder::decodeBlankResultResponse(response.responseData);
-        if (OnSuccessDeleteContent.IsBound())
-        {
-            OnSuccessDeleteContent.Execute(result, mCustomData);
-        }
+        OnSuccessDeleteContent.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** List all contents of the title and get statistics such as size */
@@ -4755,6 +4443,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetContentList(FAdminGetContentListRequest r
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -4785,21 +4474,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetContentList(FAdminGetContentListRequest r
 void UPlayFabAdminAPI::HelperGetContentList(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetContentList.IsBound())
     {
         FAdminGetContentListResult result = UPlayFabAdminModelDecoder::decodeGetContentListResultResponse(response.responseData);
-        if (OnSuccessGetContentList.IsBound())
-        {
-            OnSuccessGetContentList.Execute(result, mCustomData);
-        }
+        OnSuccessGetContentList.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the pre-signed URL for uploading a content file. A subsequent HTTP PUT to the returned URL uploads the  content. Also, please be aware that the Content service is specifically PlayFab's CDN offering, for which standard CDN rates apply. */
@@ -4810,6 +4494,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetContentUploadUrl(FAdminGetContentUploadUr
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -4845,21 +4530,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetContentUploadUrl(FAdminGetContentUploadUr
 void UPlayFabAdminAPI::HelperGetContentUploadUrl(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetContentUploadUrl.IsBound())
     {
         FAdminGetContentUploadUrlResult result = UPlayFabAdminModelDecoder::decodeGetContentUploadUrlResultResponse(response.responseData);
-        if (OnSuccessGetContentUploadUrl.IsBound())
-        {
-            OnSuccessGetContentUploadUrl.Execute(result, mCustomData);
-        }
+        OnSuccessGetContentUploadUrl.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 
@@ -4874,6 +4554,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResetCharacterStatistics(FAdminResetCharacte
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -4909,21 +4590,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::ResetCharacterStatistics(FAdminResetCharacte
 void UPlayFabAdminAPI::HelperResetCharacterStatistics(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessResetCharacterStatistics.IsBound())
     {
         FAdminResetCharacterStatisticsResult result = UPlayFabAdminModelDecoder::decodeResetCharacterStatisticsResultResponse(response.responseData);
-        if (OnSuccessResetCharacterStatistics.IsBound())
-        {
-            OnSuccessResetCharacterStatistics.Execute(result, mCustomData);
-        }
+        OnSuccessResetCharacterStatistics.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 
@@ -4938,6 +4614,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddPlayerTag(FAdminAddPlayerTagRequest reque
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -4973,21 +4650,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AddPlayerTag(FAdminAddPlayerTagRequest reque
 void UPlayFabAdminAPI::HelperAddPlayerTag(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessAddPlayerTag.IsBound())
     {
         FAdminAddPlayerTagResult result = UPlayFabAdminModelDecoder::decodeAddPlayerTagResultResponse(response.responseData);
-        if (OnSuccessAddPlayerTag.IsBound())
-        {
-            OnSuccessAddPlayerTag.Execute(result, mCustomData);
-        }
+        OnSuccessAddPlayerTag.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieve a list of all PlayStream actions groups. */
@@ -4998,6 +4670,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetAllActionGroups(FAdminGetAllActionGroupsR
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -5023,21 +4696,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetAllActionGroups(FAdminGetAllActionGroupsR
 void UPlayFabAdminAPI::HelperGetAllActionGroups(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetAllActionGroups.IsBound())
     {
         FAdminGetAllActionGroupsResult result = UPlayFabAdminModelDecoder::decodeGetAllActionGroupsResultResponse(response.responseData);
-        if (OnSuccessGetAllActionGroups.IsBound())
-        {
-            OnSuccessGetAllActionGroups.Execute(result, mCustomData);
-        }
+        OnSuccessGetAllActionGroups.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves an array of player segment definitions. Results from this can be used in subsequent API calls such as GetPlayersInSegment which requires a Segment ID. While segment names can change the ID for that segment will not change. */
@@ -5048,6 +4716,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetAllSegments(FAdminGetAllSegmentsRequest r
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -5073,21 +4742,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetAllSegments(FAdminGetAllSegmentsRequest r
 void UPlayFabAdminAPI::HelperGetAllSegments(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetAllSegments.IsBound())
     {
         FAdminGetAllSegmentsResult result = UPlayFabAdminModelDecoder::decodeGetAllSegmentsResultResponse(response.responseData);
-        if (OnSuccessGetAllSegments.IsBound())
-        {
-            OnSuccessGetAllSegments.Execute(result, mCustomData);
-        }
+        OnSuccessGetAllSegments.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** List all segments that a player currently belongs to at this moment in time. */
@@ -5098,6 +4762,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerSegments(FAdminGetPlayersSegmentsRe
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -5128,21 +4793,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerSegments(FAdminGetPlayersSegmentsRe
 void UPlayFabAdminAPI::HelperGetPlayerSegments(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetPlayerSegments.IsBound())
     {
         FAdminGetPlayerSegmentsResult result = UPlayFabAdminModelDecoder::decodeGetPlayerSegmentsResultResponse(response.responseData);
-        if (OnSuccessGetPlayerSegments.IsBound())
-        {
-            OnSuccessGetPlayerSegments.Execute(result, mCustomData);
-        }
+        OnSuccessGetPlayerSegments.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Allows for paging through all players in a given segment. This API creates a snapshot of all player profiles that match the segment definition at the time of its creation and lives through the Total Seconds to Live, refreshing its life span on each subsequent use of the Continuation Token. Profiles that change during the course of paging will not be reflected in the results. AB Test segments are currently not supported by this operation. */
@@ -5153,6 +4813,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayersInSegment(FAdminGetPlayersInSegmen
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -5190,21 +4851,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayersInSegment(FAdminGetPlayersInSegmen
 void UPlayFabAdminAPI::HelperGetPlayersInSegment(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetPlayersInSegment.IsBound())
     {
         FAdminGetPlayersInSegmentResult result = UPlayFabAdminModelDecoder::decodeGetPlayersInSegmentResultResponse(response.responseData);
-        if (OnSuccessGetPlayersInSegment.IsBound())
-        {
-            OnSuccessGetPlayersInSegment.Execute(result, mCustomData);
-        }
+        OnSuccessGetPlayersInSegment.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Get all tags with a given Namespace (optional) from a player profile. */
@@ -5215,6 +4871,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerTags(FAdminGetPlayerTagsRequest req
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -5250,21 +4907,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetPlayerTags(FAdminGetPlayerTagsRequest req
 void UPlayFabAdminAPI::HelperGetPlayerTags(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetPlayerTags.IsBound())
     {
         FAdminGetPlayerTagsResult result = UPlayFabAdminModelDecoder::decodeGetPlayerTagsResultResponse(response.responseData);
-        if (OnSuccessGetPlayerTags.IsBound())
-        {
-            OnSuccessGetPlayerTags.Execute(result, mCustomData);
-        }
+        OnSuccessGetPlayerTags.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Remove a given tag from a player profile. The tag's namespace is automatically generated based on the source of the tag. */
@@ -5275,6 +4927,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RemovePlayerTag(FAdminRemovePlayerTagRequest
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -5310,21 +4963,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RemovePlayerTag(FAdminRemovePlayerTagRequest
 void UPlayFabAdminAPI::HelperRemovePlayerTag(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessRemovePlayerTag.IsBound())
     {
         FAdminRemovePlayerTagResult result = UPlayFabAdminModelDecoder::decodeRemovePlayerTagResultResponse(response.responseData);
-        if (OnSuccessRemovePlayerTag.IsBound())
-        {
-            OnSuccessRemovePlayerTag.Execute(result, mCustomData);
-        }
+        OnSuccessRemovePlayerTag.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 
@@ -5339,6 +4987,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AbortTaskInstance(FAdminAbortTaskInstanceReq
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -5369,21 +5018,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::AbortTaskInstance(FAdminAbortTaskInstanceReq
 void UPlayFabAdminAPI::HelperAbortTaskInstance(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessAbortTaskInstance.IsBound())
     {
         FAdminEmptyResult result = UPlayFabAdminModelDecoder::decodeEmptyResultResponse(response.responseData);
-        if (OnSuccessAbortTaskInstance.IsBound())
-        {
-            OnSuccessAbortTaskInstance.Execute(result, mCustomData);
-        }
+        OnSuccessAbortTaskInstance.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Create an ActionsOnPlayersInSegment task, which iterates through all players in a segment to execute action. */
@@ -5394,6 +5038,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::CreateActionsOnPlayersInSegmentTask(FAdminCr
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -5436,21 +5081,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::CreateActionsOnPlayersInSegmentTask(FAdminCr
 void UPlayFabAdminAPI::HelperCreateActionsOnPlayersInSegmentTask(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessCreateActionsOnPlayersInSegmentTask.IsBound())
     {
         FAdminCreateTaskResult result = UPlayFabAdminModelDecoder::decodeCreateTaskResultResponse(response.responseData);
-        if (OnSuccessCreateActionsOnPlayersInSegmentTask.IsBound())
-        {
-            OnSuccessCreateActionsOnPlayersInSegmentTask.Execute(result, mCustomData);
-        }
+        OnSuccessCreateActionsOnPlayersInSegmentTask.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Create a CloudScript task, which can run a CloudScript on a schedule. */
@@ -5461,6 +5101,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::CreateCloudScriptTask(FAdminCreateCloudScrip
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -5503,21 +5144,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::CreateCloudScriptTask(FAdminCreateCloudScrip
 void UPlayFabAdminAPI::HelperCreateCloudScriptTask(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessCreateCloudScriptTask.IsBound())
     {
         FAdminCreateTaskResult result = UPlayFabAdminModelDecoder::decodeCreateTaskResultResponse(response.responseData);
-        if (OnSuccessCreateCloudScriptTask.IsBound())
-        {
-            OnSuccessCreateCloudScriptTask.Execute(result, mCustomData);
-        }
+        OnSuccessCreateCloudScriptTask.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Delete a task. */
@@ -5528,6 +5164,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteTask(FAdminDeleteTaskRequest request,
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -5554,21 +5191,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::DeleteTask(FAdminDeleteTaskRequest request,
 void UPlayFabAdminAPI::HelperDeleteTask(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessDeleteTask.IsBound())
     {
         FAdminEmptyResult result = UPlayFabAdminModelDecoder::decodeEmptyResultResponse(response.responseData);
-        if (OnSuccessDeleteTask.IsBound())
-        {
-            OnSuccessDeleteTask.Execute(result, mCustomData);
-        }
+        OnSuccessDeleteTask.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Get information about a ActionsOnPlayersInSegment task instance. */
@@ -5579,6 +5211,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetActionsOnPlayersInSegmentTaskInstance(FAd
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -5609,21 +5242,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetActionsOnPlayersInSegmentTaskInstance(FAd
 void UPlayFabAdminAPI::HelperGetActionsOnPlayersInSegmentTaskInstance(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetActionsOnPlayersInSegmentTaskInstance.IsBound())
     {
         FAdminGetActionsOnPlayersInSegmentTaskInstanceResult result = UPlayFabAdminModelDecoder::decodeGetActionsOnPlayersInSegmentTaskInstanceResultResponse(response.responseData);
-        if (OnSuccessGetActionsOnPlayersInSegmentTaskInstance.IsBound())
-        {
-            OnSuccessGetActionsOnPlayersInSegmentTaskInstance.Execute(result, mCustomData);
-        }
+        OnSuccessGetActionsOnPlayersInSegmentTaskInstance.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Get detail information about a CloudScript task instance. */
@@ -5634,6 +5262,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetCloudScriptTaskInstance(FAdminGetTaskInst
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -5664,21 +5293,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetCloudScriptTaskInstance(FAdminGetTaskInst
 void UPlayFabAdminAPI::HelperGetCloudScriptTaskInstance(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetCloudScriptTaskInstance.IsBound())
     {
         FAdminGetCloudScriptTaskInstanceResult result = UPlayFabAdminModelDecoder::decodeGetCloudScriptTaskInstanceResultResponse(response.responseData);
-        if (OnSuccessGetCloudScriptTaskInstance.IsBound())
-        {
-            OnSuccessGetCloudScriptTaskInstance.Execute(result, mCustomData);
-        }
+        OnSuccessGetCloudScriptTaskInstance.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Query for task instances by task, status, or time range. */
@@ -5689,6 +5313,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetTaskInstances(FAdminGetTaskInstancesReque
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -5728,21 +5353,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetTaskInstances(FAdminGetTaskInstancesReque
 void UPlayFabAdminAPI::HelperGetTaskInstances(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetTaskInstances.IsBound())
     {
         FAdminGetTaskInstancesResult result = UPlayFabAdminModelDecoder::decodeGetTaskInstancesResultResponse(response.responseData);
-        if (OnSuccessGetTaskInstances.IsBound())
-        {
-            OnSuccessGetTaskInstances.Execute(result, mCustomData);
-        }
+        OnSuccessGetTaskInstances.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Get definition information on a specified task or all tasks within a title. */
@@ -5753,6 +5373,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetTasks(FAdminGetTasksRequest request,
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -5779,21 +5400,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::GetTasks(FAdminGetTasksRequest request,
 void UPlayFabAdminAPI::HelperGetTasks(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessGetTasks.IsBound())
     {
         FAdminGetTasksResult result = UPlayFabAdminModelDecoder::decodeGetTasksResultResponse(response.responseData);
-        if (OnSuccessGetTasks.IsBound())
-        {
-            OnSuccessGetTasks.Execute(result, mCustomData);
-        }
+        OnSuccessGetTasks.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Run a task immediately regardless of its schedule. */
@@ -5804,6 +5420,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RunTask(FAdminRunTaskRequest request,
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -5830,21 +5447,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::RunTask(FAdminRunTaskRequest request,
 void UPlayFabAdminAPI::HelperRunTask(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessRunTask.IsBound())
     {
         FAdminRunTaskResult result = UPlayFabAdminModelDecoder::decodeRunTaskResultResponse(response.responseData);
-        if (OnSuccessRunTask.IsBound())
-        {
-            OnSuccessRunTask.Execute(result, mCustomData);
-        }
+        OnSuccessRunTask.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Update an existing task. */
@@ -5855,6 +5467,7 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateTask(FAdminUpdateTaskRequest request,
 {
     // Objects containing request data
     UPlayFabAdminAPI* manager = NewObject<UPlayFabAdminAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -5901,21 +5514,16 @@ UPlayFabAdminAPI* UPlayFabAdminAPI::UpdateTask(FAdminUpdateTaskRequest request,
 void UPlayFabAdminAPI::HelperUpdateTask(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessUpdateTask.IsBound())
     {
         FAdminEmptyResult result = UPlayFabAdminModelDecoder::decodeEmptyResultResponse(response.responseData);
-        if (OnSuccessUpdateTask.IsBound())
-        {
-            OnSuccessUpdateTask.Execute(result, mCustomData);
-        }
+        OnSuccessUpdateTask.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 
@@ -5969,9 +5577,7 @@ void UPlayFabAdminAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FHttpRe
 
     // Log errors
     if (!bIsValidJsonResponse)
-    {
         UE_LOG(LogPlayFab, Warning, TEXT("JSON could not be decoded!"));
-    }
 
     // Log response state
     UE_LOG(LogPlayFab, Log, TEXT("Response : %s"), *ResponseContent);
@@ -6028,13 +5634,8 @@ void UPlayFabAdminAPI::Activate()
 void UPlayFabAdminAPI::ResetResponseData()
 {
     if (ResponseJsonObj != nullptr)
-    {
         ResponseJsonObj->Reset();
-    }
     else
-    {
         ResponseJsonObj = NewObject<UPlayFabJsonObject>();
-    }
-
     bIsValidJsonResponse = false;
 }

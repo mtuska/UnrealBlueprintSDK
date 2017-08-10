@@ -54,7 +54,6 @@ void APfTestActor::AppendTest(const FString& testFuncName)
         UPfTestContext* eachTestContext = NewObject<UPfTestContext>(this);
         eachTestContext->Setup(testFuncName, eachTestDelegate);
         testContexts.Add(eachTestContext);
-        managedObjects.Add(eachTestContext);
     }
     else
     {
@@ -219,7 +218,6 @@ void APfTestActor::ServerTitleData(UPfTestContext* testContext)
     UPlayFabServerAPI::FDelegateOnSuccessGetTitleData onSuccess; onSuccess.BindUFunction(this, "OnServerTitleData");
     UPlayFabServerAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
     UPlayFabServerAPI* callObj = UPlayFabServerAPI::GetTitleData(request, onSuccess, onError, testContext);
-    managedObjects.Add(callObj);
     callObj->Activate();
 }
 void APfTestActor::OnServerTitleData(FServerGetTitleDataResult result, UObject* customData)

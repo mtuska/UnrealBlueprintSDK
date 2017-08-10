@@ -65,7 +65,6 @@ void APfTestActor::AppendTest(const FString& testFuncName)
         UPfTestContext* eachTestContext = NewObject<UPfTestContext>(this);
         eachTestContext->Setup(testFuncName, eachTestDelegate);
         testContexts.Add(eachTestContext);
-        managedObjects.Add(eachTestContext);
     }
     else
     {
@@ -232,7 +231,6 @@ void APfTestActor::InvalidLogin(UPfTestContext* testContext)
     UPlayFabClientAPI::FDelegateOnSuccessLoginWithEmailAddress onSuccess; onSuccess.BindUFunction(this, "InvalidLoginSuccess");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "InvalidLoginFail");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::LoginWithEmailAddress(request, onSuccess, onError, testContext);
-    managedObjects.Add(callObj);
     callObj->Activate();
 }
 void APfTestActor::InvalidLoginSuccess(FClientLoginResult result, UObject* customData)
@@ -263,7 +261,6 @@ void APfTestActor::InvalidRegistration(UPfTestContext* testContext)
     UPlayFabClientAPI::FDelegateOnSuccessRegisterPlayFabUser onSuccess; onSuccess.BindUFunction(this, "InvalidRegistrationSuccess");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "InvalidRegistrationFail");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::RegisterPlayFabUser(request, onSuccess, onError, testContext);
-    managedObjects.Add(callObj);
     callObj->Activate();
 }
 void APfTestActor::InvalidRegistrationSuccess(FClientRegisterPlayFabUserResult result, UObject* customData)
@@ -305,7 +302,6 @@ void APfTestActor::LoginOrRegister(UPfTestContext* testContext)
     UPlayFabClientAPI::FDelegateOnSuccessLoginWithCustomID onSuccess; onSuccess.BindUFunction(this, "OnLoginOrRegister");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::LoginWithCustomID(request, onSuccess, onError, testContext);
-    managedObjects.Add(callObj);
     callObj->Activate();
 }
 void APfTestActor::OnLoginOrRegister(FClientLoginResult result, UObject* customData)
@@ -332,7 +328,6 @@ void APfTestActor::LoginWithAdvertisingId(UPfTestContext* testContext)
     UPlayFabClientAPI::FDelegateOnSuccessLoginWithCustomID onSuccess; onSuccess.BindUFunction(this, "OnLoginWithAdvertisingId");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::LoginWithCustomID(request, onSuccess, onError, testContext);
-    managedObjects.Add(callObj);
     callObj->Activate();
 }
 void APfTestActor::OnLoginWithAdvertisingId(FClientLoginResult result, UObject* customData)
@@ -364,7 +359,6 @@ void APfTestActor::UserDataApi(UPfTestContext* testContext)
     UPlayFabClientAPI::FDelegateOnSuccessGetUserData onSuccess; onSuccess.BindUFunction(this, "OnUserDataApiGet1");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::GetUserData(request, onSuccess, onError, testContext);
-    managedObjects.Add(callObj);
     callObj->Activate();
 }
 void APfTestActor::OnUserDataApiGet1(FClientGetUserDataResult result, UObject* customData)
@@ -379,7 +373,6 @@ void APfTestActor::OnUserDataApiGet1(FClientGetUserDataResult result, UObject* c
     UPlayFabClientAPI::FDelegateOnSuccessUpdateUserData onSuccess; onSuccess.BindUFunction(this, "OnUserDataApiUpdate");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::UpdateUserData(updateRequest, onSuccess, onError, customData);
-    managedObjects.Add(callObj);
     callObj->Activate();
 }
 void APfTestActor::OnUserDataApiUpdate(FClientUpdateUserDataResult result, UObject* customData)
@@ -389,7 +382,6 @@ void APfTestActor::OnUserDataApiUpdate(FClientUpdateUserDataResult result, UObje
     UPlayFabClientAPI::FDelegateOnSuccessGetUserData onSuccess; onSuccess.BindUFunction(this, "OnUserDataApiGet2");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::GetUserData(request, onSuccess, onError, customData);
-    managedObjects.Add(callObj);
     callObj->Activate();
 }
 void APfTestActor::OnUserDataApiGet2(FClientGetUserDataResult result, UObject* customData)
@@ -461,7 +453,6 @@ void APfTestActor::PlayerStatisticsApi(UPfTestContext* testContext)
     UPlayFabClientAPI::FDelegateOnSuccessGetPlayerStatistics onSuccess; onSuccess.BindUFunction(this, "OnPlayerStatisticsApiGet1");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::GetPlayerStatistics(request, onSuccess, onError, testContext);
-    managedObjects.Add(callObj);
     callObj->Activate();
 }
 void APfTestActor::OnPlayerStatisticsApiGet1(FClientGetPlayerStatisticsResult result, UObject* customData)
@@ -481,7 +472,6 @@ void APfTestActor::OnPlayerStatisticsApiGet1(FClientGetPlayerStatisticsResult re
     UPlayFabClientAPI::FDelegateOnSuccessUpdatePlayerStatistics onSuccess; onSuccess.BindUFunction(this, "OnPlayerStatisticsApiUpdate");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::UpdatePlayerStatistics(updateRequest, onSuccess, onError, customData);
-    managedObjects.Add(callObj);
     callObj->Activate();
 }
 void APfTestActor::OnPlayerStatisticsApiUpdate(FClientUpdatePlayerStatisticsResult result, UObject* customData)
@@ -490,7 +480,6 @@ void APfTestActor::OnPlayerStatisticsApiUpdate(FClientUpdatePlayerStatisticsResu
     UPlayFabClientAPI::FDelegateOnSuccessGetPlayerStatistics onSuccess; onSuccess.BindUFunction(this, "OnPlayerStatisticsApiGet2");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::GetPlayerStatistics(request, onSuccess, onError, customData);
-    managedObjects.Add(callObj);
     callObj->Activate();
 }
 void APfTestActor::OnPlayerStatisticsApiGet2(FClientGetPlayerStatisticsResult result, UObject* customData)
@@ -527,7 +516,6 @@ void APfTestActor::UserCharacter(UPfTestContext* testContext)
     UPlayFabClientAPI::FDelegateOnSuccessGetAllUsersCharacters onSuccess; onSuccess.BindUFunction(this, "OnUserCharacter");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::GetAllUsersCharacters(request, onSuccess, onError, testContext);
-    managedObjects.Add(callObj);
     callObj->Activate();
 }
 void APfTestActor::OnUserCharacter(FClientListUsersCharactersResult result, UObject* customData)
@@ -559,7 +547,6 @@ void APfTestActor::LeaderBoard(UPfTestContext* testContext)
     UPlayFabClientAPI::FDelegateOnSuccessGetLeaderboard onSuccess; onSuccess.BindUFunction(this, "OnLeaderBoard");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::GetLeaderboard(clientRequest, onSuccess, onError, testContext);
-    managedObjects.Add(callObj);
     callObj->Activate();
 }
 void APfTestActor::OnLeaderBoard(FClientGetLeaderboardResult result, UObject* customData)
@@ -589,7 +576,6 @@ void APfTestActor::AccountInfo(UPfTestContext* testContext)
     UPlayFabClientAPI::FDelegateOnSuccessGetAccountInfo onSuccess; onSuccess.BindUFunction(this, "OnAccountInfo");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::GetAccountInfo(request, onSuccess, onError, testContext);
-    managedObjects.Add(callObj);
     callObj->Activate();
 }
 void APfTestActor::OnAccountInfo(FClientGetAccountInfoResult result, UObject* customData)
@@ -642,7 +628,6 @@ void APfTestActor::CloudScript(UPfTestContext* testContext)
     UPlayFabClientAPI::FDelegateOnSuccessExecuteCloudScript onSuccess; onSuccess.BindUFunction(this, "OnHelloWorldCloudScript");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::ExecuteCloudScript(request, onSuccess, onError, testContext);
-    managedObjects.Add(callObj);
     callObj->Activate();
 }
 void APfTestActor::OnHelloWorldCloudScript(FClientExecuteCloudScriptResult result, UObject* customData)
@@ -684,7 +669,6 @@ void APfTestActor::CloudScriptError(UPfTestContext* testContext)
     UPlayFabClientAPI::FDelegateOnSuccessExecuteCloudScript onSuccess; onSuccess.BindUFunction(this, "OnCloudScriptError");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::ExecuteCloudScript(request, onSuccess, onError, testContext);
-    managedObjects.Add(callObj);
     callObj->Activate();
 }
 void APfTestActor::OnCloudScriptError(FClientExecuteCloudScriptResult result, UObject* customData)
@@ -729,7 +713,6 @@ void APfTestActor::WriteEvent(UPfTestContext* testContext)
     UPlayFabClientAPI::FDelegateOnSuccessWritePlayerEvent onSuccess; onSuccess.BindUFunction(this, "OnWritePlayerEvent");
     UPlayFabClientAPI::FDelegateOnFailurePlayFabError onError; onError.BindUFunction(this, "OnSharedError");
     UPlayFabClientAPI* callObj = UPlayFabClientAPI::WritePlayerEvent(request, onSuccess, onError, testContext);
-    managedObjects.Add(callObj);
     callObj->Activate();
 }
 void APfTestActor::OnWritePlayerEvent(FClientWriteEventResponse result, UObject* customData)

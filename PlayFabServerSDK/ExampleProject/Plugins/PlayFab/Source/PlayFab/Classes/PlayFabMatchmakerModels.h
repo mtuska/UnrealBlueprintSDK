@@ -39,7 +39,7 @@ struct FMatchmakerAuthUserResponse
 public:
     /** Boolean indicating if the user has been authorized to use the external match-making service. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Matchmaker | Matchmaking Models")
-        bool Authorized;
+        bool Authorized = false;
     /** PlayFab unique identifier of the account that has been authorized. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Matchmaker | Matchmaking Models")
         FString PlayFabId;
@@ -120,7 +120,7 @@ public:
         FString ServerHostname;
     /** Port number for communication with the Game Server Instance. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Matchmaker | Matchmaking Models")
-        int32 ServerPort;
+        int32 ServerPort = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -133,7 +133,7 @@ public:
         FString PlayFabId;
     /** Minimum catalog version for which data is requested (filters the results to only contain inventory items which have a catalog version of this or higher). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Matchmaker | Matchmaking Models")
-        int32 MinCatalogVersion;
+        int32 MinCatalogVersion = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -161,7 +161,7 @@ public:
         UPlayFabJsonObject* VirtualCurrencyRechargeTimes = nullptr;
     /** Boolean indicating whether the user is a developer. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Matchmaker | Matchmaking Models")
-        bool IsDeveloper;
+        bool IsDeveloper = false;
     /** Steam unique identifier, if the user has an associated Steam account. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Matchmaker | Matchmaking Models")
         FString SteamId;

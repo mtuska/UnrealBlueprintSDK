@@ -68,6 +68,7 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::AuthUser(FMatchmakerAuthUserReques
 {
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -98,21 +99,16 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::AuthUser(FMatchmakerAuthUserReques
 void UPlayFabMatchmakerAPI::HelperAuthUser(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessAuthUser.IsBound())
     {
         FMatchmakerAuthUserResponse result = UPlayFabMatchmakerModelDecoder::decodeAuthUserResponseResponse(response.responseData);
-        if (OnSuccessAuthUser.IsBound())
-        {
-            OnSuccessAuthUser.Execute(result, mCustomData);
-        }
+        OnSuccessAuthUser.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Informs the PlayFab game server hosting service that the indicated user has joined the Game Server Instance specified */
@@ -123,6 +119,7 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerJoined(FMatchmakerPlayerJoin
 {
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -158,21 +155,16 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerJoined(FMatchmakerPlayerJoin
 void UPlayFabMatchmakerAPI::HelperPlayerJoined(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessPlayerJoined.IsBound())
     {
         FMatchmakerPlayerJoinedResponse result = UPlayFabMatchmakerModelDecoder::decodePlayerJoinedResponseResponse(response.responseData);
-        if (OnSuccessPlayerJoined.IsBound())
-        {
-            OnSuccessPlayerJoined.Execute(result, mCustomData);
-        }
+        OnSuccessPlayerJoined.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Informs the PlayFab game server hosting service that the indicated user has left the Game Server Instance specified */
@@ -183,6 +175,7 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerLeft(FMatchmakerPlayerLeftRe
 {
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -218,21 +211,16 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::PlayerLeft(FMatchmakerPlayerLeftRe
 void UPlayFabMatchmakerAPI::HelperPlayerLeft(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessPlayerLeft.IsBound())
     {
         FMatchmakerPlayerLeftResponse result = UPlayFabMatchmakerModelDecoder::decodePlayerLeftResponseResponse(response.responseData);
-        if (OnSuccessPlayerLeft.IsBound())
-        {
-            OnSuccessPlayerLeft.Execute(result, mCustomData);
-        }
+        OnSuccessPlayerLeft.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Instructs the PlayFab game server hosting service to instantiate a new Game Server Instance */
@@ -243,6 +231,7 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::StartGame(FMatchmakerStartGameRequ
 {
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -291,21 +280,16 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::StartGame(FMatchmakerStartGameRequ
 void UPlayFabMatchmakerAPI::HelperStartGame(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessStartGame.IsBound())
     {
         FMatchmakerStartGameResponse result = UPlayFabMatchmakerModelDecoder::decodeStartGameResponseResponse(response.responseData);
-        if (OnSuccessStartGame.IsBound())
-        {
-            OnSuccessStartGame.Execute(result, mCustomData);
-        }
+        OnSuccessStartGame.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 /** Retrieves the relevant details for a specified user, which the external match-making service can then use to compute effective matches */
@@ -316,6 +300,7 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::UserInfo(FMatchmakerUserInfoReques
 {
     // Objects containing request data
     UPlayFabMatchmakerAPI* manager = NewObject<UPlayFabMatchmakerAPI>();
+    if (manager->IsSafeForRootSet()) manager->AddToRoot();
     UPlayFabJsonObject* OutRestJsonObj = NewObject<UPlayFabJsonObject>();
     manager->mCustomData = customData;
 
@@ -347,21 +332,16 @@ UPlayFabMatchmakerAPI* UPlayFabMatchmakerAPI::UserInfo(FMatchmakerUserInfoReques
 void UPlayFabMatchmakerAPI::HelperUserInfo(FPlayFabBaseModel response, UObject* customData, bool successful)
 {
     FPlayFabError error = response.responseError;
-    if (error.hasError)
+    if (error.hasError && OnFailure.IsBound())
     {
-        if (OnFailure.IsBound())
-        {
-            OnFailure.Execute(error, customData);
-        }
+        OnFailure.Execute(error, customData);
     }
-    else
+    else if (!error.hasError && OnSuccessUserInfo.IsBound())
     {
         FMatchmakerUserInfoResponse result = UPlayFabMatchmakerModelDecoder::decodeUserInfoResponseResponse(response.responseData);
-        if (OnSuccessUserInfo.IsBound())
-        {
-            OnSuccessUserInfo.Execute(result, mCustomData);
-        }
+        OnSuccessUserInfo.Execute(result, mCustomData);
     }
+    this->RemoveFromRoot();
 }
 
 
@@ -415,9 +395,7 @@ void UPlayFabMatchmakerAPI::OnProcessRequestComplete(FHttpRequestPtr Request, FH
 
     // Log errors
     if (!bIsValidJsonResponse)
-    {
         UE_LOG(LogPlayFab, Warning, TEXT("JSON could not be decoded!"));
-    }
 
     // Log response state
     UE_LOG(LogPlayFab, Log, TEXT("Response : %s"), *ResponseContent);
@@ -474,13 +452,8 @@ void UPlayFabMatchmakerAPI::Activate()
 void UPlayFabMatchmakerAPI::ResetResponseData()
 {
     if (ResponseJsonObj != nullptr)
-    {
         ResponseJsonObj->Reset();
-    }
     else
-    {
         ResponseJsonObj = NewObject<UPlayFabJsonObject>();
-    }
-
     bIsValidJsonResponse = false;
 }

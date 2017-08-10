@@ -132,7 +132,7 @@ public:
         FString FriendlyName;
     /** Disable or Enable this key */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Authentication Models")
-        bool Disabled;
+        bool Disabled = false;
 };
 
 USTRUCT(BlueprintType)
@@ -155,7 +155,7 @@ public:
         TArray<UPlayFabJsonObject*> Statements;
     /** Whether to overwrite or append to the existing policy. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Authentication Models")
-        bool OverwritePolicy;
+        bool OverwritePolicy = false;
 };
 
 USTRUCT(BlueprintType)
@@ -364,7 +364,7 @@ public:
     /** PlayFab unique identifier of the user whose title specific display name is to be changed */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Account Management Models")
         FString PlayFabId;
-    /** new title display name for the user - must be between 3 and 25 characters */
+    /** New title display name for the user - must be between 3 and 25 characters */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Account Management Models")
         FString DisplayName;
 };
@@ -437,13 +437,13 @@ public:
         FString ReportName;
     /** Reporting year (UTC) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
-        int32 Year;
+        int32 Year = 0;
     /** Reporting month (UTC) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
-        int32 Month;
+        int32 Month = 0;
     /** Reporting year (UTC) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
-        int32 Day;
+        int32 Day = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -506,7 +506,7 @@ public:
         FString Keys;
     /** The version that currently exists according to the caller. The call will return the data for all of the keys if the version in the system is greater than this. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
-        int32 IfChangedFromDataVersion;
+        int32 IfChangedFromDataVersion = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -519,7 +519,7 @@ public:
         FString PlayFabId;
     /** Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
-        int32 DataVersion;
+        int32 DataVersion = 0;
     /** User specific data for this title. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
         UPlayFabJsonObject* Data = nullptr;
@@ -669,7 +669,7 @@ struct FAdminUpdateUserDataResult
 public:
     /** Indicates the current version of the data that has been set. This is incremented with every set call for that type of data (read-only, internal, etc). This version can be provided in Get calls to find updated data. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Data Management Models")
-        int32 DataVersion;
+        int32 DataVersion = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -901,7 +901,7 @@ public:
         FString CatalogVersion;
     /** Should this catalog be set as the default catalog. Defaults to true. If there is currently no default catalog, this will always set it. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
-        bool SetAsDefaultCatalog;
+        bool SetAsDefaultCatalog = false;
     /** Array of catalog items to be submitted. Note that while CatalogItem has a parameter for CatalogVersion, it is not required and ignored in this call. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
         TArray<UPlayFabJsonObject*> Catalog;
@@ -979,7 +979,7 @@ public:
         FString Credential;
     /** replace any existing ARN with the newly generated one. If this is set to false, an error will be returned if notifications have already setup for this platform. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Title-Wide Data Management Models")
-        bool OverwriteOldARN;
+        bool OverwriteOldARN = false;
 };
 
 USTRUCT(BlueprintType)
@@ -1030,7 +1030,7 @@ public:
         FString VirtualCurrency;
     /** Amount to be added to the user balance of the specified virtual currency. Maximum VC balance is Int32 (2,147,483,647). Any increase over this value will be discarded. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Item Management Models")
-        int32 Amount;
+        int32 Amount = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -1046,10 +1046,10 @@ public:
         FString VirtualCurrency;
     /** Amount added or subtracted from the user's virtual currency. Maximum VC balance is Int32 (2,147,483,647). Any increase over this value will be discarded. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Item Management Models")
-        int32 BalanceChange;
+        int32 BalanceChange = 0;
     /** Balance of the virtual currency after modification. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Item Management Models")
-        int32 Balance;
+        int32 Balance = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -1140,7 +1140,7 @@ public:
         FString VirtualCurrency;
     /** Amount to be subtracted from the user balance of the specified virtual currency. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Player Item Management Models")
-        int32 Amount;
+        int32 Amount = 0;
 };
 
 
@@ -1192,7 +1192,7 @@ public:
         FString ServerAddress;
     /** communication port for this Game Server Instance */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Matchmaking Models")
-        int32 ServerPort;
+        int32 ServerPort = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -1262,10 +1262,10 @@ public:
         FString Comment;
     /** maximum number of game server instances that can run on a single host machine */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
-        int32 MaxGamesPerHost;
+        int32 MaxGamesPerHost = 0;
     /** minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
-        int32 MinFreeGameSlots;
+        int32 MinFreeGameSlots = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -1281,10 +1281,10 @@ public:
         FString ActiveRegions;
     /** maximum number of game server instances that can run on a single host machine */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
-        int32 MaxGamesPerHost;
+        int32 MaxGamesPerHost = 0;
     /** minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
-        int32 MinFreeGameSlots;
+        int32 MinFreeGameSlots = 0;
     /** appended to the end of the command line when starting game servers */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         FString CommandLineTemplate;
@@ -1328,10 +1328,10 @@ public:
         FString ActiveRegions;
     /** maximum number of game server instances that can run on a single host machine */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
-        int32 MaxGamesPerHost;
+        int32 MaxGamesPerHost = 0;
     /** minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
-        int32 MinFreeGameSlots;
+        int32 MinFreeGameSlots = 0;
     /** developer comment(s) for this build */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         FString Comment;
@@ -1402,10 +1402,10 @@ public:
         FString ActiveRegions;
     /** maximum number of game server instances that can run on a single host machine */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
-        int32 MaxGamesPerHost;
+        int32 MaxGamesPerHost = 0;
     /** minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
-        int32 MinFreeGameSlots;
+        int32 MinFreeGameSlots = 0;
     /** appended to the end of the command line when starting game servers */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         FString CommandLineTemplate;
@@ -1430,10 +1430,10 @@ public:
         FString ActiveRegions;
     /** maximum number of game server instances that can run on a single host machine */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
-        int32 MaxGamesPerHost;
+        int32 MaxGamesPerHost = 0;
     /** minimum capacity of additional game server instances that can be started before the autoscaling service starts new host machines (given the number of current running host machines and game server instances) */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
-        int32 MinFreeGameSlots;
+        int32 MinFreeGameSlots = 0;
     /** appended to the end of the command line when starting game servers */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Custom Server Management Models")
         FString CommandLineTemplate;
@@ -1508,10 +1508,10 @@ struct FAdminGetCloudScriptRevisionRequest
 public:
     /** Version number. If left null, defaults to the latest version */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
-        int32 Version;
+        int32 Version = 0;
     /** Revision number. If left null, defaults to the latest revision */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
-        int32 Revision;
+        int32 Revision = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -1521,10 +1521,10 @@ struct FAdminGetCloudScriptRevisionResult
 public:
     /** Version number. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
-        int32 Version;
+        int32 Version = 0;
     /** Revision number. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
-        int32 Revision;
+        int32 Revision = 0;
     /** Time this revision was created */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
         FString CreatedAt;
@@ -1533,7 +1533,7 @@ public:
         TArray<UPlayFabJsonObject*> Files;
     /** True if this is the currently published revision */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
-        bool IsPublished;
+        bool IsPublished = false;
 };
 
 USTRUCT(BlueprintType)
@@ -1560,10 +1560,10 @@ struct FAdminSetPublishedRevisionRequest
 public:
     /** Version number */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
-        int32 Version;
+        int32 Version = 0;
     /** Revision to make the current published revision */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
-        int32 Revision;
+        int32 Revision = 0;
 };
 
 USTRUCT(BlueprintType)
@@ -1583,7 +1583,7 @@ public:
         TArray<UPlayFabJsonObject*> Files;
     /** Immediately publish the new revision */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
-        bool Publish;
+        bool Publish = false;
     /** PlayFab user ID of the developer initiating the request. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
         FString DeveloperPlayFabId;
@@ -1596,10 +1596,10 @@ struct FAdminUpdateCloudScriptResult
 public:
     /** Cloud Script version updated */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
-        int32 Version;
+        int32 Version = 0;
     /** New revision number created */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Server-Side Cloud Script Models")
-        int32 Revision;
+        int32 Revision = 0;
 };
 
 
@@ -1634,10 +1634,10 @@ struct FAdminGetContentListResult
 public:
     /** Number of content items returned. We currently have a maximum of 1000 items limit. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Content Models")
-        int32 ItemCount;
+        int32 ItemCount = 0;
     /** The total size of listed contents in bytes. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Content Models")
-        int32 TotalSize;
+        int32 TotalSize = 0;
     /** List of content items. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | Content Models")
         TArray<UPlayFabJsonObject*> Contents;
@@ -1780,10 +1780,10 @@ public:
         FString SegmentId;
     /** Number of seconds to keep the continuation token active. After token expiration it is not possible to continue paging results. Default is 300 (5 minutes). Maximum is 1,800 (30 minutes). */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | PlayStream Models")
-        int32 SecondsToLive;
+        int32 SecondsToLive = 0;
     /** Maximum number of profiles to load. Default is 1,000. Maximum is 10,000. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | PlayStream Models")
-        int32 MaxBatchSize;
+        int32 MaxBatchSize = 0;
     /** Continuation token if retrieving subsequent pages of results. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | PlayStream Models")
         FString ContinuationToken;
@@ -1796,7 +1796,7 @@ struct FAdminGetPlayersInSegmentResult
 public:
     /** Count of profiles matching this segment. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | PlayStream Models")
-        int32 ProfilesInSegment;
+        int32 ProfilesInSegment = 0;
     /** Continuation token to use to retrieve subsequent pages of results. If token returns null there are no more results. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | PlayStream Models")
         FString ContinuationToken;
@@ -1889,7 +1889,7 @@ public:
         FString Schedule;
     /** Whether the schedule is active. Inactive schedule will not trigger task execution. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
-        bool IsActive;
+        bool IsActive = false;
     /** Task details related to segment and action */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
         UPlayFabJsonObject* Parameter = nullptr;
@@ -1921,7 +1921,7 @@ public:
         FString Schedule;
     /** Whether the schedule is active. Inactive schedule will not trigger task execution. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
-        bool IsActive;
+        bool IsActive = false;
     /** Task details related to CloudScript */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
         UPlayFabJsonObject* Parameter = nullptr;
@@ -2061,7 +2061,7 @@ public:
         FString Schedule;
     /** Whether the schedule is active. Inactive schedule will not trigger task execution. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
-        bool IsActive;
+        bool IsActive = false;
     /** Task type. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayFab | Admin | ScheduledTask Models")
         EScheduledTaskType Type;
